@@ -62,6 +62,12 @@
                     {{ session('understand') }}
                 </div>
             @endif
+
+            @if (session()->has('one'))
+                <div id="alert" class="bg-red-300 p-3 rounded-lg text-red-700 font-semibold shadow-md">
+                    {{ session('one') }}
+                </div>
+            @endif
         </div>
 
 

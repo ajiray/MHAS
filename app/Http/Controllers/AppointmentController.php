@@ -27,6 +27,12 @@ class AppointmentController extends Controller
         if ($appointmentDateTime <= $currentDateTime || $currentDateTime->diffInMinutes($appointmentDateTime) < 30) {
             return redirect()->back()->with('error', 'Please select an appointment time that is at least 30 minutes from now.');
         }
+
+        $existingAppointment = Appointment::where('user_id', auth()->id())->first();
+
+    if ($existingAppointment) {
+        return redirect()->back()->with('one', 'You can only book one appointment at a time.');
+    }
     
         $appointmentData = [
             'date' => strip_tags($incomingFields['appointment_date']),
