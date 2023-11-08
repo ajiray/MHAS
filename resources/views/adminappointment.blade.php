@@ -1,6 +1,6 @@
 @extends('layouts.adminlayout')
 
-@section('')
+@section('content')
     <script>
         function confirmAcceptAppointment(appointmentId) {
             if (confirm('Are you sure you want to accept this appointment?')) {
