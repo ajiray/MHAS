@@ -1,13 +1,14 @@
 <?php
 
 use App\Models\Post;
+use App\Livewire\Counter;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\resourceController;
 use App\Http\Controllers\AppointmentController;
-use App\Livewire\Counter;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,16 +54,16 @@ Route::post('/sadReact/{post}', [PostController::class, 'sadReact'])->name('sadR
 
 
 
-
-
 //appointment
 Route::post('/book-appointment', [AppointmentController::class, 'bookAppointment']);
 Route::delete('/cancel-appointment/{appointment}', [AppointmentController::class, 'cancelAppointment']);
 Route::delete('/understand-appointment/{appointment}', [AppointmentController::class, 'understandAppointment']);
 Route::patch('/accept-appointment/{appointment}', [AppointmentController::class, 'acceptAppointment']);
 Route::patch('/decline-appointment/{appointment}', [AppointmentController::class, 'declineAppointment']);
-
 Route::delete('/markAsDone/{appointment}', [AppointmentController::class, 'markAsDone'])->name('markAsDone');
+
+//resources
+Route::post('/store-resource', [resourceController::class, 'storeResource']);
 
 
 
