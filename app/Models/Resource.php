@@ -13,9 +13,11 @@ class Resource extends Model
         'title',
         'description',
         'author',
-        'publication_date',
-        'file_path',
+        'file_content',
+        'cover_photo',
         'download_count',
         'category',
     ];
+
+   
 }

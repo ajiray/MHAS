@@ -1,45 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-csrf="{{ csrf_token() }}">
 
 <head>
     <title></title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @vite('resources/css/app.css')
-    <script>
-        function confirmDeletePost(postId) {
-            if (confirm('Are you sure you want to delete this post?')) {
-                document.getElementById('delete-form-' + postId).submit();
-            }
-        }
 
-        function react(postId, reactionType, color, button) {
-            // Update the button's color immediately
-            if ($(button).hasClass('text-gray-500')) {
-                $(button).removeClass('text-gray-500').addClass('text-' + color); // Change to the active color
-            } else {
-                $(button).removeClass('text-' + color).addClass('text-gray-500'); // Change back to the inactive color
-            }
-
-            // Send an AJAX request to the respective reaction route
-            $.ajax({
-                url: "/" + reactionType + "React/" + postId,
-                method: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                },
-                success: function(response) {
-                    // Handle any success response here (if needed)
-                    console.log(response);
-                },
-                error: function(error) {
-                    // Handle any errors here (if needed)
-                    console.error(error);
-                    // Revert the button's color if there was an error
-                    $(button).removeClass('text-' + color).addClass('text-gray-500');
-                }
-            });
-        }
-    </script>
 </head>
 
 <body>
@@ -89,7 +55,7 @@
                                     ->where('type', 'heart')
                                     ->exists();
 
-                                $hasReactedWithThumbUp = $post
+                                $hasReactedWithLike = $post
                                     ->reactions()
                                     ->where('user_id', auth()->id())
                                     ->where('type', 'like')
@@ -106,38 +72,42 @@
                                     ->exists();
                             @endphp
 
-                            <div>
-                                <p class="text-xs">0</p>
+                            <div class="flex flex-col justify-center items-center">
+                                <p id="reaction-count-heart-{{ $post->id }}" class="text-xs">
+                                    {{ $post->reactions()->where('type', 'heart')->count() }}</p>
                                 <button
-                                    class="reaction-icon text-{{ $hasReactedWithHeart ? 'blue' : 'gray' }}-500 hover-text-gray-700 text-lg"
-                                    onclick="react('{{ $post->id }}', 'heart', '{{ $hasReactedWithHeart ? 'gray' : 'blue' }}-500', this)">
+                                    class="reaction-icon text-{{ $hasReactedWithHeart ? 'maroon' : 'gray-500' }} hover-text-gray-700 text-lg"
+                                    onclick="react('{{ $post->id }}', 'heart', '{{ $hasReactedWithHeart ? 'gray-500' : 'maroon' }}', this)">
                                     <i class="fas fa-heart"></i>
                                 </button>
                             </div>
 
-                            <div>
-                                <p class="text-xs">0</p>
+                            <div class="flex flex-col justify-center items-center">
+                                <p id="reaction-count-like-{{ $post->id }}" class="text-xs">
+                                    {{ $post->reactions()->where('type', 'like')->count() }}</p>
                                 <button
-                                    class="reaction-icon text-{{ $hasReactedWithThumbUp ? 'blue' : 'gray' }}-500 hover-text-gray-700 text-lg"
-                                    onclick="react('{{ $post->id }}', 'thumb', '{{ $hasReactedWithThumbUp ? 'gray' : 'blue' }}-500', this)">
+                                    class="reaction-icon text-{{ $hasReactedWithLike ? 'maroon' : 'gray-500' }} hover-text-gray-700 text-lg"
+                                    onclick="react('{{ $post->id }}', 'like', '{{ $hasReactedWithLike ? 'gray-500' : 'maroon' }}', this)">
                                     <i class="fas fa-thumbs-up"></i>
                                 </button>
                             </div>
 
-                            <div>
-                                <p class="text-xs">0</p>
+                            <div class="flex flex-col justify-center items-center">
+                                <p id="reaction-count-haha-{{ $post->id }}" class="text-xs">
+                                    {{ $post->reactions()->where('type', 'haha')->count() }}</p>
                                 <button
-                                    class="reaction-icon text-{{ $hasReactedWithHaha ? 'blue' : 'gray' }}-500 hover-text-gray-700 text-lg"
-                                    onclick="react('{{ $post->id }}', 'haha', '{{ $hasReactedWithHaha ? 'gray' : 'blue' }}-500', this)">
+                                    class="reaction-icon text-{{ $hasReactedWithHaha ? 'maroon' : 'gray-500' }} hover-text-gray-700 text-lg"
+                                    onclick="react('{{ $post->id }}', 'haha', '{{ $hasReactedWithHaha ? 'gray-500' : 'maroon' }}', this)">
                                     <i class="fas fa-grin-beam"></i>
                                 </button>
                             </div>
 
-                            <div>
-                                <p class="text-xs">0</p>
+                            <div class="flex flex-col justify-center items-center">
+                                <p id="reaction-count-sad-{{ $post->id }}" class="text-xs">
+                                    {{ $post->reactions()->where('type', 'sad')->count() }}</p>
                                 <button
-                                    class="reaction-icon text-{{ $hasReactedWithFrown ? 'blue' : 'gray' }}-500 hover-text-gray-700 text-lg"
-                                    onclick="react('{{ $post->id }}', 'sad', '{{ $hasReactedWithFrown ? 'gray' : 'blue' }}-500', this)">
+                                    class="reaction-icon text-{{ $hasReactedWithFrown ? 'maroon' : 'gray-500' }} hover-text-gray-700 text-lg"
+                                    onclick="react('{{ $post->id }}', 'sad', '{{ $hasReactedWithFrown ? 'gray-500' : 'maroon' }}', this)">
                                     <i class="fas fa-frown"></i>
                                 </button>
                             </div>
@@ -155,6 +125,7 @@
             </div>
         </div>
     @endforeach
+    <script src="{{ asset('js/reaction.js') }}" defer></script>
 
 </body>
 

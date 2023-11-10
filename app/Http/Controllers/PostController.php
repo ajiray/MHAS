@@ -9,11 +9,15 @@ class PostController extends Controller
 {
 
     public function deletePost(Post $post) {
-        
-            $post->delete();
-        
-        return redirect('/dashboard')->with('delete', 'Success! Your post has been deleted');
+        // Delete related reactions first
+        $post->reactions()->delete();
+    
+        // Now delete the post
+        $post->delete();
+    
+        return redirect('/dashboard')->with('delete', 'Success! Your post have been deleted');
     }
+    
     public function createPost(Request $request) {
         $incomingFields = $request->validate([
             'body' => 'required|max:200'
@@ -52,7 +56,7 @@ public function heartReact(Post $post) {
     return redirect()->back();
 }
 
-public function thumbReact(Post $post) {
+public function likeReact(Post $post) {
     $user = auth()->user();
 
     $existingReaction = $post->reactions()->where('user_id', $user->id)->where('type', 'like')->first();
@@ -109,6 +113,13 @@ public function sadReact(Post $post) {
     }
 
     return redirect()->back();
+}
+
+public function getReactionCount(Post $post, $reactionType)
+{
+    $count = $post->reactions()->where('type', $reactionType)->count();
+
+    return response()->json(['count' => $count]);
 }
 
 

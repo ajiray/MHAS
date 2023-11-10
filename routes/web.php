@@ -48,9 +48,11 @@ Route::post('/create-post', [PostController::class, 'createPost']);
 Route::delete('/delete-post/{post}', [PostController::class, 'deletePost']);
 Route::delete('/delete-post-admin/{post}', [PostController::class, 'deletePostAdmin']);
 Route::post('/heartReact/{post}', [PostController::class, 'heartReact'])->name('heartReact');
-Route::post('/thumbReact/{post}', [PostController::class, 'thumbReact'])->name('thumbReact');
+Route::post('/likeReact/{post}', [PostController::class, 'likeReact'])->name('likeReact');
 Route::post('/hahaReact/{post}', [PostController::class, 'hahaReact'])->name('hahaReact');
 Route::post('/sadReact/{post}', [PostController::class, 'sadReact'])->name('sadReact');
+Route::get('/reaction-count/{post}/{reactionType}', [PostController::class, 'getReactionCount']);
+
 
 
 
@@ -63,7 +65,11 @@ Route::patch('/decline-appointment/{appointment}', [AppointmentController::class
 Route::delete('/markAsDone/{appointment}', [AppointmentController::class, 'markAsDone'])->name('markAsDone');
 
 //resources
-Route::post('/store-resource', [resourceController::class, 'storeResource']);
+Route::post('/store-resource', [resourceController::class, 'storeResource'])->name('store-resource');
+Route::get('/resources', [ResourceController::class, 'showResources']);
+Route::get('/resources/{id}/download', [ResourceController::class, 'download'])->name('download');
+
+
 
 
 
