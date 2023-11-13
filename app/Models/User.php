@@ -21,7 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'profile_image',
+        'is_admin',
+        'avatar',
+        'aboutme',
     ];
 
     /**
@@ -46,5 +48,10 @@ class User extends Authenticatable
 
     public function feed() {
         return $this->hasMany(Post::class, 'user_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin === 1;
     }
 }

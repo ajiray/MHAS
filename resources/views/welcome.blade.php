@@ -12,7 +12,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
+<body class="overflow-x-hidden">
     <!--Header-->
     <header>
         <nav class="container flex items-center py-4 mt-4 sm:mt-12 relative">

@@ -5,6 +5,16 @@
         {{-- Header and search bar --}}
         <div class="m-header">
             <nav>
+                @if (Auth::check()) {{-- Check if the user is logged in --}}
+                    @if (Auth::user()->isAdmin())
+                        {{-- Assuming you have an 'isAdmin' method in your User model --}}
+
+                        <a href="/admindashboard" class="btn btn-secondary">Go Back</a>
+                    @else
+                        <a href="/dashboard" class="btn btn-secondary">Go Back</a>
+                    @endif
+                @endif
+
                 <a href="#"><i class="fas fa-inbox"></i> <span class="messenger-headTitle">MESSAGES</span> </a>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
@@ -58,13 +68,14 @@
                     <a href="#" class="show-listView"><i class="fas fa-arrow-left"></i></a>
                     <div class="avatar av-s header-avatar"
                         style="margin: 0px 10px; margin-top: -5px; margin-bottom: -5px;">
+
                     </div>
                     <a href="#" class="user-name">{{ config('chatify.name') }}</a>
                 </div>
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
-                    <a href="/"><i class="fas fa-home"></i></a>
+
                     <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
                 </nav>
             </nav>

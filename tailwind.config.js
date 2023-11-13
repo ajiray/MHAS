@@ -10,7 +10,11 @@ export default {
       colors: {
         yellow: '#ecb222',
         maroon: '#640216',
-        accent: '#e6e6e6'
+        accent: '#e6e6e6',
+        lightpink:'#E2A3A3',
+        zinc: '#D9D9D9',
+        customRed: '#89201a',
+        customYellow: '#FFFF00',
       },
       screens: {
         'mobileS': '320px',

@@ -49,7 +49,9 @@ class HomeController extends Controller
     
 
     public function profile() {
-        return view('profile');
+        $user = Auth::user();
+        $posts = Post::where('user_id', $user->id)->get();
+        return view('profile', ['posts' => $posts],['users' => $user]);
     }
 
     public function resources() {

@@ -3,12 +3,14 @@
 use App\Models\Post;
 use App\Livewire\Counter;
 use App\Models\Appointment;
+use App\Events\ReactionAdded;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\resourceController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,14 +32,18 @@ Route::get('/', function () {
 //student side
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 Route::get('/appointment', [HomeController::class, 'appointment']);
-Route::get('/message', [HomeController::class, 'message']);
+Route::get('/message', function () {
+    return redirect('http://127.0.0.1:8000/chatify');
+})->name('message.redirect');
 Route::get('/profile', [HomeController::class, 'profile']);
 Route::get('/resources', [HomeController::class, 'resources']);
  
 //admin side
 Route::get('/admindashboard', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admindashboard')->middleware('is_admin');
 Route::get('/adminappointment', [HomeController::class, 'adminappointment']);
-Route::get('/adminmessage', [HomeController::class, 'adminmessage']);
+Route::get('/adminmessage', function () {
+    return redirect('http://127.0.0.1:8000/chatify');
+})->name('message.redirect');
 Route::get('/adminresources', [HomeController::class, 'adminresources']);
 
 
@@ -52,6 +58,7 @@ Route::post('/likeReact/{post}', [PostController::class, 'likeReact'])->name('li
 Route::post('/hahaReact/{post}', [PostController::class, 'hahaReact'])->name('hahaReact');
 Route::post('/sadReact/{post}', [PostController::class, 'sadReact'])->name('sadReact');
 Route::get('/reaction-count/{post}/{reactionType}', [PostController::class, 'getReactionCount']);
+
 
 
 
@@ -71,7 +78,12 @@ Route::get('/resources/{id}/download', [ResourceController::class, 'download'])-
 
 
 
-
+// Update Profile
+Route::get('/update-profile-photo', [ProfileController::class, 'profileupdate'])->name('profile');
+Route::get('/update_avatar', [ProfileController::class, 'update_avatar'])->name('update_avatar');
+Route::post('/update_profile', [ProfileController::class, 'update_avatar'])->name('update_profile');
+Route::get('/editaboutme',[ProfileController::class,'edit'])->name('edit');
+Route::post('/update_aboutme',[ProfileController::class,'edit_aboutme'])->name('edit_aboutme');
 
 
 

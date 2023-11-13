@@ -5,7 +5,7 @@
     <title></title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @vite('resources/css/app.css')
-
+    <script src="{{ asset('js/reaction.js') }}" defer></script>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
                 <!-- Author info -->
                 <div class="flex justify-between items-center space-x-2 mt-3 ml-3 mr-3 border-b-2 border-black pb-3">
                     <div class="flex items-center space-x-2">
-                        <img src="{{ asset('images/' . $post->user->profile_image) }}" width="40" height="40"
+                        <img src="{{ asset('images/' . $post->user->avatar) }}" width="40" height="40"
                             alt="author profile" class="rounded-full">
                         <h1 class="text-lg font-semibold text-blue-500">{{ $post->user->name }}</h1>
                     </div>
@@ -115,7 +115,7 @@
 
                         </div>
                         <div class="">
-                            <a href="/addComment" class="comment-icon text-slate-500 hover:text-slate-700 text-lg ">
+                            <a href="/addComment" class="comment-icon text-gray-500 hover:text-gray-700 text-lg ">
                                 <i class="fas fa-comment"></i>
                             </a>
                         </div>
@@ -125,7 +125,7 @@
             </div>
         </div>
     @endforeach
-    <script src="{{ asset('js/reaction.js') }}" defer></script>
+
 
 </body>
 

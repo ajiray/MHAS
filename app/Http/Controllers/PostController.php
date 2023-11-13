@@ -30,7 +30,7 @@ class PostController extends Controller
     }
 
     public function deletePostAdmin(Post $post) {
-        
+        $post->reactions()->delete();
         $post->delete();
     
     return redirect('/admindashboard')->with('delete', 'Success! The post has been deleted');
