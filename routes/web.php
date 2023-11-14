@@ -58,9 +58,8 @@ Route::post('/likeReact/{post}', [PostController::class, 'likeReact'])->name('li
 Route::post('/hahaReact/{post}', [PostController::class, 'hahaReact'])->name('hahaReact');
 Route::post('/sadReact/{post}', [PostController::class, 'sadReact'])->name('sadReact');
 Route::get('/reaction-count/{post}/{reactionType}', [PostController::class, 'getReactionCount']);
-
-
-
+Route::post('/submitComment/{post}', [PostController::class, 'submitComment']);
+Route::delete('/delete-comment/{comment}', [PostController::class, 'deleteComment']);
 
 
 //appointment

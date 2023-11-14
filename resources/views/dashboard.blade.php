@@ -21,6 +21,15 @@
             </div>
         @endif
 
+        @if (session()->has('comment'))
+            <div class="absolute top-0 left-0 mt-5 ml-10 sm:ml-20 md:ml-32" id="alert">
+                <div class="bg-green-300 p-3 rounded-lg text-green-700 font-semibold shadow-md">
+                    {{ session('comment') }}
+                </div>
+            </div>
+        @endif
+
+
     </div>
 
     <div class="flex flex-row flex-wrap justify-center gap-24 mb-20">

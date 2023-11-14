@@ -6,6 +6,20 @@ function confirmDeletePost(postId) {
     }
 }
 
+function showCommentPopup(postId) {
+    
+    var modal = document.getElementById("commentSection-" + postId);
+    modal.classList.toggle("hidden"); // Toggle the 'hidden' class to show/hide the modal
+}
+
+function confirmDeleteComment(commentId) {
+    if (confirm("Are you sure you want to delete this comment?")) {
+        // Trigger the form submission
+        document.getElementById("delete-form-comment-" + commentId).submit();
+    }
+}
+
+
 function updateReactionCount(postId, reactionType) {
     $.ajax({
         url: `/reaction-count/${postId}/${reactionType}`,
@@ -45,3 +59,5 @@ function react(postId, reactionType, color, button) {
     });
     updateReactionCount(postId, reactionType);
 }
+
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -15,7 +16,7 @@ class PostController extends Controller
         // Now delete the post
         $post->delete();
     
-        return redirect('/dashboard')->with('delete', 'Success! Your post have been deleted');
+        return redirect('/dashboard')->with('delete', 'Success! Your post has been deleted');
     }
     
     public function createPost(Request $request) {
@@ -123,4 +124,32 @@ public function getReactionCount(Post $post, $reactionType)
 }
 
 
+public function submitComment(Request $request, Post $post) {
+
+  
+    // Validate the request data
+    $request->validate([
+        'content' => 'required|string|max:255', // Adjust the validation rules as needed
+    ]);
+
+    // Create a new comment
+    $comment = new Comment([
+        'user_id' => auth()->id(), // Assuming the user is authenticated
+        'post_id' => $post->id,
+        'content' => $request->input('content'),
+    ]);
+
+    // Save the comment to the database
+    $comment->save();
+
+    // You can redirect back to the post or any other page after storing the comment
+    return redirect()->back()->with('comment', 'Comment added successfully!');
+}
+
+public function deleteComment(Comment $comment) {
+    // Delete the specific comment
+    $comment->delete();
+
+    return redirect()->back()->with('commentDelete', 'Success! Your comment has been deleted');
+}
 }
