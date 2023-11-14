@@ -21,7 +21,7 @@
         }
 
         function declineAppointment(appointmentId) {
-            var modal = document.getElementById("declineReason");
+            var modal = document.getElementById("declineReason-" + appointmentId);
             modal.classList.toggle("hidden"); // Toggle the 'hidden' class to show/hide the modal
         }
 
@@ -78,12 +78,12 @@
             </div>
             @foreach ($appointments as $appointment)
                 <!-- The declineReason modal -->
-                <div id="declineReason"
+                <div id="declineReason-{{ $appointment->id }}"
                     class="fixed flex justify-center items-center top-0 left-0 h-screen w-screen bg-opacity-50 bg-gray-600 z-50 hidden">
                     <div class="bg-white p-4 rounded-lg shadow-lg w-11/12 md:w-1/2">
                         <div class="flex justify-end">
                             <button class="text-gray-600 hover:text-gray-800 text-2xl"
-                                onclick="declineAppointment()">&times;</button>
+                                onclick="declineAppointment('{{ $appointment->id }}')">&times;</button>
 
                         </div>
                         <h2 class="text-2xl font-semibold mb-4">Reason for Declining</h2>
@@ -99,6 +99,8 @@
                             <button type="button" onclick="confirmReason('{{ $appointment->id }}')"
                                 class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-blue-600">Submit</button>
 
+
+
                         </form>
                     </div>
                 </div>
@@ -107,7 +109,8 @@
                     <div class="mb-4 p-4 bg-gray-100 rounded-lg shadow-md">
                         <h3 class="text-lg font-semibold">{{ $appointment->reason }}</h3>
                         <p class="text-gray-600">Student: {{ $appointment->user->name }}</p>
-                        <p class="text-gray-600">Date: {{ \Carbon\Carbon::parse($appointment->date)->format('F j, Y') }}</p>
+                        <p class="text-gray-600">Date: {{ \Carbon\Carbon::parse($appointment->date)->format('F j, Y') }}
+                        </p>
                         <p class="text-gray-600">Time: {{ \Carbon\Carbon::parse($appointment->time)->format('h:i A') }}</p>
                         <p class="text-gray-600">Type: {{ $appointment->type }}</p>
                         <p class="text-gray-600">Status: {{ $appointment->status }}</p>

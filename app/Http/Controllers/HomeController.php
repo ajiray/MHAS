@@ -27,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('comments')->get();
+        $posts = Post::all();
        
     
         return view('dashboard', ['posts' => $posts]);

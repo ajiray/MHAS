@@ -87,7 +87,7 @@ public function acceptAppointment(Appointment $appointment) {
 
     // Store the accepted appointment in the 'accepted_appointments' table
     $acceptedAppointment = new AcceptedAppointment;
-    $acceptedAppointment->user_id = Auth::user()->id;
+    $acceptedAppointment->user_id = $appointment->user_id;
     $acceptedAppointment->appointment_id = $appointment->id;
     $acceptedAppointment->save();
 
@@ -96,6 +96,7 @@ public function acceptAppointment(Appointment $appointment) {
 
 
 public function declineAppointment(Appointment $appointment) {
+    
     $reason = request('reason'); // Get the reason from the form
     $appointment->update(['status' => 'declined (' . $reason . ')']);
     
