@@ -33,7 +33,8 @@
     </div>
 
     <div class="flex flex-row flex-wrap justify-center gap-24 mb-20">
-        <x-feed :posts="$posts" />
+        <x-feed :posts="$posts" :comments="$comments" />
+
     </div>
 
     <script>

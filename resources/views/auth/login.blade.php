@@ -3,57 +3,78 @@
 @section('content')
     @vite('resources/css/app.css')
     <div class="container">
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <section class="bg-gray-50 min-h-screen flex items-center justify-center">
-                <div class="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl">
-                    <div class="sm:w-1/2 px-16">
-                        <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="w-[150px] h-[130px] mx-auto">
-                        <h1 class="font-bold text-maroon text-center text-xl">MindScape</h1>
+        <section class="bg-gray-50 min-h-screen flex items-center justify-center">
+            <div class="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl">
+                <div class="sm:w-3/5 px-16">
+                    <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="w-[150px] h-[130px] mx-auto">
+                    <h1 class="font-bold text-customRed text-center text-xl">MindScape</h1>
+                    <br>
+                    <form method="POST" action="{{ route('login') }}" class="mt-4">
+                        @csrf
+                        @if (session('status'))
+                            <div id="errorMessage" class="alert alert-danger text-center">{{ 'Error Login Credentials' }}
+                            </div>
+                            <script>
+                                setTimeout(function() {
+                                    document.getElementById('errorMessage').style.display = 'none';
+                                }, 5000); // Hide the message after 5 seconds
+                            </script>
+                            <br>
+                        @endif
 
-                        <form class="flex flex-col gap-4">
-                            <input
-                                class="p-2 mt-8 rounded-xl border ml-[20px] form-control @error('email') is-invalid @enderror"
-                                id="email" type="email" name="email" value="{{ old('email') }}" required
-                                autocomplete="email" autofocus placeholder="Username">
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            <br><br>
-                            <input
-                                class="p-2 rounded-xl border ml-[20px] form-control @error('password') is-invalid @enderror"
-                                id="password" type="password" name="password" required autocomplete="current-password"
-                                placeholder="Password">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            <br><br>
-                            <button class="border bg-maroon rounded-2xl w-1/2 ml-[60px] text-yellow"
-                                type="submit">{{ __('Login') }}</button><br>
-                            <a href="#" class="text-[13px] hover:underline text-center ml-[70px] text-maroon">Forgot
-                                password?</a><br><br>
-                        </form>
-                    </div>
-                    <div
-                        class="sm:block hidden bg-gradient-to-b from-maroon via-maroon to-yellow w-[400px] h-[500px] rounded-2xl p-1">
-                        <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="w-[100px] h-[80px] ml-[290px]">
-                        <h1 class="text-yellow font-bold text-xl text-right -mt-[50px] mr-[90px]">Mindscape</h1>
-                        <h1 class="text-center text-yellow font-bold text-xl mt-[130px]">University of Perpetual Help
-                            System Dalta Las Pinas</h1>
-                        <h1 class="text-center text-maroon font-bold text-xl mt-[130px]">Mental Health Awareness System
-                        </h1>
-                    </div>
+                        @if (session('success'))
+                            <div id="successMessage" class="alert alert-success text-center">
+                                {{ session('success') }}
+                            </div>
+                            <script>
+                                setTimeout(function() {
+                                    document.getElementById('successMessage').style.display = 'none';
+                                }, 5000); // Hide the message after 5 seconds
+                            </script>
+                        @endif
+                        <div class="mb-4">
+                            <input id="email" type="email" class="form-control p-2 rounded-xl border w-full"
+                                name="email" value="{{ old('email') }}" required autocomplete="email"
+                                placeholder="Email">
+                        </div>
+                        <div class="password-container relative mb-4">
+                            <input id="password" type="password" class="form-control p-2 rounded-xl border w-full"
+                                name="password" required autocomplete="new-password" placeholder="Password">
+                            <span class="toggle-password absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                                onclick="togglePassword()">
+                                <img src="{{ asset('/images/show-password.png') }}" alt="Show Password" class="w-6 h-6">
+                            </span>
+                        </div>
+                        <button class="border bg-customRed rounded-2xl w-full text-customYellow py-2"
+                            type="submit">{{ __('Login') }}</button>
+                        <a href="{{ url('/forget-password') }}"
+                            class="text-[13px] hover:underline text-center mt-2 text-customRed block">Forgot password?</a>
+                    </form>
                 </div>
-            </section>
-
+                <div
+                    class="sm:block hidden bg-gradient-to-b from-customRed via-customRed to-customYellow w-[480px] h-[500px] rounded-2xl">
+                    <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="w-[100px] h-[80px] ml-[290px]">
+                    <h1 class="text-customYellow font-bold text-xl text-right -mt-[50px] mr-[90px]">Mindscape</h1>
+                    <h1 class="text-center text-customYellow font-bold text-xl mt-[130px]">University of Perpetual Help
+                        System Dalta Las Pinas</h1>
+                    <h1 class="text-center text-customRed font-bold text-xl mt-[130px]">Mental Health Awareness System</h1>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <script>
+        function togglePassword() {
+            var passwordInput = document.getElementById("password");
+            var eyeIcon = document.querySelector(".toggle-password img");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.src = "{{ asset('/images/hide-password.png') }}";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.src = "{{ asset('/images/show-password.png') }}";
+            }
+        }
+    </script>
 @endsection

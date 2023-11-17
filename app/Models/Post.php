@@ -19,7 +19,7 @@ class Post extends Model
 
     public function comments()
 {
-    return $this->hasMany(Comment::class); // Assuming the Comment model exists and follows the correct naming convention
+    return $this->hasMany(Comment::class);
 }
 
 public function reactions()

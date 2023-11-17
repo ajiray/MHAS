@@ -12,51 +12,6 @@
 
     @foreach ($posts->sortByDesc('id') as $post)
         <div class="relative">
-            <!-- Comment section modal -->
-            <div id="commentSection-{{ $post->id }}"
-                class="fixed inset-0 flex justify-center items-center bg-opacity-50 bg-gray-600 z-50 hidden">
-                <div class="bg-white p-4 rounded-lg shadow-lg w-full md:w-1/2">
-                    <div class="flex justify-between items-center">
-                        <h2 class="text-lg font-semibold">Comments</h2>
-                        <button class="text-gray-600 hover:text-gray-800 text-2xl"
-                            onclick="showCommentPopup('{{ $post->id }}')">&times;</button>
-                    </div>
-
-                    <div class="mt-4">
-                        <!-- Display existing comments -->
-                        @foreach ($post->comments as $comment)
-                            <div class="mb-2">
-                                <strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}
-
-                                @if (auth()->check() && $comment->user_id == auth()->id())
-                                    <button onclick="confirmDeleteComment('{{ $comment->id }}')"
-                                        class="material-symbols-outlined text-red-600">
-                                        Delete
-                                    </button>
-                                    <form id="delete-form-comment-{{ $comment->id }}"
-                                        action="/delete-comment/{{ $comment->id }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                @endif
-                            </div>
-                        @endforeach
-                    </div>
-
-
-                    <div class="mt-4">
-                        <!-- Form for adding a new comment -->
-                        <form method="POST" action="/submitComment/{{ $post->id }}">
-                            @csrf
-                            <input type="text" name="content" class="w-full p-2 mb-2 border rounded resize-y"
-                                placeholder="Add your comment..." required>
-                            <button type="submit"
-                                class="bg-green-500 text-white p-2 rounded cursor-pointer">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
             <div
                 class="w-80 h-72 mt-10 flex flex-col rounded-lg border-2 border-gray-300 shadow-md desktop:mt-7 desktop:ml-10 bg-white">
                 <!-- Author info -->
@@ -89,7 +44,7 @@
                     </p>
                 </div>
 
-                <!-- Reaction and Comment Section -->
+                <!-- Reaction Section -->
                 <div class="absolute bottom-0 bg-gray-100 w-[317px] p-1 rounded-bl-lg rounded-br-lg">
                     <div class="flex space-x-36 items-center">
                         <div class="flex space-x-5 items-center">
@@ -156,9 +111,11 @@
                                     <i class="fas fa-frown"></i>
                                 </button>
                             </div>
-
-
                         </div>
+
+                        <!-- Comment Section -->
+
+                        <!-- Comment Icon -->
                         <div class="">
                             <button class="comment-icon text-gray-500 hover:text-gray-700 text-lg"
                                 onclick="showCommentPopup('{{ $post->id }}')">
@@ -167,8 +124,38 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            <!-- Comment section modal -->
+            <div id="commentSection-{{ $post->id }}"
+                class="fixed inset-0 flex justify-center items-center bg-opacity-50 bg-gray-600 z-50 hidden">
+                <div class="bg-white p-4 rounded-lg shadow-lg w-[1000px] max-h-[700px] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold">Comments</h2>
+                        <button class="text-gray-600 hover:text-gray-800 text-2xl"
+                            onclick="showCommentPopup('{{ $post->id }}')">&times;</button>
+                    </div>
+
+                    <div id="comments-container-{{ $post->id }}" class="mb-4">
+
+                        <!-- Your comments will be displayed here -->
+
+                    </div>
+
+                    <div class="mt-auto">
+                        <!-- Form for adding a new comment -->
+                        <form id="addCommentForm_{{ $post->id }}"
+                            onsubmit="return submitComment('{{ $post->id }}', this);" class="flex items-center"
+                            autocomplete="off">
+                            <input type="text" name="content" class="flex-grow p-2 mr-2 border rounded resize-y"
+                                placeholder="Add your comment..." required maxlength="200">
+                            <button type="button" onclick="submitComment('{{ $post->id }}', this.form)"
+                                class="bg-green-500 text-white p-2 rounded cursor-pointer">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     @endforeach
 

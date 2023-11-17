@@ -8,9 +8,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\resourceController;
 use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ForgetPasswordManager;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,7 @@ Route::post('/hahaReact/{post}', [PostController::class, 'hahaReact'])->name('ha
 Route::post('/sadReact/{post}', [PostController::class, 'sadReact'])->name('sadReact');
 Route::get('/reaction-count/{post}/{reactionType}', [PostController::class, 'getReactionCount']);
 Route::post('/submitComment/{post}', [PostController::class, 'submitComment']);
+Route::get('/comments/{postId}', [PostController::class, 'getComments']);
 Route::delete('/delete-comment/{comment}', [PostController::class, 'deleteComment']);
 
 
@@ -84,5 +86,11 @@ Route::post('/update_profile', [ProfileController::class, 'update_avatar'])->nam
 Route::get('/editaboutme',[ProfileController::class,'edit'])->name('edit');
 Route::post('/update_aboutme',[ProfileController::class,'edit_aboutme'])->name('edit_aboutme');
 
+
+//Reset Password
+Route::get('/forget-password',[ForgetPasswordManager::class,'forgetPassword'])->name('forget.password');
+Route::post('/forget-password',[ForgetPasswordManager::class,'forgetPasswordPost'])->name('forget.password.post');
+Route::get('/reset-password/{token}',[ForgetPasswordManager::class,'resetPassword'])->name('reset.Password');
+Route::post('/reset-password',[ForgetPasswordManager::class,'resetPasswordPost'])->name('resetPasswordPost');
 
 

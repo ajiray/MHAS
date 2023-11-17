@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Comment;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\AcceptedAppointment;
@@ -27,13 +28,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $comments = Comment::all();
         $posts = Post::all();
-       
+        
+        return view('dashboard', ['posts' => $posts, 'comments' => $comments]);
+    }    
     
-        return view('dashboard', ['posts' => $posts]);
-    }
-    
-
 
     public function message() {
         return view('message');

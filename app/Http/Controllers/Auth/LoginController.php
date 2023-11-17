@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class LoginController extends Controller
 {
@@ -23,30 +23,40 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-// ...
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = RouteServiceProvider::HOME;
 
-protected $redirectTo = RouteServiceProvider::HOME;
-
-public function __construct()
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+    public function login(Request $request)
 {
-    $this->middleware('guest')->except('logout');
-}
-
-public function login(Request $request){
-    $input = $request->all();
-    $this->validate($request,[
-        'email'=>'required|email',
-        'password'=>'required'
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
     ]);
-    if(auth()->attempt(array('email'=>$input['email'],'password'=>$input['password']))){
+
+    // Your login logic here
+
+    if(auth()->attempt(array('email'=>$request['email'],'password'=>$request['password']))){
         if(auth()->user()->is_admin==1){
             return redirect('admindashboard');
-        }else{
+        } else {
             return redirect()->route('dashboard');
         }
-    }else{
-        return redirect()->route('login');
+    } else {
+        return redirect()->route('login')->with('status', 'Invalid login credentials');
     }
-}
-
+    
+    }
 }

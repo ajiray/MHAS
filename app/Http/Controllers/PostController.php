@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -12,7 +13,8 @@ class PostController extends Controller
     public function deletePost(Post $post) {
         // Delete related reactions first
         $post->reactions()->delete();
-    
+        
+        $post->comments()->delete();
         // Now delete the post
         $post->delete();
     
@@ -32,6 +34,7 @@ class PostController extends Controller
 
     public function deletePostAdmin(Post $post) {
         $post->reactions()->delete();
+        $post->comments()->delete();
         $post->delete();
     
     return redirect('/admindashboard')->with('delete', 'Success! The post has been deleted');
@@ -141,15 +144,29 @@ public function submitComment(Request $request, Post $post) {
 
     // Save the comment to the database
     $comment->save();
-
+    
     // You can redirect back to the post or any other page after storing the comment
     return redirect()->back()->with('comment', 'Comment added successfully!');
 }
+
+public function getComments($postId)
+{
+    $authenticatedUser = Auth::user();
+    $comments = Comment::join('users', 'comments.user_id', '=', 'users.id')
+    ->where('comments.post_id', $postId)
+    ->select('comments.*', 'users.name as user_name', 'users.avatar as user_avatar')
+    ->get();
+
+
+    return response()->json(['user' => $authenticatedUser, 'comments' => $comments]);
+}
+
 
 public function deleteComment(Comment $comment) {
     // Delete the specific comment
     $comment->delete();
 
-    return redirect()->back()->with('commentDelete', 'Success! Your comment has been deleted');
+    return response()->json(['message' => 'Success! Your comment has been deleted']);
 }
+
 }

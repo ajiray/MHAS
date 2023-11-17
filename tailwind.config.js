@@ -15,6 +15,7 @@ export default {
         zinc: '#D9D9D9',
         customRed: '#89201a',
         customYellow: '#FFFF00',
+        dark: '#5c211d',
       },
       screens: {
         'mobileS': '320px',
