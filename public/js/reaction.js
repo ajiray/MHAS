@@ -11,6 +11,7 @@ function showCommentPopup(postId) {
     var modal = document.getElementById("commentSection-" + postId);
     modal.classList.toggle("hidden"); // Toggle the 'hidden' class to show/hide the modal
     getComments(postId);
+    updateCommentCount(postId);
 }
 
 function confirmDeleteComment(commentId, postId) {
@@ -23,6 +24,7 @@ function confirmDeleteComment(commentId, postId) {
             },
             success: function (response) {
                 getComments(postId);
+                updateCommentCount(postId);
             },
             error: function (error) {
                 // Handle any errors here (if needed)
@@ -61,8 +63,7 @@ function react(postId, reactionType, color, button) {
             _token: csrfToken
         },
         success: function(response) {
-            // Handle any success response here (if needed)
-            console.log(response);
+           
         },
         error: function(error) {
             // Handle any errors here (if needed)
@@ -92,6 +93,7 @@ function submitComment(postId, form) {
         success: function (response) {
             $('input[name="content"]').val('');
             getComments(postId);
+            updateCommentCount(postId);
         },
         error: function (error) {
             // Handle any errors here (if needed)
@@ -152,6 +154,22 @@ function getComments(postId) {
         }
     });
 }
+
+function updateCommentCount(postId) {
+    $.ajax({
+        url: `/comment-count/${postId}`,
+        method: "GET",
+        success: function(response) {
+            $(`#comment-count-${postId}`).text(response.count);
+            console.log (response);
+        },
+        error: function(error) {
+            console.error(error);
+            // Handle errors here (if needed)
+        },
+    });
+}
+
 
 
 

@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex justify-center h-20 items-center mt-5 relative">
 
-        <x-woym />
+        <x-woymAdmin />
 
         @if (session()->has('success'))
             <div class="absolute top-0 left-0 mt-5 ml-10 sm:ml-20 md:ml-32" id="alert">
@@ -23,7 +23,7 @@
 
     </div>
 
-    <div class="flex flex-row flex-wrap justify-center gap-24 mb-20">
+    <div class="flex flex-row flex-wrap justify-center sm:gap-x-16 md:gap-x-16 desktop:gap-x-16 mb-20">
         <x-adminfeed :posts="$posts" />
     </div>
 

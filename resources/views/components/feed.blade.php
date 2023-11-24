@@ -11,9 +11,8 @@
 <body>
 
     @foreach ($posts->sortByDesc('id') as $post)
-        <div class="relative">
-            <div
-                class="w-80 h-72 mt-10 flex flex-col rounded-lg border-2 border-gray-300 shadow-md desktop:mt-7 desktop:ml-10 bg-white">
+        <div class="relative mt-20 desktop:ml-10">
+            <div class="w-80 h-72 flex flex-col rounded-lg border-2 border-gray-300 shadow-md bg-white">
                 <!-- Author info -->
                 <div class="flex justify-between items-center space-x-2 mt-3 ml-3 mr-3 border-b-2 border-black pb-3">
                     <div class="flex items-center space-x-2">
@@ -116,7 +115,10 @@
                         <!-- Comment Section -->
 
                         <!-- Comment Icon -->
-                        <div class="">
+                        <div class="flex flex-col justify-center items-center">
+                            <p id="comment-count-{{ $post->id }}" class="text-xs">
+                                {{ $post->comments()->count() }}
+                            </p>
                             <button class="comment-icon text-gray-500 hover:text-gray-700 text-lg"
                                 onclick="showCommentPopup('{{ $post->id }}')">
                                 <i class="fas fa-comment"></i>
@@ -129,14 +131,25 @@
             <!-- Comment section modal -->
             <div id="commentSection-{{ $post->id }}"
                 class="fixed inset-0 flex justify-center items-center bg-opacity-50 bg-gray-600 z-50 hidden">
-                <div class="bg-white p-4 rounded-lg shadow-lg w-[1000px] max-h-[700px] overflow-y-auto">
+                <div
+                    class="bg-white px-10 py-5 rounded-lg shadow-lg overflow-y-auto
+    desktop:w-full desktop:max-w-[1200px] desktop:max-h-[700px] 
+    laptop:w-full laptop:max-w-[800px] laptop:max-h-[700px] 
+    tablet:w-full tablet:max-w-[600px] tablet:max-h-[700px] 
+    mobileS:w-full mobileS:max-w-[300px] mobileS:max-h-[700px]">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-lg font-semibold">Comments</h2>
                         <button class="text-gray-600 hover:text-gray-800 text-2xl"
                             onclick="showCommentPopup('{{ $post->id }}')">&times;</button>
                     </div>
 
-                    <div id="comments-container-{{ $post->id }}" class="mb-4">
+                    <div id="comments-container-{{ $post->id }}"
+                        class="mb-4
+                        desktop:w-full desktop:max-w-[1200px] 
+                        laptop:w-full laptop:max-w-[800px] 
+                        tablet:w-full tablet:max-w-[600px] 
+                        mobileS:w-full mobileS:max-w-[300px] 
+                        text-base">
 
                         <!-- Your comments will be displayed here -->
 
@@ -145,13 +158,19 @@
                     <div class="mt-auto">
                         <!-- Form for adding a new comment -->
                         <form id="addCommentForm_{{ $post->id }}"
-                            onsubmit="return submitComment('{{ $post->id }}', this);" class="flex items-center"
-                            autocomplete="off">
-                            <input type="text" name="content" class="flex-grow p-2 mr-2 border rounded resize-y"
+                            onsubmit="return submitComment('{{ $post->id }}', this);"
+                            class="flex items-center flex-col tablet:flex-row" autocomplete="off">
+
+                            <input type="text" name="content"
+                                class="flex-grow p-2 mb-2 sm:mb-0 tablet:mr-2 border rounded resize-y"
                                 placeholder="Add your comment..." required maxlength="200">
+
                             <button type="button" onclick="submitComment('{{ $post->id }}', this.form)"
                                 class="bg-green-500 text-white p-2 rounded cursor-pointer">Submit</button>
+
                         </form>
+
+
                     </div>
                 </div>
             </div>

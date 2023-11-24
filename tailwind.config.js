@@ -16,6 +16,8 @@ export default {
         customRed: '#89201a',
         customYellow: '#FFFF00',
         dark: '#5c211d',
+        adminPrimary: '#153243',
+        adminSecondary: '#F4F9E9',
       },
       screens: {
         'mobileS': '320px',

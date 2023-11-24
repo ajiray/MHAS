@@ -25,7 +25,7 @@
         </button>
 
         <div class="flex flex-col gap-y-16 text-2xl md:text-3xl md:gap-y-20">
-            <a href="/dashboard">
+            <a href="/admindashboard">
                 <div class="flex gap-2 items-center">
                     <span class="material-symbols-outlined text-maroon text-2xl md:text-3xl">
                         feed
@@ -33,7 +33,7 @@
                     <p class="text-maroon">Feed</p>
                 </div>
             </a>
-            <a href="/appointment">
+            <a href="/adminappointment">
                 <div class="flex gap-2 items-center">
                     <span class="material-symbols-outlined text-maroon text-2xl md:text-3xl">
                         calendar_month
@@ -49,15 +49,7 @@
                     <p class="text-maroon">Message</p>
                 </div>
             </a>
-            <a href="/profile">
-                <div class="flex gap-2 items-center">
-                    <span class="material-symbols-outlined text-maroon text-2xl md:text-3xl">
-                        account_box
-                    </span>
-                    <p class="text-maroon">Profile</p>
-                </div>
-            </a>
-            <a href="/resources">
+            <a href="/adminresources">
                 <div class="flex gap-2 items-center">
                     <span class="material-symbols-outlined text-maroon text-2xl md:text-3xl">
                         cloud_download

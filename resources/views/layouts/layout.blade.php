@@ -14,7 +14,7 @@
 
 </head>
 
-<body>
+<body class="overflow-x-hidden">
 
     <div class='desktop:h-screen desktop:justify-center desktop:flex desktop:items-center'>
         <div
@@ -22,7 +22,6 @@
             <x-navbar />
 
             <div class="w-screen h-screen desktop:h-full overflow-y-auto">
-
                 @yield('content')
             </div>
 

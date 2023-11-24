@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Post;
+use App\Models\User;
 use App\Livewire\Counter;
 use App\Models\Appointment;
 use App\Events\ReactionAdded;
@@ -8,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ChatBotController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\resourceController;
 use App\Http\Controllers\AppointmentController;
@@ -29,6 +31,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('send',[ChatBotController::class,'sendChat']);
 
 //student side
 Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
@@ -37,6 +40,7 @@ Route::get('/message', function () {
     return redirect('http://127.0.0.1:8000/chatify');
 })->name('message.redirect');
 Route::get('/profile', [HomeController::class, 'profile']);
+Route::get('/chatbot', [HomeController::class, 'chatbot']);
 Route::get('/resources', [HomeController::class, 'resources']);
  
 //admin side
@@ -52,6 +56,7 @@ Route::get('/adminresources', [HomeController::class, 'adminresources']);
 
 //blog post
 Route::post('/create-post', [PostController::class, 'createPost']);
+Route::post('/create-post-admin', [PostController::class, 'createPostAdmin']);
 Route::delete('/delete-post/{post}', [PostController::class, 'deletePost']);
 Route::delete('/delete-post-admin/{post}', [PostController::class, 'deletePostAdmin']);
 Route::post('/heartReact/{post}', [PostController::class, 'heartReact'])->name('heartReact');
@@ -62,6 +67,8 @@ Route::get('/reaction-count/{post}/{reactionType}', [PostController::class, 'get
 Route::post('/submitComment/{post}', [PostController::class, 'submitComment']);
 Route::get('/comments/{postId}', [PostController::class, 'getComments']);
 Route::delete('/delete-comment/{comment}', [PostController::class, 'deleteComment']);
+Route::get('/comment-count/{postId}', [PostController::class, 'getCommentCount']);
+
 
 
 //appointment
@@ -74,8 +81,8 @@ Route::delete('/markAsDone/{appointment}', [AppointmentController::class, 'markA
 
 //resources
 Route::post('/store-resource', [resourceController::class, 'storeResource'])->name('store-resource');
-Route::get('/resources', [ResourceController::class, 'showResources']);
-Route::get('/resources/{id}/download', [ResourceController::class, 'download'])->name('download');
+Route::get('/getResources', [resourceController::class, 'getResources']);
+
 
 
 
@@ -92,5 +99,7 @@ Route::get('/forget-password',[ForgetPasswordManager::class,'forgetPassword'])->
 Route::post('/forget-password',[ForgetPasswordManager::class,'forgetPasswordPost'])->name('forget.password.post');
 Route::get('/reset-password/{token}',[ForgetPasswordManager::class,'resetPassword'])->name('reset.Password');
 Route::post('/reset-password',[ForgetPasswordManager::class,'resetPasswordPost'])->name('resetPasswordPost');
+
+
 
 

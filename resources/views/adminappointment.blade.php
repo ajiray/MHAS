@@ -49,7 +49,8 @@
             }
         }
     </script>
-    <div class="flex justify-center items-center h-full space-x-20 relative">
+    <div
+        class="flex flex-col md:flex-row space-y-10 md:space-y-0 bg-red-200 justify-center items-center h-full space-x-20 relative">
 
         <div class="absolute top-2 w-96 text-center">
             @if (session()->has('success'))

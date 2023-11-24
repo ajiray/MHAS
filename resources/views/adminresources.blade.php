@@ -16,6 +16,7 @@
         }
         fadeOutAlert("alert");
     </script>
+    <script src="{{ asset('js/resources.js') }}" defer></script>
 
     <div class="absolute top-2 w-96 text-center">
         @if (session()->has('success'))
@@ -36,52 +37,44 @@
             </div>
         @endif
     </div>
+    <div class="flex flex-col items-center h-full justify-center">
+        <h1 class="text-3xl font-semibold mb-4">UPLOAD RESOURCES HERE</h1>
 
-    <div class="flex justify-center items-center h-full">
-        <div class="bg-white rounded-lg p-6 shadow-md w-full sm:w-96">
-            <h1 class="text-2xl font-semibold mb-4 text-center">Upload Resources Here</h1>
+        <form action="{{ route('store-resource') }}" method="POST" id="resource-form"
+            class="flex flex-col space-y-4 w-96 p-8 bg-gray-100 rounded-md shadow-md" enctype="multipart/form-data">
+            @csrf
+            <select name="category" id="category" class="border p-2" onchange="toggleInputs()">
+                <option value="" disabled selected>Select Category</option>
+                <option value="pdf">PDF</option>
+                <option value="video">VIDEO</option>
+                <option value="infographic">INFOGRAPHIC</option>
+                <option value="ebook">E-BOOK</option>
+            </select>
 
-            <form action="{{ route('store-resource') }}" method="POST" enctype="multipart/form-data">
-                @csrf
+            <label for="title" class="text-sm font-medium hidden" id="title-label">Title</label>
+            <input type="text" name="title" id="title" class="border p-2 hidden">
 
-                <div class="mb-4">
-                    <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
-                    <input type="text" name="title" id="title" class="border border-black" required>
-                </div>
+            <label for="description" class="text-sm font-medium hidden" id="description-label">Description</label>
+            <input type="text" name="description" id="description" class="border p-2 hidden">
 
-                <div class="mb-4">
-                    <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                    <textarea name="description" id="description" class="border border-black" required></textarea>
-                </div>
+            <label for="file_content" class="text-sm font-medium hidden" id="pdf-label">PDF</label>
+            <input type="file" name="file_content" id="file_content" accept=".pdf" class="border p-2 hidden">
 
-                <div class="mb-4">
-                    <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
-                    <input type="text" name="author" id="author" class="border border-black" required>
-                </div>
+            <label for="file_cover" class="text-sm font-medium hidden" id="cover-photo-label">Cover Photo</label>
+            <input type="file" name="file_cover" id="file_cover" accept="image/*" class="border p-2 hidden">
 
-                <div class="mb-4">
-                    <label for="file_content" class="block text-sm font-medium text-gray-700">Upload Resource File</label>
-                    <input type="file" name="file_content" accept="*/*" required>
-                </div>
+            <label for="youtube_link" class="text-sm font-medium hidden" id="youtube-link-label">YouTube Video Link</label>
+            <input type="text" name="youtube_link" id="youtube_link" class="border p-2 hidden">
 
-                <div class="mb-4">
-                    <label for="file_cover" class="block text-sm font-medium text-gray-700">Upload Resource Cover</label>
-                    <input type="file" name="file_cover" accept="image/*" required>
-                </div>
+            <label for="infographic" class="text-sm font-medium hidden" id="infographic-label">Infographic</label>
+            <input type="file" name="infographic" id="infographic" accept="image/*" class="border p-2 hidden">
 
-                <div class="mb-4">
-                    <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
-                    <select name="category" id="category" class="form-select" required>
-                        <option value="Video">Video</option>
-                        <option value="PDF">PDF</option>
-                        <option value="Infographic">Infographic</option>
-                        <option value="Ebook">Ebook</option>
-                    </select>
-                </div>
+            <label for="ebook" class="text-sm font-medium hidden" id="ebook-label">E-Book</label>
+            <input type="file" name="ebook" id="ebook" accept=".pdf, .epub, .mobi" class="border p-2 hidden">
 
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-full w-full hover:bg-blue-700">Add
-                    Resource</button>
-            </form>
-        </div>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-700 hidden"
+                id="submitRes">Add
+                Resource</button>
+        </form>
     </div>
 @endsection

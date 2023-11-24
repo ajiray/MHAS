@@ -32,6 +32,17 @@ class PostController extends Controller
         return redirect('/dashboard')->with('success', 'Success! Your post has been published');
     }
 
+    public function createPostAdmin(Request $request) {
+        $incomingFields = $request->validate([
+            'body' => 'required|max:200'
+        ]); 
+
+        $incomingFields['body'] = strip_tags($incomingFields['body']);
+        $incomingFields['user_id'] = auth()->id();
+        Post::create($incomingFields);
+        return redirect('/admindashboard')->with('success', 'Success! Your post has been published');
+    }
+
     public function deletePostAdmin(Post $post) {
         $post->reactions()->delete();
         $post->comments()->delete();
@@ -169,4 +180,13 @@ public function deleteComment(Comment $comment) {
     return response()->json(['message' => 'Success! Your comment has been deleted']);
 }
 
+public function getCommentCount($postId)
+{
+    $count = Comment::where('post_id', $postId)->count();
+
+    return response()->json(['count' => $count]);
 }
+
+}
+
+

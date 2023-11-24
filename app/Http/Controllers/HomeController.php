@@ -39,6 +39,10 @@ class HomeController extends Controller
         return view('message');
     }
 
+    public function chatbot() {
+        return view('chatbotMain');
+    }
+
     public function appointment() {
         $appointments = Appointment::all()->sortBy(function ($appointment) {
             return $appointment->date . ' ' . $appointment->time;

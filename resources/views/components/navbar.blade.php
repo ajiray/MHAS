@@ -21,8 +21,8 @@
             class="mt-10 m-auto hidden desktop:block" />
 
         <!-- Desktop Menu -->
-        <div class="hidden desktop:block mb-56">
-            <div class="flex h-full items-center justify-center mt-8">
+        <div class="hidden desktop:block justify-center items-center h-full">
+            <div class="flex h-full items-center justify-center">
                 <div class="flex flex-col gap-y-16 items-start">
                     <a href="/dashboard">
                         <div class="flex gap-2 items-center">
@@ -38,6 +38,14 @@
                                 calendar_month
                             </span>
                             <p class="text-accent">Appointment</p>
+                        </div>
+                    </a>
+                    <a href="/chatbot">
+                        <div class="flex gap-2 items-center">
+                            <span class="material-symbols-outlined text-accent">
+                                forum
+                            </span>
+                            <p class="text-accent">ChatBot</p>
                         </div>
                     </a>
                     <a href="/message">
@@ -69,16 +77,16 @@
 
                 </div>
 
+
             </div>
 
-
         </div>
-        <div class="justify-center hidden desktop:block">
+
+        <div class="hidden desktop:block w-full">
             <button
-                class="hidden desktop:block text-lg text-maroon bg-yellow hover:bg-amber-300 px-4 py-2 transition duration-300 ease-in-out transform w-[199px] font-bold rounded-bl-[50px] shadow-menu"
+                class="text-lg text-maroon bg-yellow hover:bg-amber-300 px-4 py-2 transition duration-300 ease-in-out transform w-full font-bold rounded-bl-[50px] shadow-menu"
                 href="{{ route('logout') }}"
-                onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}
             </button>
 
@@ -89,6 +97,8 @@
 
 
 
+
+
         <!-- Burger Menu -->
         <x-burger />
 
@@ -96,13 +106,43 @@
         <img src="./images/logo_mobile.svg" width="150" height="100" alt="logo" class="desktop:hidden" />
 
         <!-- Settings Icon (mobile) -->
-        <i class="material-icons text-white mr-3 desktop:hidden"><span class="material-symbols-outlined">
+        <i class="material-icons text-white mr-3 desktop:hidden" onclick="toggleSettings()"><span
+                class="material-symbols-outlined">
                 settings
             </span></i>
 
 
 
+        <div id="settings"
+            class="hidden fixed top-4 right-4 w-48 h-32 bg-white border border-gray-300 rounded-lg shadow-md z-50">
+            <button class="material-symbols-outlined absolute top-4 right-4 text-gray-600" onclick="toggleSettings()">
+                Close
+            </button>
+            <button class="mx-4 my-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                {{ __('Logout') }}
+            </button>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+                @csrf
+            </form>
+        </div>
+
+
+
+
+
+
     </nav>
+
+
+    <script>
+        function toggleSettings() {
+
+            var mobileMenu = document.getElementById("settings");
+            mobileMenu.classList.toggle("hidden");
+        }
+    </script>
 
 </body>
 

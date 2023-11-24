@@ -6,33 +6,37 @@
         <x-woym />
 
         @if (session()->has('success'))
-            <div class="absolute top-0 left-0 mt-5 ml-10 sm:ml-20 md:ml-32" id="alert">
-                <div class="bg-green-300 p-3 rounded-lg text-green-700 font-semibold shadow-md">
+            <div class="absolute top-0 left-0 flex items-center justify-center desktop:p-5 desktop:ml-32 desktop:w-96 sm:ml-8 md:ml-16 md:w-40"
+                id="alert">
+                <div class="bg-green-300 rounded-lg text-green-700 font-semibold shadow-md p-2 md:p-4 md:text-base">
                     {{ session('success') }}
                 </div>
             </div>
         @endif
 
         @if (session()->has('delete'))
-            <div class="absolute top-0 right-0 mt-5 mr-10 sm:mr-20 md:mr-32" id="alert">
-                <div class="bg-red-300 p-3 rounded-lg text-red-700 font-semibold shadow-md">
+            <div class="absolute top-0 left-0 flex items-center justify-center desktop:p-5 desktop:ml-32 desktop:w-96 sm:ml-8 md:ml-16 md:w-40"
+                id="alert">
+                <div class="bg-red-300 rounded-lg text-red-700 font-semibold shadow-md p-2 md:p-4 md:text-base">
                     {{ session('delete') }}
                 </div>
             </div>
         @endif
 
         @if (session()->has('comment'))
-            <div class="absolute top-0 left-0 mt-5 ml-10 sm:ml-20 md:ml-32" id="alert">
-                <div class="bg-green-300 p-3 rounded-lg text-green-700 font-semibold shadow-md">
+            <div class="absolute top-0 left-0 flex items-center justify-center desktop:p-5 desktop:ml-32 desktop:w-96 sm:ml-8 md:ml-16 md:w-40"
+                id="alert">
+                <div class="bg-green-300 rounded-lg text-green-700 font-semibold shadow-md p-2 md:p-4 md:text-base">
                     {{ session('comment') }}
                 </div>
             </div>
         @endif
 
 
+
     </div>
 
-    <div class="flex flex-row flex-wrap justify-center gap-24 mb-20">
+    <div class="flex flex-row flex-wrap justify-center sm:gap-x-16 md:gap-x-16 desktop:gap-x-16 mb-20">
         <x-feed :posts="$posts" :comments="$comments" />
 
     </div>

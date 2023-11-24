@@ -36,4 +36,5 @@ app.component('example-component', ExampleComponent);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
+// Mount the app
 app.mount('#app');

@@ -17,8 +17,7 @@
             class='desktop:flex desktop:w-[90%] desktop:h-[90%] desktop:rounded-tl-[50px] desktop:rounded-bl-[50px] desktop:shadow-lg'>
             <x-adminnavbar />
 
-            <div
-                class="w-screen h-screen desktop:rounded-tr-[50px] desktop:rounded-br-[50px] desktop:h-full overflow-y-auto">
+            <div class="w-screen h-screen desktop:h-full overflow-y-auto">
 
                 @yield('content')
             </div>

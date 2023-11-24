@@ -12,11 +12,11 @@ class Resource extends Model
     protected $fillable = [
         'title',
         'description',
-        'author',
         'file_content',
-        'cover_photo',
+        'file_cover',
         'download_count',
         'category',
+        'youtube_link',
     ];
 
    

@@ -1,37 +1,48 @@
 @extends('layouts.layout')
+<!DOCTYPE html>
+<html lang="en" data-csrf="{{ csrf_token() }}">
 
-@section('content')
-    <div class="w-full flex h-full justify-center items-center">
-        <div class="w-3/4 bg-white h-3/5 border-2 border-gray-300 rounded-lg overflow-y-auto">
-            <h1 class="text-3xl font-bold text-gray-800 bg-blue-500 text-white p-4 rounded-t-lg">RESOURCES</h1>
+<head>
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/resources.js') }}" defer></script>
+</head>
 
-            @forelse ($resources as $resource)
-                <div class="mt-4 p-4 border-b border-gray-300 flex items-center">
-                    @if ($resource->file_cover)
-                        <img src="{{ asset('storage/covers/' . $resource->file_cover) }}" alt="{{ $resource->title }}"
-                            class="mr-4 rounded-md w-20 h-20 object-cover">
-                    @endif
+<body>
 
-                    <div>
-                        <h2 class="text-xl font-semibold text-gray-800">{{ $resource->title }}</h2>
-                        <p class="text-gray-700">{{ $resource->description }}</p>
-
-                        <div class="mt-2">
-                            @if ($resource->category == 'PDF')
-                                <a href="{{ asset('storage/resources/' . $resource->file_content) }}"
-                                    class="text-blue-500 hover:underline" target="_blank">Download PDF</a>
-                            @elseif ($resource->category == 'Video')
-                                <a href="{{ asset('storage/resources/' . $resource->file_content) }}"
-                                    class="text-blue-500 hover:underline" target="_blank">Watch Video</a>
-                            @else
-                                <!-- Handle other categories -->
-                            @endif
-                        </div>
-                    </div>
+    @section('content')
+        <div class="justify-center w-full flex">
+            <div class="flex justify-between items-center bg-maroon h-16 w-fit mt-10 p-6 rounded-lg shadow-md">
+                <button id="pdfButton" class="bg-maroon-light text-gray-500 px-4 py-2 rounded-md font-bold" data-category="pdf"
+                    onclick="filterClicked('white', 'black', this, 'line1', 'PDF')">PDF</button>
+                <div class="flex">
+                    <div class="line1 relative h-1 w-32 bg-gray-500"></div>
+                    <div class="line2 relative h-1 w-32 bg-gray-500"></div>
                 </div>
-            @empty
-                <div class="p-4 text-center text-gray-600">No resources available.</div>
-            @endforelse
+                <button id="videoButton" class="bg-maroon-light text-gray-500 px-4 py-2 rounded-md font-bold"
+                    data-category="video" onclick="filterClicked('white', 'black', this, 'line2', 'Videos')">Videos</button>
+                <div class="flex">
+                    <div class="line2 relative h-1 w-32 bg-gray-500"></div>
+                    <div class="line3 relative h-1 w-32 bg-gray-500"></div>
+                </div>
+                <button id="infoButton" class="bg-maroon-light text-gray-500 px-4 py-2 rounded-md font-bold"
+                    data-category="infographic"
+                    onclick="filterClicked('white', 'black', this, 'line3', 'Info')">Infographics</button>
+                <div class="flex">
+                    <div class="line3 relative h-1 w-32 bg-gray-500"></div>
+                    <div class="line4 relative h-1 w-32 bg-gray-500"></div>
+                </div>
+                <button id="eBookButton" class="bg-maroon-light text-gray-500 px-4 py-2 rounded-md font-bold"
+                    data-category="ebook" onclick="filterClicked('white', 'black', this, 'line4', 'book')">Ebooks</button>
+            </div>
+
         </div>
-    </div>
-@endsection
+
+        <div id="resourceContent" class="mt-5 ml-10">
+
+        </div>
+    @endsection
+
+</body>
+
+</html>
