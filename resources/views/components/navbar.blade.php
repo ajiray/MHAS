@@ -26,53 +26,49 @@
                 <div class="flex flex-col gap-y-16 items-start">
                     <a href="/dashboard">
                         <div class="flex gap-2 items-center">
-                            <span class="material-symbols-outlined text-accent">
-                                feed
-                            </span>
-                            <p class="text-accent">Feed</p>
+                            <i class="fa-solid fa-house fa-l text-accent"></i>
+                            <p class="text-accent">Home</p>
+                        </div>
+                    </a>
+                    <a href="/wall">
+                        <div class="flex gap-2 items-center">
+                            <i class="fa-solid fa-newspaper fa-l text-accent"></i>
+                            <p class="text-accent">Freedom Wall</p>
                         </div>
                     </a>
                     <a href="/appointment">
                         <div class="flex gap-2 items-center">
-                            <span class="material-symbols-outlined text-accent">
-                                calendar_month
-                            </span>
+                            <i class="fa-solid fa-calendar-check fa-l text-accent"></i>
                             <p class="text-accent">Appointment</p>
                         </div>
                     </a>
-                    <a href="/chatbot">
+
+                    <a href="/messageOption">
                         <div class="flex gap-2 items-center">
-                            <span class="material-symbols-outlined text-accent">
-                                forum
-                            </span>
-                            <p class="text-accent">ChatBot</p>
+                            <i class="fa-solid fa-envelope fa-l text-accent"></i>
+                            <p class="text-accent">Chat</p>
                         </div>
                     </a>
-                    <a href="/message">
-                        <div class="flex gap-2 items-center">
-                            <span class="material-symbols-outlined text-accent">
-                                forum
-                            </span>
-                            <p class="text-accent">Message</p>
-                        </div>
-                    </a>
+
                     <a href="/profile">
                         <div class="flex gap-2 items-center">
-                            <span class="material-symbols-outlined text-accent">
-                                account_box
-                            </span>
+                            <i class="fa-solid fa-id-card fa-l text-accent"></i>
                             <p class="text-accent">Profile</p>
                         </div>
                     </a>
                     <a href="/resources">
                         <div class="flex gap-2 items-center">
-                            <span class="material-symbols-outlined text-accent">
-                                cloud_download
-                            </span>
+                            <i class="fa-solid fa-download fa-l text-accent"></i>
                             <p class="text-accent">Resources</p>
                         </div>
                     </a>
 
+                    <a href="/videocall">
+                        <div class="flex gap-2 items-center">
+                            <i class="fa-solid fa-envelope fa-l text-accent"></i>
+                            <p class="text-accent">Video Call</p>
+                        </div>
+                    </a>
 
 
                 </div>

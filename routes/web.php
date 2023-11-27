@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ChatBotController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\resourceController;
 use App\Http\Controllers\AppointmentController;
@@ -42,6 +44,8 @@ Route::get('/message', function () {
 Route::get('/profile', [HomeController::class, 'profile']);
 Route::get('/chatbot', [HomeController::class, 'chatbot']);
 Route::get('/resources', [HomeController::class, 'resources']);
+Route::get('/wall', [HomeController::class, 'wall']);
+Route::get('/messageOption', [HomeController::class, 'messageOption']);
  
 //admin side
 Route::get('/admindashboard', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admindashboard')->middleware('is_admin');
@@ -50,6 +54,7 @@ Route::get('/adminmessage', function () {
     return redirect('http://127.0.0.1:8000/chatify');
 })->name('message.redirect');
 Route::get('/adminresources', [HomeController::class, 'adminresources']);
+Route::get('/adminwall', [HomeController::class, 'adminWall']);
 
 
 
@@ -68,6 +73,7 @@ Route::post('/submitComment/{post}', [PostController::class, 'submitComment']);
 Route::get('/comments/{postId}', [PostController::class, 'getComments']);
 Route::delete('/delete-comment/{comment}', [PostController::class, 'deleteComment']);
 Route::get('/comment-count/{postId}', [PostController::class, 'getCommentCount']);
+Route::delete('/delete-post-profile/{post}', [PostController::class, 'deletePostProfile']);
 
 
 
@@ -99,6 +105,28 @@ Route::get('/forget-password',[ForgetPasswordManager::class,'forgetPassword'])->
 Route::post('/forget-password',[ForgetPasswordManager::class,'forgetPasswordPost'])->name('forget.password.post');
 Route::get('/reset-password/{token}',[ForgetPasswordManager::class,'resetPassword'])->name('reset.Password');
 Route::post('/reset-password',[ForgetPasswordManager::class,'resetPasswordPost'])->name('resetPasswordPost');
+
+//Video Call
+Route::get('/videocall', [HomeController::class, 'videocall']);
+Route::post("/createMeeting", [MeetingController::class, 'createMeeting'])->name("createMeeting");
+Route::post("/validateMeeting", [MeetingController::class, 'validateMeeting'])->name("validateMeeting");
+Route::get("/leftmeeting", [MeetingController::class, 'leftmeeting'])->name("leftmeeting");
+Route::get("/meeting/{meetingId}", function($meetingId) {
+
+    $METERED_DOMAIN = env('METERED_DOMAIN');
+    return view('meeting', [
+        'METERED_DOMAIN' => $METERED_DOMAIN,
+        'MEETING_ID' => $meetingId
+    ]);
+});
+
+
+//Admin Pending Registrations
+Route::get('/acceptregisters', [AdminController::class, 'showPendingRegistrations']);
+Route::get('/admin/pending-registrations', [AdminController::class, 'showPendingRegistrations'])->name('admin.pending-registrations');
+Route::post('/admin/approve-user/{id}', [AdminController::class, 'approveUsers'])->name('admin.approve-user');
+Route::post('/admin/decline-user/{id}', [AdminController::class, 'declineUser'])->name('admin.decline-user');
+Route::get('/listregisters', [AdminController::class, 'showPendingRegistrations'])->name('listregisters');
 
 
 

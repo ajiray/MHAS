@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Quote;
 use App\Models\Comment;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
@@ -26,13 +27,28 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
+    {
+        $quote = $request->session()->get('quote');
+
+        // If not, fetch a new random quote and store it in the session
+        if (!$quote) {
+            $quote = Quote::inRandomOrder()->first();
+            $request->session()->put('quote', $quote);
+        }
+        return view('dashboard', compact('quote'));
+    }    
+
+    public function wall()
     {
         $comments = Comment::all();
         $posts = Post::all();
         
-        return view('dashboard', ['posts' => $posts, 'comments' => $comments]);
-    }    
+        return view('wall', ['posts' => $posts, 'comments' => $comments]);
+    }   
+    public function videocall() {
+        return view('videocallhomepage');
+    }
     
 
     public function message() {
@@ -41,6 +57,10 @@ class HomeController extends Controller
 
     public function chatbot() {
         return view('chatbotMain');
+    }
+
+    public function messageOption() {
+        return view('messageOption');
     }
 
     public function appointment() {
@@ -66,8 +86,13 @@ class HomeController extends Controller
     
     public function adminHome()
     {
+        return view('admindashboard');
+    }
+
+    public function adminWall()
+    {
         $posts = Post::all();
-        return view('admindashboard', ['posts' => $posts]);
+        return view('adminwall', ['posts' => $posts]);
     }
 
     public function adminappointment()

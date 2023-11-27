@@ -26,34 +26,46 @@
                 <div class="flex flex-col gap-y-24 items-start">
                     <a href="/admindashboard">
                         <div class="flex gap-2 items-center">
-                            <span class="material-symbols-outlined text-accent">
-                                feed
-                            </span>
-                            <p class="text-accent">Feed</p>
+                            <i class="fa-solid fa-house fa-sm text-accent"></i>
+                            <p class="text-accent">Home</p>
+                        </div>
+                    </a>
+                    <a href="/adminwall">
+                        <div class="flex gap-2 items-center">
+                            <i class="fa-solid fa-newspaper fa-sm text-accent"></i>
+                            <p class="text-accent">Freedom Wall</p>
                         </div>
                     </a>
                     <a href="/adminappointment">
                         <div class="flex gap-2 items-center">
-                            <span class="material-symbols-outlined text-white">
-                                calendar_month
-                            </span>
-                            <p class="text-white">Appointment</p>
+                            <i class="fa-solid fa-calendar-check fa-sm text-accent"></i>
+                            <p class="text-accent">Appointment</p>
                         </div>
                     </a>
                     <a href="/adminmessage">
                         <div class="flex gap-2 items-center">
-                            <span class="material-symbols-outlined text-white">
-                                forum
-                            </span>
-                            <p class="text-white">Message</p>
+                            <i class="fa-solid fa-envelope fa-sm text-accent"></i>
+                            <p class="text-accent">Message</p>
                         </div>
                     </a>
                     <a href="/adminresources">
                         <div class="flex gap-2 items-center">
-                            <span class="material-symbols-outlined text-white">
-                                cloud_download
-                            </span>
-                            <p class="text-white">Resources</p>
+                            <i class="fa-solid fa-download fa-sm text-accent"></i>
+                            <p class="text-accent">Resources</p>
+                        </div>
+                    </a>
+
+                    <a href="/videocall">
+                        <div class="flex gap-2 items-center">
+                            <i class="fa-solid fa-download fa-sm text-accent"></i>
+                            <p class="text-accent">Video Call</p>
+                        </div>
+                    </a>
+
+                    <a href="/acceptregisters">
+                        <div class="flex gap-2 items-center">
+                            <i class="fa-solid fa-download fa-sm text-accent"></i>
+                            <p class="text-accent">Accept</p>
                         </div>
                     </a>
 

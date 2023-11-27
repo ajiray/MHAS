@@ -18,6 +18,7 @@ export default {
         dark: '#5c211d',
         adminPrimary: '#153243',
         adminSecondary: '#F4F9E9',
+        cream: "#dcd4be",
       },
       screens: {
         'mobileS': '320px',

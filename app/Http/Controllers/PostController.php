@@ -6,31 +6,62 @@ use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class PostController extends Controller
 {
 
-    public function deletePost(Post $post) {
-        // Delete related reactions first
-        $post->reactions()->delete();
-        
-        $post->comments()->delete();
-        // Now delete the post
-        $post->delete();
+    public function deletePost(Post $post)
+{
+    // Delete related reactions first
+    $post->reactions()->delete();
     
-        return redirect('/dashboard')->with('delete', 'Success! Your post has been deleted');
-    }
+    $post->comments()->delete();
     
-    public function createPost(Request $request) {
-        $incomingFields = $request->validate([
-            'body' => 'required|max:200'
-        ]); 
+    // Now delete the post
+    $post->delete();
+    return redirect('/wall')->with('delete', 'Success! Your post has been deleted');
+     
+}
+public function deletePostProfile(Post $post)
+{
+    // Delete related reactions first
+    $post->reactions()->delete();
+    
+    $post->comments()->delete();
+    
+    // Now delete the post
+    $post->delete();
+    return redirect('/profile')->with('delete', 'Success! Your post has been deleted');
+     
+}
 
-        $incomingFields['body'] = strip_tags($incomingFields['body']);
-        $incomingFields['user_id'] = auth()->id();
-        Post::create($incomingFields);
-        return redirect('/dashboard')->with('success', 'Success! Your post has been published');
+
+    
+public function createPost(Request $request)
+{
+    $incomingFields = $request->validate([
+        'body' => 'required|max:200'
+    ]);
+
+    $incomingFields['body'] = strip_tags($incomingFields['body']);
+    $incomingFields['user_id'] = auth()->id();
+
+    // Check if the "anonymous" checkbox is selected
+    $isAnonymous = $request->has('anonymous');
+    $incomingFields['anonymous'] = $isAnonymous;
+
+    Post::create($incomingFields);
+
+    // Redirect to the appropriate page based on whether the post is anonymous or not
+    if ($isAnonymous) {
+        return redirect('/wall')->with('success', 'Success! Your anonymous post has been published');
+    } else {
+        return redirect('/wall')->with('success', 'Success! Your post has been published');
     }
+
+}
+
 
     public function createPostAdmin(Request $request) {
         $incomingFields = $request->validate([
@@ -40,7 +71,7 @@ class PostController extends Controller
         $incomingFields['body'] = strip_tags($incomingFields['body']);
         $incomingFields['user_id'] = auth()->id();
         Post::create($incomingFields);
-        return redirect('/admindashboard')->with('success', 'Success! Your post has been published');
+        return redirect('/adminwall')->with('success', 'Success! Your post has been published');
     }
 
     public function deletePostAdmin(Post $post) {
@@ -48,7 +79,7 @@ class PostController extends Controller
         $post->comments()->delete();
         $post->delete();
     
-    return redirect('/admindashboard')->with('delete', 'Success! The post has been deleted');
+    return redirect('/adminwall')->with('delete', 'Success! The post has been deleted');
 }
 
 public function heartReact(Post $post) {

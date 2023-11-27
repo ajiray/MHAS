@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\AcceptedAppointment;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AppointmentAcceptedMail;
 
 
 
@@ -85,6 +87,7 @@ public function acceptAppointment(Appointment $appointment) {
     $appointment->update(['status' => 'approved']);
     $appointment->save();
 
+    Mail::to($appointment->user->email)->send(new AppointmentAcceptedMail($appointment->user, $appointment));
     // Store the accepted appointment in the 'accepted_appointments' table
     $acceptedAppointment = new AcceptedAppointment;
     $acceptedAppointment->user_id = $appointment->user_id;

@@ -36,10 +36,10 @@
     </script>
 
 
-    <div class="flex justify-center items-center h-full relative">
+    <div class="flex justify-center items-center h-full relative ">
 
         <div
-            class="flex flex-col md:flex-row sm:space-x-0 md:space-x-10 lg:space-x-10 w-full justify-center items-center bg-red-200 sm:bg-green-200 md:bg-amber-200 lg:bg-slate-200 h-full pb-10 pt-10">
+            class="flex flex-col md:flex-row sm:space-x-0 md:space-x-10 lg:space-x-10 w-full justify-center items-center h-full pb-10 pt-10">
             <!-- Alert Message -->
             <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center">
                 @if (session()->has('success'))

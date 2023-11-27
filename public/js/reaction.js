@@ -1,5 +1,7 @@
 var csrfToken = document.documentElement.dataset.csrf;
 
+
+
 function confirmDeletePost(postId) {
     if (confirm('Are you sure you want to delete this post?')) {
         document.getElementById('delete-form-' + postId).submit();
@@ -63,7 +65,7 @@ function react(postId, reactionType, color, button) {
             _token: csrfToken
         },
         success: function(response) {
-           
+            updateReactionCount(postId, reactionType);
         },
         error: function(error) {
             // Handle any errors here (if needed)
@@ -72,7 +74,7 @@ function react(postId, reactionType, color, button) {
             $(button).toggleClass(`text-${color} text-gray-500`);
         },
     });
-    updateReactionCount(postId, reactionType);
+    
 }
 
 function submitComment(postId, form) {

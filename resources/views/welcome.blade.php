@@ -10,6 +10,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating-element {
+            animation: float 2s ease-in-out infinite;
+        }
+    </style>
 </head>
 
 <body class="overflow-x-hidden">
@@ -81,7 +102,7 @@
     <section class="relative">
         <div class="container flex flex-col-reverse lg:flex-row items-center gap-12 mt-14 lg:mt-28">
             <!-- Content -->
-            <div class="flex flex-1 flex-col items-center lg:items-start">
+            <div class="flex flex-1 flex-col items-center lg:items-start floating-element" data-aos="zoom-in">
                 <h2 class="text-maroon text-3xl md:text-4 lg:text-5xl text-center lg:text-left mb-6">
                     MindScape
                 </h2>
@@ -95,7 +116,7 @@
                 </div>
             </div>
             <!-- Image -->
-            <div class="flex justify-center flex-1 mb-10 md:mb-16 lg:mb-0 z-10">
+            <div class="flex justify-center flex-1 mb-10 md:mb-16 lg:mb-0 z-10" data-aos="fade-left">
                 <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-[1300px] md:h-full rounded-md" src="./images/mental.png"
                     alt="">
             </div>
@@ -120,12 +141,12 @@
         <div class="relative mt-20 lg:mt-24">
             <div class="container flex flex-col lg:flex-row items-center justify-center gap-x-24">
                 <!-- Image -->
-                <div class="flex flex-1 justify-center z-10 mb-10- lg:mb-0">
+                <div class="flex flex-1 justify-center z-10 mb-10- lg:mb-0" data-aos="fade-right">
                     <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-[1300px] md:h-full rounded-md"
                         src="./images/videocall.jpg" alt="">
                 </div>
                 <!-- Content -->
-                <div class="flex flex-1 flex-col items-center lg:items-start">
+                <div class="flex flex-1 flex-col items-center lg:items-start floating-element">
                     <h1 class="text-3xl text-maroon">Video Call</h1>
                     <p class="text-black my-4 text-center lg:text-left sm:w-3/4 lg:w-full">
                         Have a one on one session with the schools psychologist/counselor to help you with your mental
@@ -142,12 +163,12 @@
         <div class="relative mt-20 lg:mt-52">
             <div class="container flex flex-col lg:flex-row-reverse items-center justify-center gap-x-24">
                 <!-- Image -->
-                <div class="flex flex-1 justify-center z-10 mb-10- lg:mb-0">
+                <div class="flex flex-1 justify-center z-10 mb-10- lg:mb-0" data-aos="fade-left">
                     <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-[1300px] md:h-full rounded-md"
                         src="./images/appointment.jpg" alt="">
                 </div>
                 <!-- Content -->
-                <div class="flex flex-1 flex-col items-center lg:items-start">
+                <div class="flex flex-1 flex-col items-center lg:items-start floating-element">
                     <h1 class="text-3xl text-maroon">Book Appointments</h1>
                     <p class="text-black my-4 text-center lg:text-left sm:w-3/4 lg:w-full">
                         Easily book an appointment with the available psychologist/counselor.
@@ -163,12 +184,12 @@
         <div class="relative mt-20 lg:mt-52">
             <div class="container flex flex-col lg:flex-row items-center justify-center gap-x-24">
                 <!-- Image -->
-                <div class="flex flex-1 justify-center z-10 mb-10- lg:mb-0">
+                <div class="flex flex-1 justify-center z-10 mb-10- lg:mb-0" data-aos="fade-right">
                     <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-[1300px] md:h-full rounded-md"
                         src="./images/chatbot.jpg" alt="">
                 </div>
                 <!-- Content -->
-                <div class="flex flex-1 flex-col items-center lg:items-start">
+                <div class="flex flex-1 flex-col items-center lg:items-start floating-element">
                     <h1 class="text-3xl text-maroon">AI Chatbot</h1>
                     <p class="text-black my-4 text-center lg:text-left sm:w-3/4 lg:w-full">
                         If the psychologist/counselor is not available, you can ask our AI Chatbot about concerns in
@@ -179,6 +200,71 @@
             <!-- Rounded Rectangle -->
             <div
                 class="hidden lg:block overflow:hidden bg-maroon rounded-r-full absolute h-80 w-2/4  -bottom-24 -left-36">
+            </div>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="relative mt-20 lg:mt-52">
+            <div class="container flex flex-col lg:flex-row-reverse items-center justify-center gap-x-24">
+                <!-- Image -->
+                <div class="flex flex-1 justify-center z-10 mb-10- lg:mb-0" data-aos="fade-left">
+                    <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-[1300px] md:h-full rounded-md"
+                        src="./images/live.png" alt="">
+                </div>
+                <!-- Content -->
+                <div class="flex flex-1 flex-col items-center lg:items-start floating-element">
+                    <h1 class="text-3xl text-maroon">Live Messaging</h1>
+                    <p class="text-black my-4 text-center lg:text-left sm:w-3/4 lg:w-full">
+                        Easily send and receive messages with users in the system.
+                    </p>
+                </div>
+            </div>
+            <!-- Rounded Rectangle -->
+            <div
+                class="hidden lg:block overflow:hidden bg-maroon rounded-l-full absolute h-80 w-2/4  -bottom-24 -right-36">
+            </div>
+        </div>
+        <!-- Feature 5 -->
+        <div class="relative mt-20 lg:mt-52">
+            <div class="container flex flex-col lg:flex-row items-center justify-center gap-x-24">
+                <!-- Image -->
+                <div class="flex flex-1 justify-center z-10 mb-10- lg:mb-0" data-aos="fade-right">
+                    <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-[1300px] md:h-full rounded-md"
+                        src="./images/freedom.jpg" alt="">
+                </div>
+                <!-- Content -->
+                <div class="flex flex-1 flex-col items-center lg:items-start floating-element">
+                    <h1 class="text-3xl text-maroon">Freedom Wall</h1>
+                    <p class="text-black my-4 text-center lg:text-left sm:w-3/4 lg:w-full">
+                        Students have the freedom to post anything on their minds, with an option to post it
+                        anonymously.
+                    </p>
+                </div>
+            </div>
+            <!-- Rounded Rectangle -->
+            <div
+                class="hidden lg:block overflow:hidden bg-maroon rounded-r-full absolute h-80 w-2/4  -bottom-24 -left-36">
+            </div>
+        </div>
+        <!-- Feature 6 -->
+        <div class="relative mt-20 lg:mt-52">
+            <div class="container flex flex-col lg:flex-row-reverse items-center justify-center gap-x-24">
+                <!-- Image -->
+                <div class="flex flex-1 justify-center z-10 mb-10- lg:mb-0" data-aos="fade-left">
+                    <img class="w-5/6 h-5/6 sm:w-3/4 sm:h-3/4 md:w-[1300px] md:h-full rounded-md"
+                        src="./images/resources.png" alt="">
+                </div>
+                <!-- Content -->
+                <div class="flex flex-1 flex-col items-center lg:items-start floating-element">
+                    <h1 class="text-3xl text-maroon">Mental Health Resources</h1>
+                    <p class="text-black my-4 text-center lg:text-left sm:w-3/4 lg:w-full">
+                        Browse through different resources about mental health.
+                    </p>
+                </div>
+            </div>
+            <!-- Rounded Rectangle -->
+            <div
+                class="hidden lg:block overflow:hidden bg-maroon rounded-l-full absolute h-80 w-2/4  -bottom-24 -right-36">
             </div>
         </div>
     </section>
@@ -227,5 +313,16 @@
         </div>
     </footer>
 </body>
+
+<script>
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        useClassNames: true,
+        initClassName: false,
+        animatedClassName: 'animated',
+        selector: '*[data-aos]',
+    });
+</script>
 
 </html>

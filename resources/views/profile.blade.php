@@ -17,7 +17,111 @@
                 }
             }
         </script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap" rel="stylesheet">
     </head>
+    <style>
+  .card .small {
+    font-size: 20px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .card p{
+   font-size: 12px;
+  }
+  .go-corner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    top: 0;
+    right: 0;
+    background-color: #E2A3A3;
+    border-radius: 0 4px 0 32px;
+  }
+  
+  .card1 {
+    display: block;
+    position: relative;
+    max-width: 700px;
+    background-color: #f2f8f9;
+    border-radius: 20px;
+    padding: 50px 24px;
+    margin: 12px;
+    text-decoration: none;
+    z-index: 0;
+    overflow: hidden;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  
+  .card1:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -16px;
+    right: -16px;
+    background: #E2A3A3;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    transform: scale(1);
+    transform-origin:center;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .card1:hover:before {
+    transform: scale(50);
+  }
+  
+  .card1:hover p {
+    transition: all 0.3s ease-out;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .card1:hover h3 {
+    transition: all 0.3s ease-out;
+    color: #fff;
+  }
+  .card1:hover h1 {
+    transition: all 0.3s ease-out;
+    color: #fff;
+  }
+  .card1:hover button{
+    transition: all 0.3s ease-out;
+    color: #fff;
+}
+.card1:hover .small {
+    transition: all 0.3s ease-out;
+    color: #fff;
+  }
+  .card1 .small {
+    margin-left:50px;
+  }
+  .card {
+    animation: floating 2s ease-in-out infinite; /* Adjust the duration and timing function as needed */
+
+  }
+  @keyframes floating {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+#h11{
+    font-family: 'Kanit', sans-serif;
+
+}
+        </style>
 
     <body>
         <section class="relative">
@@ -39,7 +143,7 @@
                 </div>
 
                 <div
-                    class="absolute flex items-center justify-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-[410px] text-xl md:text-2xl font-bold">
+                    id="h11" class="absolute flex items-center justify-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-[410px] text-xl md:text-3xl font-bold">
                     {{ Auth::user()->name }}
                 </div>
                 <!-- Change Photo Button -->
@@ -51,64 +155,50 @@
                                 photo</button></a>
                     </div>
                 </div>
-                <!-- Second Red Div -->
-
-                <div
-                    class="w-80 md:w-180 border-2 border-black h-96 md:h-auto rounded-2xl absolute mt-[700px] md:mt-[700px] items-center justify-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div class="flex">
-                        <h1 class="text-3xl font-bold px-4">About Me</h1>
-                        <a href="{{ url('/editaboutme') }}" class="underline decoration-1 px-4 ml-[60px] text-xl">Edit</a>
-                    </div>
-                    <div class="px-6 text-center text-black text-2xl">
-                        <h1>{{ Auth::user()->aboutme }}</h1>
-                    </div>
-                </div>
             </div>
         </section>
-        <section class="relative mt-[1000px] mx-auto">
-            <h1 class="text-center text-4xl font-bold ">Posts</h1>
+        <section class="relative mt-[500px] mx-auto">
+            <h1 id="h11" class="text-center text-4xl font-bold">Posts</h1>
             @foreach ($posts->sortByDesc('id') as $post)
-                <div
-                    class="w-180 h-70 mt-3 flex flex-col rounded-tl-3xl rounded-tr-3xl rounded-br-3xl rounded-bl-3xl border-2 border-black sm:mt-7 sm:ml-10 desktop:mt-7 desktop:ml-10">
+                
                     <!-- Author info -->
-                    <div class="flex justify-between items-center space-x-2 mt-3 ml-3 mr-3">
-                        <div class="flex items-center space-x-2">
+                    <div class="card">
+                        <div class="card1">
+                            <div class="flex items-center space-x-2">
+                                @if($post->anonymous)
+                            <h1 class="text-lg font-semibold text-blue-500">Anonymous User</h1>
+                        @else
                             <img src="{{ asset('images/' . $post->user->avatar) }}" width="40" height="40"
-                                alt="author profile" class="rounded-full border-2 border-blue-500">
-                            <h1>{{ $post->user->name }}</h1>
-                            <p class="text-gray-500 text-sm">created at {{ $post->created_at->format('M d, Y \a\t H:i A') }}
-                            </p>
-                        </div>
-                        <div class="flex items-center space-x-2">
+                                alt="author profile" class="rounded-full">
+                            <h1 class="text-lg font-semibold text-blue-500">{{ $post->user->name }}</h1>
+                        @endif
+                                <p class="text-gray-500">created at {{ $post->created_at->format('M d, Y \a\t H:i A') }}
+                                </p>
+                            </div>
+                          <div class="flex absolute items-center space-x-2 ml-[450px] mt-[-30px] md:ml-[600px]">
                             @auth
-                                @if (auth()->user()->id === $post->user->id)
-                                    <button onclick="confirmDeletePost('{{ $post->id }}')"
-                                        class="material-symbols-outlined text-red-600">
-                                        delete
-                                    </button>
-                                    <form id="delete-form-{{ $post->id }}"
-                                        action="/delete-post-profile/{{ $post->id }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                @endif
-                            @endauth
+                            @if (auth()->user()->id === $post->user->id)
+                                <button onclick="confirmDeletePost('{{ $post->id }}')"
+                                    class="material-symbols-outlined text-red-600">
+                                    Delete
+                                </button>
+                                <form id="delete-form-{{ $post->id }}" action="/delete-post-profile/{{ $post->id }}"
+                                    method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            @endif
+                        @endauth
                         </div>
-                    </div>
-                    <!-- Caption -->
-                    <div class="mt-[40px] h-[100px] flex items-center">
-                        <p class="text-center text-sm break-words w-full p-5 mt-5 ">
-                            {{ $post->body }}
-                        </p>
-                    </div>
-                </div>
+                        <div class="small">
+                                {{ $post->body }}
+                        </div>
+                         <div class="go-corner">
+                         </div>
+                       </div>
+                     </div>
+                     
             @endforeach
-            <div
-                class="w-180 h-70 mt-3 flex flex-col rounded-tl-3xl rounded-tr-3xl rounded-br-3xl rounded-bl-3xl border-2 border-black sm:mt-7 sm:ml-10 desktop:mt-7 desktop:ml-10">
-                <h1 class="text-center text-4xl text-customRed">No more Posts!</h1>
-            </div>
-            </div>
         </section>
     </body>
 

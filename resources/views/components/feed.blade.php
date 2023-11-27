@@ -10,15 +10,21 @@
 
 <body>
 
+
     @foreach ($posts->sortByDesc('id') as $post)
         <div class="relative mt-20 desktop:ml-10">
             <div class="w-80 h-72 flex flex-col rounded-lg border-2 border-gray-300 shadow-md bg-white">
                 <!-- Author info -->
                 <div class="flex justify-between items-center space-x-2 mt-3 ml-3 mr-3 border-b-2 border-black pb-3">
                     <div class="flex items-center space-x-2">
-                        <img src="{{ asset('images/' . $post->user->avatar) }}" width="40" height="40"
-                            alt="author profile" class="rounded-full">
-                        <h1 class="text-lg font-semibold text-blue-500">{{ $post->user->name }}</h1>
+
+                        @if ($post->anonymous)
+                            <span class="text-lg font-semibold text-blue-500">Anonymous User</span>
+                        @else
+                            <img src="{{ asset('images/' . $post->user->avatar) }}" width="40" height="40"
+                                alt="author profile" class="rounded-full">
+                            <h1 class="text-lg font-semibold text-blue-500">{{ $post->user->name }}</h1>
+                        @endif
                     </div>
                     <div class="flex items-center space-x-2">
                         @auth
