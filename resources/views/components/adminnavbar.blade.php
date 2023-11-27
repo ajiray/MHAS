@@ -57,7 +57,7 @@
 
                     <a href="/videocall">
                         <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-download fa-sm text-accent"></i>
+                            <i class="fa-solid fa-video fa-sm text-accent"></i>
                             <p class="text-accent">Video Call</p>
                         </div>
                     </a>

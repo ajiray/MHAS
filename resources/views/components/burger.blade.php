@@ -24,7 +24,7 @@
             Close
         </button>
 
-        <div class="flex flex-col gap-y-16 text-2xl md:text-3xl md:gap-y-20">
+        <div class="flex flex-col gap-y-16 text-md md:text-3xl md:gap-y-20">
             <a href="/dashboard">
                 <div class="flex gap-2 items-center">
                     <i class="fa-solid fa-house fa-l text-maroon"></i>
@@ -66,7 +66,7 @@
 
             <a href="/videocall">
                 <div class="flex gap-2 items-center">
-                    <i class="fa-solid fa-envelope fa-l text-maroon"></i>
+                    <i class="fa-solid fa-video fa-l text-maroon"></i>
                     <p class="text-maroon">Video Call</p>
                 </div>
             </a>

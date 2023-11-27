@@ -2,7 +2,7 @@
 
 @section('content')
     <div
-        class="h-full w-full bg-gradient-to-b from-slate-200 via-slate-100 to-slate-300 flex flex-col justify-center space-y-10 items-center xl:space-y-0 xl:flex-row xl:justify-center xl:items-center xl:space-x-40 overflow-hidden">
+        class="h-full w-full bg-gradient-to-b from-slate-200 via-slate-100 to-slate-300 flex flex-col justify-center space-y-10 items-center xl:space-y-0 xl:flex-row xl:justify-center xl:items-center xl:space-x-28 overflow-hidden">
         <a href="/chatbot"
             class="bg-gradient-to-b from-teal-700 to-emerald-600 p-8 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:scale-105 w-[80%] xl:w-[40%] xl:h-[50%] flex justify-center items-center animate__animated animate__backInLeft">
             <div class="flex flex-col items-center">

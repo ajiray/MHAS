@@ -111,8 +111,10 @@
                     Las Pinas Campus
                 </p>
                 <div class="flex justify-center flex-wrap gap-6">
-                    <button type="button" class="btn btn-Red hover:bg-blue hover:text-white">Facebook</button>
-                    <button type="button" class="btn btn-yellow hover:bg-ig hover:text-white">Instagram</button>
+                    <button type="button"
+                        class="font-semibold bg-maroon text-white rounded-md px-7 py-3 uppercase hover:text-white">Facebook</button>
+                    <button type="button"
+                        class="font-semibold bg-maroon text-white rounded-md px-7 py-3 uppercase hover:text-white">Instagram</button>
                 </div>
             </div>
             <!-- Image -->
