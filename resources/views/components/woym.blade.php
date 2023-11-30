@@ -29,7 +29,7 @@
                         Close
                     </button>
                     <button onclick="postAnonymously()"
-                        class="py-2 px-4 bg-yellow hover:bg-amber-300 text-maroon font-semibold rounded-full ">POST
+                        class="py-2 px-4 bg-yellow hover:bg-amber-300 text-maroon font-semibold rounded-full">POST
                         ANONYMOUSLY</button>
                     <button onclick="postNormally()"
                         class="py-2 px-4 bg-yellow hover:bg-amber-300 text-maroon font-semibold rounded-full">POST

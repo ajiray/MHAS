@@ -11,19 +11,28 @@
 <body>
 
 
-    @foreach ($posts->sortByDesc('id') as $post)
+    @foreach ($posts->sortByDesc(function ($post) {
+        return [$post->announcement, $post->id];
+    }) as $post)
         <div class="relative mt-20 xl:ml-10">
-            <div class="w-80 h-72 flex flex-col rounded-lg border-2 border-gray-300 shadow-md bg-white">
+            <div class="w-80 h-72 flex flex-col rounded-lg border-2 border-gray-300 shadow-md">
                 <!-- Author info -->
                 <div class="flex justify-between items-center space-x-2 mt-3 ml-3 mr-3 border-b-2 border-black pb-3">
-                    <div class="flex items-center space-x-2">
+                    <div
+                        class="flex items-center space-x-2 @if ($post->announcement) w-full justify-center @endif">
 
                         @if ($post->anonymous)
-                            <span class="text-lg font-semibold text-blue-500">Anonymous User</span>
+                            <img src="{{ asset('images/defaultuser.png') }}" width="40" height="40"
+                                alt="author profile" class="rounded-full">
+                            <span class="text-lg font-semibold text-gray-700">Anonymous User</span>
+                        @elseif ($post->announcement)
+                            <i class="fa-solid fa-bullhorn fa-flip-horizontal fa-lg text-gray-700"></i>
+                            <span class="text-lg text-gray-700 font-semibold">ANNOUNCEMENT</span>
+                            <i class="fa-solid fa-bullhorn fa-lg text-gray-700"></i>
                         @else
                             <img src="{{ asset('images/' . $post->user->avatar) }}" width="40" height="40"
                                 alt="author profile" class="rounded-full">
-                            <h1 class="text-lg font-semibold text-blue-500">{{ $post->user->name }}</h1>
+                            <h1 class="text-lg font-semibold text-gray-700">{{ $post->user->name }}</h1>
                         @endif
                     </div>
                     <div class="flex items-center space-x-2">
@@ -50,7 +59,7 @@
                 </div>
 
                 <!-- Reaction Section -->
-                <div class="absolute bottom-0 bg-gray-100 w-[317px] p-1 rounded-bl-lg rounded-br-lg">
+                <div class="absolute bottom-0 bg-gray-100 w-[316.1px] p-1 rounded-bl-lg rounded-br-lg">
                     <div class="flex space-x-36 items-center">
                         <div class="flex space-x-5 items-center">
                             @php

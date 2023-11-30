@@ -91,6 +91,8 @@ Route::patch('/accept-appointment/{appointment}', [AppointmentController::class,
 Route::patch('/decline-appointment/{appointment}', [AppointmentController::class, 'declineAppointment']);
 Route::delete('/markAsDone/{appointment}', [AppointmentController::class, 'markAsDone'])->name('markAsDone');
 Route::patch('/assign-counselor/{appointment}', [AppointmentController::class, 'assignCounselor']);
+Route::delete('/resched/{acceptedAppointment}', [AppointmentController::class, 'resched']);
+
 
 
 

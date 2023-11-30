@@ -10,8 +10,7 @@ use App\Models\AcceptedAppointment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AppointmentAcceptedMail;
-
-
+use App\Mail\RescheduleNotification;
 
 class AppointmentController extends Controller
 {
@@ -132,5 +131,32 @@ public function assignCounselor(Request $request, Appointment $appointment) {
     ]);
 
     return redirect()->back()->with('success', 'Counselor assigned successfully.');
+}
+
+public function resched(Appointment $acceptedAppointment)
+{
+    // Get the associated appointment ID
+    $appointmentId = $acceptedAppointment->id;
+
+    $appointment = Appointment::findOrFail($appointmentId);
+    $studentId = $appointment->user_id;
+
+    $chatifyUrl = "/chatify/{$studentId}";
+    
+    // Delete the record from the 'accepted_appointments' table
+    AcceptedAppointment::where('appointment_id', $appointmentId)->delete();
+
+    // Delete the record from the 'appointments' table
+    Appointment::where('id', $appointmentId)->delete();
+
+   
+   
+    // Send an email to the student
+    $studentEmail = $acceptedAppointment->user->email;
+
+    Mail::to($studentEmail)->send(new RescheduleNotification($acceptedAppointment->user, $acceptedAppointment));
+
+    // Redirect or respond as needed
+    return redirect($chatifyUrl);
 }
 }

@@ -51,8 +51,10 @@
         class="bg-maroon flex justify-between items-center xl:flex-col xl:w-[250px] xl:bg-maroon xl:rounded-tl-[50px] xl:rounded-bl-[50px] xl:shadow-menu">
 
         <!-- Logo (xl) -->
-        <img src="./images/logo_mobile.svg" width="150" height="100" alt="logo"
-            class="mt-10 m-auto hidden xl:block" />
+        <div class="mt-10 text-center xl:flex flex-col hidden">
+            <span class="text-white text-4xl font-bold" style="text-shadow: 0 0 10px #ffffff;">Mind</span>
+            <span class="text-yellow text-4xl font-bold" style="text-shadow: 0 0 10px #ecb222;">Scape</span>
+        </div>
 
         <!-- xl Menu -->
         <div class="hidden xl:block justify-center items-center h-full w-full">

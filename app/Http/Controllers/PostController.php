@@ -61,6 +61,7 @@ public function createPost(Request $request)
     // Check if the "anonymous" checkbox is selected
     $isAnonymous = $request->has('anonymous');
     $incomingFields['anonymous'] = $isAnonymous;
+    
 
     Post::create($incomingFields);
 
@@ -74,24 +75,70 @@ public function createPost(Request $request)
 }
 
 
-    public function createPostAdmin(Request $request) {
-        $incomingFields = $request->validate([
-            'body' => 'required|max:200'
-        ]); 
+public function createPostAdmin(Request $request) {
+    $incomingFields = $request->validate([
+        'body' => 'required|max:200'
+    ]); 
 
-        $incomingFields['body'] = strip_tags($incomingFields['body']);
-        $incomingFields['user_id'] = auth()->id();
-        Post::create($incomingFields);
-        return redirect('/adminwall')->with('success', 'Success! Your post has been published');
+    $profanityWords = ['bobo', 'tanga', 'patay', 'fuck','inutil', 'nigga', 'puta', 'tangina', 'gago','mamatay', 'suicide', 'Putang ina mo', 'Walang hiya', 'Tae', 'Punyeta', 'Pakshet', 'Bwisit', 'Leche', 'Hayop', 'Lintik', 'Tarantado', 'kantot', 'pokpok', 'slut', 'motherfucker', 'vovo', 'wtf', 'panget', 'Hayup'];
+
+    foreach ($profanityWords as $word) {
+        if (stripos($incomingFields['body'], $word) !== false) {
+
+            $redirectPath = '/adminwall'; // Default redirect path for non-admin users
+
+    // Check if the user is an admin (is_admin == 1)
+    if (auth()->user()->is_admin == 1) {
+        $redirectPath = '/adminwall';
+    } elseif (auth()->user()->is_admin == 2) {
+        // Check if the user is a guidance admin (assuming is_admin == 2 for guidance admin)
+        $redirectPath = '/guidancewall';
+    }
+            
+            return redirect($redirectPath)->with('profanity', 'Your post contains inappropriate content.');
+    
+        }
     }
 
-    public function deletePostAdmin(Post $post) {
-        $post->reactions()->delete();
-        $post->comments()->delete();
-        $post->delete();
-    
-    return redirect('/adminwall')->with('delete', 'Success! The post has been deleted');
+    $incomingFields['body'] = strip_tags($incomingFields['body']);
+    $incomingFields['user_id'] = auth()->id();
+
+    // Check if the announcement checkbox is checked
+    $incomingFields['announcement'] = $request->has('announcement');
+
+    Post::create($incomingFields);
+
+    $redirectPath = '/adminwall'; // Default redirect path for non-admin users
+
+    // Check if the user is an admin (is_admin == 1)
+    if (auth()->user()->is_admin == 1) {
+        $redirectPath = '/adminwall';
+    } elseif (auth()->user()->is_admin == 2) {
+        // Check if the user is a guidance admin (assuming is_admin == 2 for guidance admin)
+        $redirectPath = '/guidancewall';
+    }
+
+    return redirect($redirectPath)->with('success', 'Success! Your post has been published');
 }
+
+public function deletePostAdmin(Post $post) {
+    $post->reactions()->delete();
+    $post->comments()->delete();
+    $post->delete();
+
+    $redirectPath = '/adminwall'; // Default redirect path for non-admin users
+
+    // Check if the user is an admin (is_admin == 1)
+    if (auth()->user()->is_admin == 1) {
+        $redirectPath = '/adminwall';
+    } elseif (auth()->user()->is_admin == 2) {
+        // Check if the user is a guidance admin (assuming is_admin == 2 for guidance admin)
+        $redirectPath = '/guidancewall';
+    }
+
+    return redirect($redirectPath)->with('delete', 'Success! The post has been deleted');
+}
+
 
 public function heartReact(Post $post) {
     $user = auth()->user();

@@ -11,15 +11,26 @@
 
 <body>
 
-    @foreach ($posts->sortByDesc('id') as $post)
+    @foreach ($posts->sortByDesc(function ($post) {
+        return [$post->announcement, $post->id];
+    }) as $post)
         <div class="relative mt-20 xl:ml-10">
-            <div class="w-80 h-72 flex flex-col rounded-lg border-2 border-gray-300 shadow-md bg-white">
+            <div class="w-80 h-72 flex flex-col rounded-lg border-2 border-gray-300 shadow-md">
                 <!-- Author info -->
                 <div class="flex justify-between items-center space-x-2 mt-3 ml-3 mr-3 border-b-2 border-black pb-3">
                     <div class="flex items-center space-x-2">
-                        <img src="{{ asset('images/' . $post->user->avatar) }}" width="40" height="40"
-                            alt="author profile" class="rounded-full">
-                        <h1 class="text-lg font-semibold text-blue-500">{{ $post->user->name }}</h1>
+
+                        @if ($post->anonymous)
+                            <img src="{{ asset('images/defaultuser.png') }}" width="40" height="40"
+                                alt="author profile" class="rounded-full">
+                            <span class="text-lg font-semibold text-gray-700">Anonymous User</span>
+                        @elseif ($post->announcement)
+                            <span class="text-xl text-gray-700 font-semibold">ANNOUNCEMENT</span>
+                        @else
+                            <img src="{{ asset('images/' . $post->user->avatar) }}" width="40" height="40"
+                                alt="author profile" class="rounded-full">
+                            <h1 class="text-lg font-semibold text-gray-700">{{ $post->user->name }}</h1>
+                        @endif
                     </div>
                     <div class="flex items-center space-x-2">
 
