@@ -10,65 +10,115 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+    <style>
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .active p {
+            display: none;
+        }
+
+        .active i {
+            font-size: 2em;
+            animation: float 2s ease-in-out infinite;
+            box-shadow: 0 40px 15px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(to top right, #e6e6e6, #ecb222);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .active {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+    </style>
 </head>
 
 <body>
     <nav
-        class="bg-maroon flex justify-between items-center desktop:flex-col desktop:w-[250px] desktop:bg-maroon desktop:rounded-tl-[50px] desktop:rounded-bl-[50px] desktop:shadow-menu">
+        class="bg-maroon flex justify-between items-center xl:flex-col xl:w-[250px] xl:bg-maroon xl:rounded-tl-[50px] xl:rounded-bl-[50px] xl:shadow-menu">
 
-        <!-- Logo (desktop) -->
+        <!-- Logo (xl) -->
         <img src="./images/logo_mobile.svg" width="150" height="100" alt="logo"
-            class="mt-10 m-auto hidden desktop:block" />
+            class="mt-10 m-auto hidden xl:block" />
 
-        <!-- Desktop Menu -->
-        <div class="hidden desktop:block justify-center items-center h-full">
+        <!-- xl Menu -->
+        <div class="hidden xl:block justify-center items-center h-full w-full">
             <div class="flex h-full items-center justify-center">
                 <div class="flex flex-col gap-y-16 items-start">
-                    <a href="/dashboard">
-                        <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-house fa-l text-accent"></i>
-                            <p class="text-accent">Home</p>
-                        </div>
-                    </a>
-                    <a href="/wall">
-                        <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-newspaper fa-l text-accent"></i>
-                            <p class="text-accent">Freedom Wall</p>
-                        </div>
-                    </a>
-                    <a href="/appointment">
-                        <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-calendar-check fa-l text-accent"></i>
-                            <p class="text-accent">Appointment</p>
-                        </div>
-                    </a>
+                    <div id="home" class="@if (request()->is('dashboard')) active @endif">
+                        <a href="/dashboard">
+                            <div class="flex gap-2 items-center">
+                                <i class="fa-solid fa-house fa-md text-accent"></i>
+                                <p class="text-accent text-sm">Home</p>
+                            </div>
+                        </a>
+                    </div>
 
-                    <a href="/messageOption">
-                        <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-envelope fa-l text-accent"></i>
-                            <p class="text-accent">Chat</p>
-                        </div>
-                    </a>
+                    <div id="wall" class="@if (request()->is('wall')) active @endif">
+                        <a href="/wall">
+                            <div class="flex gap-2 items-center">
+                                <i class="fa-solid fa-newspaper fa-md text-accent"></i>
+                                <p class="text-accent text-sm">FreedomWall</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div id="appointment" class="@if (request()->is('appointment')) active @endif">
+                        <a href="/appointment">
+                            <div class="flex gap-2 items-center">
+                                <i class="fa-solid fa-calendar-check fa-md text-accent"></i>
+                                <p class="text-accent text-sm">Appointment</p>
+                            </div>
+                        </a>
+                    </div>
 
-                    <a href="/profile">
-                        <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-id-card fa-l text-accent"></i>
-                            <p class="text-accent">Profile</p>
-                        </div>
-                    </a>
-                    <a href="/resources">
-                        <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-download fa-l text-accent"></i>
-                            <p class="text-accent">Resources</p>
-                        </div>
-                    </a>
+                    <div id="message" class="@if (request()->is('messageOption')) active @endif">
+                        <a href="/messageOption">
+                            <div class="flex gap-2 items-center">
+                                <i class="fa-solid fa-envelope fa-md text-accent"></i>
+                                <p class="text-accent text-sm">Chat</p>
+                            </div>
+                        </a>
+                    </div>
 
-                    <a href="/videocall">
-                        <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-video fa-l text-accent"></i>
-                            <p class="text-accent">Video Call</p>
-                        </div>
-                    </a>
+                    <div id="profile" class="@if (request()->is('profile')) active @endif">
+                        <a href="/profile">
+                            <div class="flex gap-2 items-center">
+                                <i class="fa-solid fa-id-card fa-md text-accent"></i>
+                                <p class="text-accent text-sm">Profile</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="resources" class="@if (request()->is('resources')) active @endif">
+                        <a href="/resources">
+                            <div class="flex gap-2 items-center">
+                                <i class="fa-solid fa-download fa-md text-accent"></i>
+                                <p class="text-accent text-sm">Resources</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div id="videocall" class="@if (request()->is('videocall')) active @endif">
+                        <a href="/videocall">
+                            <div class="flex gap-2 items-center">
+                                <i class="fa-solid fa-video fa-md text-accent"></i>
+                                <p class="text-accent text-sm">Video Call</p>
+                            </div>
+                        </a>
+                    </div>
 
 
                 </div>
@@ -78,7 +128,7 @@
 
         </div>
 
-        <div class="hidden desktop:block w-full">
+        <div class="hidden xl:block w-full">
             <button
                 class="text-lg text-maroon bg-yellow hover:bg-amber-300 px-4 py-2 transition duration-300 ease-in-out transform w-full font-bold rounded-bl-[50px] shadow-menu"
                 href="{{ route('logout') }}"
@@ -99,10 +149,10 @@
         <x-burger />
 
         <!-- Logo (mobile) -->
-        <img src="./images/logo_mobile.svg" width="150" height="100" alt="logo" class="desktop:hidden" />
+        <img src="./images/logo_mobile.svg" width="150" height="100" alt="logo" class="xl:hidden" />
 
         <!-- Settings Icon (mobile) -->
-        <i class="material-icons text-white mr-3 desktop:hidden" onclick="toggleSettings()"><span
+        <i class="material-icons text-white mr-3 xl:hidden" onclick="toggleSettings()"><span
                 class="material-symbols-outlined">
                 settings
             </span></i>

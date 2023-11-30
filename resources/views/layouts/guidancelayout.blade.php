@@ -23,13 +23,14 @@
 
 </head>
 
-<body class="overflow-x-hidden">
+<body>
 
-    <div class='h-full w-full xl:h-screen xl:w-screen flex flex-col xl:justify-center xl:flex-row xl:items-center'>
+    <div class='xl:h-screen xl:justify-center xl:flex xl:items-center'>
         <div class='xl:flex xl:w-[90%] xl:h-[90%] xl:rounded-tl-[50px] xl:rounded-bl-[50px] xl:shadow-lg'>
-            <x-navbar />
+            <x-guidancenavbar />
 
-            <div class="w-full h-full overflow-y-auto">
+            <div class="w-screen h-screen xl:h-full overflow-y-auto">
+
                 @yield('content')
             </div>
 

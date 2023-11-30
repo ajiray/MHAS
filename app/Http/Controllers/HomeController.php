@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Quote;
 use App\Models\Comment;
 use App\Models\Appointment;
+use App\Models\PendingUser;
 use Illuminate\Http\Request;
 use App\Models\AcceptedAppointment;
 use Illuminate\Support\Facades\Auth;
@@ -86,7 +88,8 @@ class HomeController extends Controller
     
     public function adminHome()
     {
-        return view('admindashboard');
+        $pendingUsers = PendingUser::all();
+        return view('admindashboard', compact('pendingUsers'));
     }
 
     public function adminWall()
@@ -107,13 +110,14 @@ class HomeController extends Controller
         return $acceptedAppointment->appointment->date . '' . $acceptedAppointment->appointment->time;
     });
 
+    $counselors = User::where('is_admin', 2)->get();
+
     return view('adminappointment', [
         'appointments' => $appointments,
         'acceptedAppointments' => $acceptedAppointments,
+        'counselors' => $counselors,
     ]);
 }
-
-    
 
     public function adminmessage()
     {
@@ -123,5 +127,52 @@ class HomeController extends Controller
     public function adminresources()
     {
         return view('adminresources');
+    }
+
+    public function registerGuidance(Request $request) {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'fullname' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:8',
+            'userType' => 'required|integer', // Assuming userType is an integer
+        ]);
+    
+        // Create a new user in the database
+        $user = User::create([
+            'name' => $validatedData['fullname'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
+            'is_admin' => $validatedData['userType'],
+        ]);
+    
+        $pendingUsers = PendingUser::all();
+        return view('admindashboard', compact('pendingUsers'))->with('success', 'User registered successfully!');
+    }
+
+    public function guidancedashboard() {
+        return view('guidancedashboard');
+    }
+
+    public function guidanceappointment() {
+        // Get the currently authenticated user (counselor)
+        $counselor = Auth::user();
+        
+        $acceptedAppointments = AcceptedAppointment::where('counselor_id', $counselor->id)
+        ->get()
+        ->sortBy(function ($acceptedAppointment) {
+            return $acceptedAppointment->appointment->date . '' . $acceptedAppointment->appointment->time;
+        });
+          
+        // Retrieve all appointments where counselor_id matches the logged-in counselor's ID
+        $appointments = Appointment::where('counselor_id', $counselor->id)->get();
+    
+        return view('guidanceappointment', ['appointments' => $appointments, 'acceptedAppointments' => $acceptedAppointments]);
+    }
+
+    public function guidancewall()
+    {
+        $posts = Post::all();
+        return view('guidancewall', ['posts' => $posts]);
     }
 }

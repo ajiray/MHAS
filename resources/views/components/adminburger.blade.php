@@ -13,7 +13,7 @@
 
 
 <body>
-    <button class="material-symbols-outlined text-white ml-2 desktop:hidden" onclick="toggleMenu()">
+    <button class="material-symbols-outlined text-white ml-2 xl:hidden" onclick="toggleMenu()">
         menu
     </button>
 
@@ -27,34 +27,40 @@
         <div class="flex flex-col gap-y-16 text-2xl md:text-3xl md:gap-y-20">
             <a href="/admindashboard">
                 <div class="flex gap-2 items-center">
-                    <span class="material-symbols-outlined text-maroon text-2xl md:text-3xl">
-                        feed
-                    </span>
-                    <p class="text-maroon">Feed</p>
+                    <i class="fa-solid fa-house fa-lg text-maroon"></i>
+                    <p class="text-maroon">Home</p>
+                </div>
+            </a>
+            <a href="/adminwall">
+                <div class="flex gap-2 items-center">
+                    <i class="fa-solid fa-newspaper fa-lg text-maroon"></i>
+                    <p class="text-maroon">Freedom Wall</p>
                 </div>
             </a>
             <a href="/adminappointment">
                 <div class="flex gap-2 items-center">
-                    <span class="material-symbols-outlined text-maroon text-2xl md:text-3xl">
-                        calendar_month
-                    </span>
+                    <i class="fa-solid fa-calendar-check fa-lg text-maroon"></i>
                     <p class="text-maroon">Appointment</p>
                 </div>
             </a>
+
             <a href="/message">
                 <div class="flex gap-2 items-center">
-                    <span class="material-symbols-outlined text-maroon text-2xl md:text-3xl">
-                        forum
-                    </span>
-                    <p class="text-maroon">Message</p>
+                    <i class="fa-solid fa-envelope fa-lg text-maroon"></i>
+                    <p class="text-maroon">Chat</p>
                 </div>
             </a>
             <a href="/adminresources">
                 <div class="flex gap-2 items-center">
-                    <span class="material-symbols-outlined text-maroon text-2xl md:text-3xl">
-                        cloud_download
-                    </span>
+                    <i class="fa-solid fa-download fa-lg text-maroon"></i>
                     <p class="text-maroon">Resources</p>
+                </div>
+            </a>
+
+            <a href="/videocall">
+                <div class="flex gap-2 items-center">
+                    <i class="fa-solid fa-video fa-lg text-maroon"></i>
+                    <p class="text-maroon">Video Call</p>
                 </div>
             </a>
         </div>

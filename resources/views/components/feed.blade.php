@@ -12,7 +12,7 @@
 
 
     @foreach ($posts->sortByDesc('id') as $post)
-        <div class="relative mt-20 desktop:ml-10">
+        <div class="relative mt-20 xl:ml-10">
             <div class="w-80 h-72 flex flex-col rounded-lg border-2 border-gray-300 shadow-md bg-white">
                 <!-- Author info -->
                 <div class="flex justify-between items-center space-x-2 mt-3 ml-3 mr-3 border-b-2 border-black pb-3">
@@ -139,7 +139,7 @@
                 class="fixed inset-0 flex justify-center items-center bg-opacity-50 bg-gray-600 z-50 hidden">
                 <div
                     class="bg-white px-10 py-5 rounded-lg shadow-lg overflow-y-auto
-    desktop:w-full desktop:max-w-[1200px] desktop:max-h-[700px] 
+    xl:w-full xl:max-w-[1200px] xl:max-h-[700px] 
     laptop:w-full laptop:max-w-[800px] laptop:max-h-[700px] 
     tablet:w-full tablet:max-w-[600px] tablet:max-h-[700px] 
     mobileS:w-full mobileS:max-w-[300px] mobileS:max-h-[700px]">
@@ -151,7 +151,7 @@
 
                     <div id="comments-container-{{ $post->id }}"
                         class="mb-4
-                        desktop:w-full desktop:max-w-[1200px] 
+                        xl:w-full xl:max-w-[1200px] 
                         laptop:w-full laptop:max-w-[800px] 
                         tablet:w-full tablet:max-w-[600px] 
                         mobileS:w-full mobileS:max-w-[300px] 

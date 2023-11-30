@@ -13,16 +13,23 @@
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+
 </head>
 
 <body>
 
-    <div class='desktop:h-screen desktop:justify-center desktop:flex desktop:items-center'>
-        <div
-            class='desktop:flex desktop:w-[90%] desktop:h-[90%] desktop:rounded-tl-[50px] desktop:rounded-bl-[50px] desktop:shadow-lg'>
+    <div class='xl:h-screen xl:justify-center xl:flex xl:items-center'>
+        <div class='xl:flex xl:w-[90%] xl:h-[90%] xl:rounded-tl-[50px] xl:rounded-bl-[50px] xl:shadow-lg'>
             <x-adminnavbar />
 
-            <div class="w-screen h-screen desktop:h-full overflow-y-auto">
+            <div class="w-screen h-screen xl:h-full overflow-y-auto">
 
                 @yield('content')
             </div>

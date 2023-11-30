@@ -18,6 +18,7 @@ class Appointment extends Model
         'type',
         'reason',
         'status',
+        'counselor_id',
     ];
 
     public function user()
@@ -40,5 +41,10 @@ public function deleteWithAcceptedAppointments()
         // Finally, delete the appointment itself
         $this->delete();
     }
+
+    public function counselor()
+{
+    return $this->belongsTo(User::class, 'counselor_id');
+}
 }
 

@@ -24,50 +24,35 @@
             Close
         </button>
 
-        <div class="flex flex-col gap-y-16 text-md md:text-3xl md:gap-y-20">
-            <a href="/dashboard">
+        <div class="flex flex-col gap-y-16 text-2xl md:text-3xl md:gap-y-20">
+            <a href="/guidancedashboard">
                 <div class="flex gap-2 items-center">
-                    <i class="fa-solid fa-house fa-l text-maroon"></i>
-                    <p class="text-maroon">Home</p>
+                    <i class="fa-solid fa-house fa-md text-maroon"></i>
+                    <p class="text-maroon text-sm">Home</p>
                 </div>
             </a>
-            <a href="/wall">
+            <a href="/guidancewall">
                 <div class="flex gap-2 items-center">
-                    <i class="fa-solid fa-newspaper fa-l text-maroon"></i>
-                    <p class="text-maroon">Freedom Wall</p>
+                    <i class="fa-solid fa-newspaper fa-md text-maroon"></i>
+                    <p class="text-maroon text-sm">Freedom Wall</p>
                 </div>
             </a>
-            <a href="/appointment">
+            <a href="/guidanceappointment">
                 <div class="flex gap-2 items-center">
-                    <i class="fa-solid fa-calendar-check fa-l text-maroon"></i>
-                    <p class="text-maroon">Appointment</p>
+                    <i class="fa-solid fa-calendar-check fa-md text-maroon"></i>
+                    <p class="text-maroon text-sm">Appointment</p>
                 </div>
             </a>
-
-            <a href="/messageOption">
+            <a href="/message">
                 <div class="flex gap-2 items-center">
-                    <i class="fa-solid fa-envelope fa-l text-maroon"></i>
-                    <p class="text-maroon">Chat</p>
+                    <i class="fa-solid fa-envelope fa-md text-maroon"></i>
+                    <p class="text-maroon text-sm">Message</p>
                 </div>
             </a>
-
-            <a href="/profile">
-                <div class="flex gap-2 items-center">
-                    <i class="fa-solid fa-id-card fa-l text-maroon"></i>
-                    <p class="text-maroon">Profile</p>
-                </div>
-            </a>
-            <a href="/resources">
-                <div class="flex gap-2 items-center">
-                    <i class="fa-solid fa-download fa-l text-maroon"></i>
-                    <p class="text-maroon">Resources</p>
-                </div>
-            </a>
-
             <a href="/videocall">
                 <div class="flex gap-2 items-center">
-                    <i class="fa-solid fa-video fa-l text-maroon"></i>
-                    <p class="text-maroon">Video Call</p>
+                    <i class="fa-solid fa-video fa-md text-maroon"></i>
+                    <p class="text-maroon text-sm">Video Call</p>
                 </div>
             </a>
         </div>

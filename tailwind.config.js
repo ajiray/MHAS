@@ -19,6 +19,9 @@ export default {
         adminPrimary: '#153243',
         adminSecondary: '#F4F9E9',
         cream: "#dcd4be",
+        guidancePrimary: '#832b00',
+        guidanceSecondary: '#f7e5d9',
+        gradientBlue: '#2b678a',
       },
       screens: {
         'mobileS': '320px',
@@ -26,7 +29,6 @@ export default {
         'mobileL': '425px',
         'tablet': '768px',
         'laptop': '1024px',
-        'desktop' : '1440px',
         lg: "1124px",
           xl: "1124px",
           "2xl": "1124px",

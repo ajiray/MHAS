@@ -1,10 +1,10 @@
-@extends('layouts.adminlayout')
+@extends('layouts.guidancelayout')
 
 @section('content')
     <script>
         function confirmAcceptAppointment(appointmentId) {
             if (confirm('Are you sure you want to accept this appointment?')) {
-                document.getElementById('assign-form-' + appointmentId).submit();
+                document.getElementById('accept-form-' + appointmentId).submit();
             } else {
                 // Prevent form submission if the user cancels
                 event.preventDefault(); // Add this line to prevent the default form submission
@@ -109,7 +109,7 @@
                         </div>
                     </div>
 
-                    @if ($appointment->status === 'waiting for approval' && !$appointment->counselor_id)
+                    @if ($appointment->status === 'waiting for approval')
                         <div class="mb-4 p-4 bg-gray-100 rounded-lg shadow-md">
                             <h3 class="text-lg font-semibold">{{ $appointment->reason }}</h3>
                             <p class="text-gray-600">Student: {{ $appointment->user->name }}</p>
@@ -122,26 +122,17 @@
                             <p class="text-gray-600">Status: {{ $appointment->status }}</p>
 
                             <div class="flex justify-between mt-4">
-                                <form id="assign-form-{{ $appointment->id }}"
-                                    action="/assign-counselor/{{ $appointment->id }}" method="POST">
+                                <form id="accept-form-{{ $appointment->id }}"
+                                    action="/accept-appointment/{{ $appointment->id }}" method="POST">
                                     @csrf
                                     @method('PATCH')
-                                    <div class="space-x-1">
-                                        <select id="counselor" name="counselor_id"
-                                            class="bg-gray-100 p-2 rounded-md border border-1 border-black" required>
-                                            <option disabled selected>Choose counselor</option>
-                                            @foreach ($counselors as $counselor)
-                                                <option value="{{ $counselor->id }}">{{ $counselor->name }}</option>
-                                            @endforeach
-                                        </select>
-
-                                        <button type="submit"
-                                            class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 transition duration-300">
-                                            Assign
-                                        </button>
-                                    </div>
-
+                                    <button onclick="confirmAcceptAppointment('{{ $appointment->id }}')" type="submit"
+                                        class="bg-green-500 text-white px-4 py-2 rounded-full">Accept</button>
                                 </form>
+
+
+                                <button onclick="declineAppointment('{{ $appointment->id }}')" type="submit"
+                                    class="bg-red-500 text-white px-4 py-2 rounded-full">Decline</button>
                             </div>
                         </div>
                     @endif
@@ -152,7 +143,7 @@
 
             <!-- Right Column: Appointments -->
             <div
-                class="w-[80%] sm:w-[65%] md:w-[40%] lg:w-[35%] p-4 bg-accent rounded shadow-md h-[50%] md:h-[50%] lg:h-full overflow-y-auto mt-8 md:mt-0 md:self-start lg:self-start">
+                class="w-[80%] sm:w-[65%] md:w-[40%] lg:w-[35%] p-4 bg-accent rounded shadow-md h-full overflow-y-auto mt-8 md:mt-0 md:self-start lg:self-start">
                 <div class="border-b-2 border-black pb-4 mb-6">
                     <h2 class="text-3xl font-bold text-black text-center">Appointments</h2>
                 </div>
@@ -179,7 +170,6 @@
                         <p class="text-gray-600">Time:
                             {{ \Carbon\Carbon::parse($acceptedAppointment->appointment->time)->format('h:i A') }}</p>
                         <p class="text-gray-600">Type: {{ $acceptedAppointment->appointment->type }}</p>
-                        <p class="text-gray-600">Counselor: {{ $acceptedAppointment->counselor->name }}</p>
                         @if ($daysLeft > 0 || $hoursLeft > 0 || $minutesLeft > 0 || $secondsLeft > 0)
                             @if ($currentDateTime < $meetingDateTime)
                                 <p class="text-gray-600">
@@ -197,6 +187,12 @@
                                         {{ $secondsLeft }} {{ $secondsLabel }}
                                     @endif
                                 </p>
+                            @else
+                                <p class="text-gray-600 font-bold">Meeting should start now</p>
+                                <button
+                                    class="text-amber-600 bg-amber-200 px-4 py-2 rounded-xl hover:bg-amber-300 font-semibold hover:text-white hover:no-underline mt-2 w-full">
+                                    Contact Student
+                                </button>
                             @endif
                         @endif
 
@@ -204,6 +200,23 @@
                             $minutesAfterAppointment = $meetingDateTime->addMinutes(30);
                             $isButtonDisabled = $currentDateTime < $minutesAfterAppointment;
                         @endphp
+
+
+
+                        <form action="/markAsDone/{{ $acceptedAppointment->appointment_id }}" method="POST"
+                            id="markAsDone-form-{{ $acceptedAppointment->id }}">
+                            @csrf
+                            @method('DELETE')
+                            <button
+                                @if ($isButtonDisabled) disabled
+                            class="text-gray-600 bg-gray-300 px-4 py-2 rounded-xl font-semibold w-full mt-3"
+                                title="Mark as Done button will be available 30 minutes after the appointment time."
+                                @else
+                                class="text-green-600 bg-green-200 px-4 py-2 rounded-xl hover:bg-green-300 font-semibold hover:text-white hover:no-underline w-full mt-3"
+                                 onclick="markAsDone('{{ $acceptedAppointment->appointment_id }}')" @endif>
+                                Mark as Done
+                            </button>
+                        </form>
 
 
 

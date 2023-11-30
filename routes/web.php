@@ -55,6 +55,12 @@ Route::get('/adminmessage', function () {
 })->name('message.redirect');
 Route::get('/adminresources', [HomeController::class, 'adminresources']);
 Route::get('/adminwall', [HomeController::class, 'adminWall']);
+Route::post('/registerGuidance', [HomeController::class, 'registerGuidance']);
+
+//counselor side
+Route::get('/guidancedashboard', [HomeController::class, 'guidancedashboard'])->name('guidancedashboard');
+Route::get('/guidanceappointment', [HomeController::class, 'guidanceappointment']);
+Route::get('/guidancewall', [HomeController::class, 'guidancewall']);
 
 
 
@@ -84,6 +90,11 @@ Route::delete('/understand-appointment/{appointment}', [AppointmentController::c
 Route::patch('/accept-appointment/{appointment}', [AppointmentController::class, 'acceptAppointment']);
 Route::patch('/decline-appointment/{appointment}', [AppointmentController::class, 'declineAppointment']);
 Route::delete('/markAsDone/{appointment}', [AppointmentController::class, 'markAsDone'])->name('markAsDone');
+Route::patch('/assign-counselor/{appointment}', [AppointmentController::class, 'assignCounselor']);
+
+
+
+
 
 //resources
 Route::post('/store-resource', [resourceController::class, 'storeResource'])->name('store-resource');
@@ -123,10 +134,9 @@ Route::get("/meeting/{meetingId}", function($meetingId) {
 
 //Admin Pending Registrations
 Route::get('/acceptregisters', [AdminController::class, 'showPendingRegistrations']);
-Route::get('/admin/pending-registrations', [AdminController::class, 'showPendingRegistrations'])->name('admin.pending-registrations');
 Route::post('/admin/approve-user/{id}', [AdminController::class, 'approveUsers'])->name('admin.approve-user');
 Route::post('/admin/decline-user/{id}', [AdminController::class, 'declineUser'])->name('admin.decline-user');
-Route::get('/listregisters', [AdminController::class, 'showPendingRegistrations'])->name('listregisters');
+
 
 
 

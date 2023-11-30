@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Illuminate\Validation\ValidationException;
 
 class PostController extends Controller
 {
@@ -44,6 +45,16 @@ public function createPost(Request $request)
         'body' => 'required|max:200'
     ]);
 
+    $profanityWords = ['bobo', 'tanga', 'patay', 'fuck','inutil', 'nigga', 'puta', 'tangina', 'gago','mamatay', 'suicide', 'Putang ina mo', 'Walang hiya', 'Tae', 'Punyeta', 'Pakshet', 'Bwisit', 'Leche', 'Hayop', 'Lintik', 'Tarantado', 'kantot', 'pokpok', 'slut', 'motherfucker', 'vovo', 'wtf', 'panget', 'Hayup'];
+
+    foreach ($profanityWords as $word) {
+        if (stripos($incomingFields['body'], $word) !== false) {
+            
+            return redirect('/wall')->with('profanity', 'Your post contains inappropriate content.');
+    
+        }
+    }
+    
     $incomingFields['body'] = strip_tags($incomingFields['body']);
     $incomingFields['user_id'] = auth()->id();
 

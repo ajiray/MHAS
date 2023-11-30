@@ -14,4 +14,9 @@ class AcceptedAppointment extends Model
     return $this->belongsTo(Appointment::class, 'appointment_id');
 }
 
+public function counselor()
+{
+    return $this->belongsTo(User::class, 'counselor_id');
+}
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Models\AcceptedAppointment;
@@ -92,6 +93,7 @@ public function acceptAppointment(Appointment $appointment) {
     $acceptedAppointment = new AcceptedAppointment;
     $acceptedAppointment->user_id = $appointment->user_id;
     $acceptedAppointment->appointment_id = $appointment->id;
+    $acceptedAppointment->counselor_id = auth()->user()->id;
     $acceptedAppointment->save();
 
     return redirect()->back()->with('success', 'Appointment has been approved successfully.');
@@ -103,7 +105,7 @@ public function declineAppointment(Appointment $appointment) {
     $reason = request('reason'); // Get the reason from the form
     $appointment->update(['status' => 'declined (' . $reason . ')']);
     
-    return redirect('/adminappointment')->with('decline', 'Success! The appointment has been declined with reason: ' . $reason);
+    return redirect('/guidanceappointment')->with('decline', 'Success! The appointment has been declined with reason: ' . $reason);
 }
 
 
@@ -113,12 +115,22 @@ public function markAsDone($appointment)
 
     if ($appointment) {
         $appointment->deleteWithAcceptedAppointments();
-        return redirect('/adminappointment')->with('delete', 'Success! The appointment is done');
+        return redirect('/guidanceappointment')->with('delete', 'Success! The appointment is done');
     } else {
         // Handle the case where the appointment doesn't exist
     }
 }
 
 
+public function assignCounselor(Request $request, Appointment $appointment) {
+    $request->validate([
+        'counselor_id' => 'required|exists:users,id|numeric',
+    ]);
 
+    $appointment->update([
+        'counselor_id' => $request->input('counselor_id'),
+    ]);
+
+    return redirect()->back()->with('success', 'Counselor assigned successfully.');
+}
 }

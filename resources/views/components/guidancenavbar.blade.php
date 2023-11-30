@@ -14,7 +14,7 @@
 
 <body>
     <nav
-        class="bg-adminPrimary xl:bg-adminPrimary flex justify-between items-center xl:flex-col xl:w-[250px] xl:rounded-tl-[50px] xl:rounded-bl-[50px] xl:shadow-menu">
+        class="bg-guidancePrimary flex justify-between items-center xl:flex-col xl:w-[250px] xl:rounded-tl-[50px] xl:rounded-bl-[50px] xl:shadow-menu">
 
         <!-- Logo (xl) -->
         <img src="./images/logo_mobile.svg" width="150" height="100" alt="logo"
@@ -24,41 +24,34 @@
         <div class="hidden xl:block justify-center items-center h-full">
             <div class="flex h-full items-center justify-center">
                 <div class="flex flex-col gap-y-24 items-start">
-                    <a href="/admindashboard">
+                    <a href="/guidancedashboard">
                         <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-house fa-md text-accent"></i>
-                            <p class="text-accent text-sm">Home</p>
+                            <i class="fa-solid fa-house fa-md text-guidanceSecondary"></i>
+                            <p class="text-guidanceSecondary text-sm">Home</p>
                         </div>
                     </a>
-                    <a href="/adminwall">
+                    <a href="/guidancewall">
                         <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-newspaper fa-md text-accent"></i>
-                            <p class="text-accent text-sm">Freedom Wall</p>
+                            <i class="fa-solid fa-newspaper fa-md text-guidanceSecondary"></i>
+                            <p class="text-guidanceSecondary text-sm">Freedom Wall</p>
                         </div>
                     </a>
-                    <a href="/adminappointment">
+                    <a href="/guidanceappointment">
                         <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-calendar-check fa-md text-accent"></i>
-                            <p class="text-accent text-sm">Appointment</p>
+                            <i class="fa-solid fa-calendar-check fa-md text-guidanceSecondary"></i>
+                            <p class="text-guidanceSecondary text-sm">Appointment</p>
                         </div>
                     </a>
-                    <a href="/adminmessage">
+                    <a href="/message">
                         <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-envelope fa-md text-accent"></i>
-                            <p class="text-accent text-sm">Message</p>
+                            <i class="fa-solid fa-envelope fa-md text-guidanceSecondary"></i>
+                            <p class="text-guidanceSecondary text-sm">Message</p>
                         </div>
                     </a>
-                    <a href="/adminresources">
-                        <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-download fa-md text-accent"></i>
-                            <p class="text-accent text-sm">Resources</p>
-                        </div>
-                    </a>
-
                     <a href="/videocall">
                         <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-video fa-md text-accent"></i>
-                            <p class="text-accent text-sm">Video Call</p>
+                            <i class="fa-solid fa-video fa-md text-guidanceSecondary"></i>
+                            <p class="text-guidanceSecondary text-sm">Video Call</p>
                         </div>
                     </a>
 
@@ -70,7 +63,7 @@
         </div>
         <div class="hidden xl:block w-full">
             <button
-                class="text-lg text-adminPrimary bg-adminSecondary hover:bg-gray-400 px-4 py-2 transition duration-300 ease-in-out transform w-full font-bold rounded-bl-[50px] shadow-menu"
+                class="text-lg text-guidancePrimary bg-guidanceSecondary hover:bg-gray-400 px-4 py-2 transition duration-300 ease-in-out transform w-full font-bold rounded-bl-[50px] shadow-menu"
                 href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 {{ __('Logout') }}
@@ -83,7 +76,7 @@
 
 
         <!-- Burger Menu -->
-        <x-adminburger />
+        <x-guidanceburger />
 
         <!-- Logo (mobile) -->
         <img src="./images/logo_mobile.svg" width="150" height="100" alt="logo" class="xl:hidden" />

@@ -29,9 +29,16 @@
             </div>
         @endif
 
+        @if (session()->has('profanity'))
+            <div class="absolute top-0 left-0 flex items-center justify-center w-full p-4 md:w-96 md:p-6" id="alert">
+                <div class="bg-red-300 rounded-lg text-red-700 font-semibold shadow-md p-2 md:p-4 md:text-base">
+                    {{ session('profanity') }}
+                </div>
+            </div>
+        @endif
     </div>
 
-    <div class="flex flex-row flex-wrap justify-center sm:gap-x-16 md:gap-x-16 desktop:gap-x-16 mb-20">
+    <div class="flex flex-row flex-wrap justify-center sm:gap-x-16 md:gap-x-16 xl:gap-x-16 mb-20">
         <x-feed :posts="$posts" :comments="$comments" />
     </div>
 

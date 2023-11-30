@@ -174,6 +174,16 @@
                                             {{ \Carbon\Carbon::parse($appointment->time)->format('h:i:s A') }}</p>
                                         <p class="text-gray-600">Type: {{ $appointment->type }}</p>
 
+                                        <p class="text-gray-600">Counselor:
+                                            @if ($appointment->counselor)
+                                                {{ $appointment->counselor->name }}
+                                            @else
+                                                Not yet assigned
+                                            @endif
+                                        </p>
+
+
+
                                         @if ($appointment->status === 'waiting for approval')
                                             <p class="text-gray-600">
                                                 <span class="text-gray-600">Status:</span>
@@ -195,6 +205,7 @@
                                                     {{ $appointment->status }}
                                                 </span>
                                             </p>
+
                                             <button onclick="confirmUnderstand('{{ $appointment->id }}')"
                                                 class="text-amber-700 px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 font-semibold hover:text-white hover:no-underline mt-2 w-full">
                                                 I understand

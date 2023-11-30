@@ -9,12 +9,6 @@ use App\Models\PendingUser;
 
 class AdminController extends Controller
 {
-    public function showPendingRegistrations()
-    {
-        $pendingUsers = PendingUser::all();
-
-        return view('adminpending_registrations', compact('pendingUsers'));
-    }
 
     public function approveUsers($id)
     {
@@ -33,8 +27,8 @@ class AdminController extends Controller
 
         // Optionally, you can delete the pending user record
         $pendingUser->delete();
-
-        return redirect()->route('listregisters')->with('success', 'User approved successfully.');
+        $pendingUsers = PendingUser::all();
+        return view('admindashboard', compact('pendingUsers'))->with('success', 'User approved successfully.');
     }
 
     public function declineUser($id)
@@ -46,8 +40,8 @@ class AdminController extends Controller
 
         // Delete the pending user record
         $pendingUser->delete();
-
-        return redirect()->route('listregisters')->with('success', 'User declined successfully.');
+        $pendingUsers = PendingUser::all();
+        return view('admindashboard', compact('pendingUsers'))->with('success', 'User declined successfully.');
     }
 
     private function sendStatusEmail($user, $status)
