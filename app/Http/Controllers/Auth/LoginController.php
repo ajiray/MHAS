@@ -48,17 +48,23 @@ class LoginController extends Controller
 
     // Your login logic here
 
-    if(auth()->attempt(array('email'=>$request['email'],'password'=>$request['password']))){
-        if(auth()->user()->is_admin==1){
+    if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
+        $user = auth()->user();
+
+        if ($user->is_admin == 1) {
             return redirect('admindashboard');
-        } else if (auth()->user()->is_admin==2) { 
-            return redirect()->route('guidancedashboard');
         } else {
+            // Check if it's the user's first login
+            if ($user->first_login) {
+                // Redirect to change password page
+                return redirect()->route('password.change');
+            }
+
+            // Redirect to regular dashboard
             return redirect()->route('dashboard');
         }
     } else {
         return redirect()->route('login')->with('status', 'Invalid login credentials');
     }
-    
-    }
+}
 }

@@ -49,10 +49,10 @@
                     <p class="text-maroon text-sm">Message</p>
                 </div>
             </a>
-            <a href="/videocall">
+            <a href="/guidanceresources">
                 <div class="flex gap-2 items-center">
-                    <i class="fa-solid fa-video fa-md text-maroon"></i>
-                    <p class="text-maroon text-sm">Video Call</p>
+                    <i class="fa-solid fa-download fa-md text-maroon"></i>
+                    <p class="text-maroon text-sm">Resources</p>
                 </div>
             </a>
         </div>

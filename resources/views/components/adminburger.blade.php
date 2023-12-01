@@ -56,13 +56,6 @@
                     <p class="text-maroon">Resources</p>
                 </div>
             </a>
-
-            <a href="/videocall">
-                <div class="flex gap-2 items-center">
-                    <i class="fa-solid fa-video fa-lg text-maroon"></i>
-                    <p class="text-maroon">Video Call</p>
-                </div>
-            </a>
         </div>
     </div>
 

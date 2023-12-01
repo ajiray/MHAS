@@ -57,12 +57,14 @@
                         </div>
                     </a>
 
-                    <a href="/videocall">
+                    <a href="/counselingrecords">
                         <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-video fa-md text-accent"></i>
-                            <p class="text-accent text-sm">Video Call</p>
+                            <i class="fa-solid fa-envelope fa-md text-accent"></i>
+                            <p class="text-accent text-sm">Counseling</p>
                         </div>
                     </a>
+
+
 
                 </div>
 

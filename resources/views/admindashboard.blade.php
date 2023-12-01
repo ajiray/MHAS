@@ -49,6 +49,10 @@
                 <div class="bg-white shadow-md rounded-lg p-4 mb-4">
                     <p class="text-lg font-bold mb-2">Name: {{ $user->name }}</p>
                     <p>Email: {{ $user->email }}</p>
+                    <p>Student Number: {{ $user->student_number }}</p>
+                    <p>Course: {{ $user->course }}</p>
+                    <p>Age: {{ $user->age }}</p>
+                    <p>Birthday: {{ $user->birthday }}</p>
                     <div class="flex mt-3">
                         <form method="post" action="{{ route('admin.approve-user', $user->id) }}"
                             onsubmit="return confirm('Are you sure you want to approve this user?');">

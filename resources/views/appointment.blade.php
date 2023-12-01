@@ -75,31 +75,30 @@
 
 
             <!-- Left Column: Booking Form -->
-            <div
-                class="w-[80%] sm:w-[65%] md:w-[40%] lg:w-[35%] p-4 md:p-6 bg-white rounded shadow-md h-[500px] md:h-full lg:h-full self-center">
+            <div class="w-[80%] sm:w-[65%] md:w-[50%] lg:w-[40%] xl:w-[35%] mx-auto p-6 bg-white rounded shadow-md">
                 <div class="border-b-2 border-black pb-4 mb-6">
-                    <h2 class="text-3xl font-bold text-black text-center">Book Your Appointment</h2>
+                    <h2 class="text-4xl font-bold text-black text-center">Book Your Appointment</h2>
                 </div>
-                <form action="/book-appointment" method="POST" class="space-y-4">
+                <form action="/book-appointment" method="POST" class="space-y-6">
                     @csrf
 
-                    <div class="mb-4">
+                    <div class="mb-6">
                         <label for="appointment_date" class="block text-gray-600">Appointment Date:</label>
                         <input type="date" name="appointment_date" id="appointment_date" min="<?php echo date('Y-m-d'); ?>"
-                            class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
+                            class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring focus:border-blue-500"
                             required>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-6">
                         <label for="appointment_time" class="block text-gray-600">Appointment Time:</label>
                         <input type="time" name="appointment_time" id="appointment_time"
-                            class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
+                            class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring focus:border-blue-500"
                             required>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-6">
                         <label class="block text-gray-600">Select Appointment Type:</label>
-                        <div>
+                        <div class="flex space-x-4">
                             <label for="online" class="flex items-center">
                                 <input type="radio" name="appointment_type" id="online" value="Online" class="mr-2"
                                     required>
@@ -113,35 +112,34 @@
                         </div>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-6">
                         <label for="appointment_reason" class="block text-gray-600">Reason:</label>
-                        <div>
-                            <select name="appointment_reason" id="appointment_reason"
-                                class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
-                                required>
-                                <option value="" disabled selected>Select a reason</option>
-                                <option value="Emotional Support">Emotional Support</option>
-                                <option value="Academic Advising">Academic Advising</option>
-                                <option value="Special Needs and Accommodations">Special Needs and Accommodations</option>
-                                <option value="Extracurricular Activities">Extracurricular Activities</option>
-                            </select>
-                        </div>
+                        <select name="appointment_reason" id="appointment_reason"
+                            class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring focus:border-blue-500"
+                            required>
+                            <option value="" disabled selected>Select a reason</option>
+                            <option value="Emotional Support">Emotional Support</option>
+                            <option value="Academic Advising">Academic Advising</option>
+                            <option value="Special Needs and Accommodations">Special Needs and Accommodations</option>
+                            <option value="Extracurricular Activities">Extracurricular Activities</option>
+                        </select>
                     </div>
 
                     <button type="submit"
-                        class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
+                        class="w-full bg-blue-500 text-white py-3 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">
                         Book
                     </button>
                 </form>
             </div>
 
+
             <!-- Right Column: Pending Appointments -->
             <div
-                class="w-[80%] sm:w-[65%] md:w-[40%] lg:w-[35%] p-4 bg-accent rounded shadow-md h-[50%] md:h-[50%] lg:h-[50%] lg:overflow-y-auto mt-8 md:mt-0 md:self-start lg:self-start">
+                class="w-[80%] sm:w-[65%] md:w-[50%] lg:w-[40%] xl:w-[35%] p-4 bg-accent rounded shadow-md h-[70%] md:h-[70%] lg:h-[70%] overflow-y-auto mt-8 md:mt-0">
                 <div class="border-b-2 border-black pb-4 mb-6">
-                    <h2 class="text-3xl font-bold text-black text-center">Appointment</h2>
+                    <h2 class="text-4xl font-bold text-black text-center">Appointment</h2>
                 </div>
-                <ul>
+                <ul class="space-y-4">
                     @foreach ($appointments as $appointment)
                         @auth
                             @if (auth()->user()->id === $appointment->user->id)
@@ -159,7 +157,7 @@
                                     $secondsLabel = $secondsLeft === 1 ? 'second' : 'seconds';
                                 @endphp
 
-                                <div class="mb-2 bg-gray-100 border border-gray-300 rounded p-4">
+                                <div class="mb-4 bg-gray-100 border border-gray-300 rounded p-4">
                                     <h3 class="text-lg font-semibold">{{ $appointment->reason }}</h3>
                                     @if ($currentDateTime > $meetingDateTime && $appointment->status === 'approved')
                                         <p class="text-gray-600 font-bold">Meeting should start now</p>

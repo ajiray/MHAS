@@ -30,18 +30,20 @@
                             </span>
                         @enderror
                         <br>
-                        <input id="password" type="password"
-                            class="form-control @error('password') is-invalid @enderror ml-[5px] p-2 rounded-xl border"
-                            name="password" required autocomplete="new-password" placeholder="Password">
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <input id="student_number" type="text" class="form-control ml-[5px] p-2 rounded-xl border"
+                            name="student_number" required autocomplete="student_number" placeholder="Student Number">
                         <br>
-                        <input id="password-confirm" type="password" class="form-control ml-[5px] p-2 rounded-xl border"
-                            name="password_confirmation" required autocomplete="new-password"
-                            placeholder="Confirm Password">
+                        <input id="course" type="text" class="form-control ml-[5px] p-2 rounded-xl border"
+                            name="course" required autocomplete="course" placeholder="Course">
+                        <br>
+                        <input id="age" type="number" class="form-control ml-[5px] p-2 rounded-xl border"
+                            name="age" required autocomplete="age" placeholder="Age">
+                        <br>
+                        <label for="birthday" class="ml-2">Birthday</label>
+                        <input id="birthday" type="date" class="form-control ml-[5px] p-2 rounded-xl border"
+                            name="birthday" required autocomplete="date">
+
+
                         <br>
                         <button class="border bg-customRed rounded-2xl w-1/2 ml-[60px] text-customYellow"
                             type="submit">{{ __('Register') }}</button><br>

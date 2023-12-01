@@ -26,7 +26,7 @@ class AppointmentController extends Controller
         $currentDateTime = now();
     
         // Check if the appointment time is in the past or less than 30 minutes from now
-        if ($appointmentDateTime <= $currentDateTime || $currentDateTime->diffInMinutes($appointmentDateTime) < 30) {
+        if ($appointmentDateTime <= $currentDateTime || $currentDateTime->diffInMinutes($appointmentDateTime) < 0) {
             return redirect()->back()->with('error', 'Please select an appointment time that is at least 30 minutes from now.');
         }
 

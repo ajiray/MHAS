@@ -51,10 +51,18 @@
                             <p class="text-guidanceSecondary text-sm">Message</p>
                         </div>
                     </a>
-                    <a href="/videocall">
+
+                    <a href="/guidanceresources">
                         <div class="flex gap-2 items-center">
-                            <i class="fa-solid fa-video fa-md text-guidanceSecondary"></i>
-                            <p class="text-guidanceSecondary text-sm">Video Call</p>
+                            <i class="fa-solid fa-download fa-md text-accent"></i>
+                            <p class="text-accent text-sm">Resources</p>
+                        </div>
+                    </a>
+
+                    <a href="/counselingrecords">
+                        <div class="flex gap-2 items-center">
+                            <i class="fa-solid fa-envelope fa-md text-accent"></i>
+                            <p class="text-accent text-sm">Counseling</p>
                         </div>
                     </a>
 

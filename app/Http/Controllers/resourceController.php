@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Resource; // Make sure to import the Resource model
 
 class ResourceController extends Controller // Correct the capitalization of your class name
@@ -13,12 +14,12 @@ class ResourceController extends Controller // Correct the capitalization of you
         $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'file_content' => 'nullable|file|mimes:pdf,epub,mobi|max:10240',
-            'file_cover' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'category' => 'required|in:pdf,infographic,ebook,video',
-            'youtube_link' => 'nullable|url',
-            'infographic' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'ebook' => 'nullable|file|mimes:pdf,epub,mobi|max:10240',
+            'file_content' => 'nullable|file|mimes:pdf,epub,mobi|max:51200',
+            'file_cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:51200',
+            'category' => 'required|in:pdf,infographic,ebook,video|max:51200',
+            'video' => 'nullable|file|mimes:mp4,avi,mov,wmv,flv|max:551200',
+            'infographic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:51200',
+            'ebook' => 'nullable|file|mimes:pdf,epub,mobi|max:10240|max:51200',
         ]);
     
         // Create a new Resource record in the database
@@ -26,6 +27,14 @@ class ResourceController extends Controller // Correct the capitalization of you
         $resource->title = $validatedData['title'];
         $resource->description = $validatedData['description'];
         $resource->category = $validatedData['category'];
+
+        // Check if the user is an admin (is_admin == 1)
+    if (auth()->user()->is_admin == 1) {
+        $redirectPath = '/adminresources';
+    } elseif (auth()->user()->is_admin == 2) {
+        // Check if the user is a guidance admin (assuming is_admin == 2 for guidance admin)
+        $redirectPath = '/guidanceresources';
+    }
     
         // Conditionally handle the file uploads based on the category
         if ($validatedData['category'] === 'pdf') {
@@ -45,7 +54,7 @@ class ResourceController extends Controller // Correct the capitalization of you
                 $resource->file_content = $fileName; // Store the file path in the database
                 $resource->file_cover = $coverPhotoName; // Store the cover photo path in the database
             } else {
-                return redirect('/adminresources')->with('error', 'File upload failed');
+                return redirect($redirectPath)->with('error', 'File upload failed');
             }
         } elseif ($validatedData['category'] === 'infographic') { 
             // Handle infographic file upload
@@ -57,7 +66,7 @@ class ResourceController extends Controller // Correct the capitalization of you
     
                 $resource->file_content = $infographicName;
             } else {
-                return redirect('/adminresources')->with('error', 'File upload failed');
+                return redirect($redirectPath)->with('error', 'File upload failed');
             }
         } elseif ($validatedData['category'] === 'ebook') {
             // Handle ebook file upload
@@ -73,24 +82,27 @@ class ResourceController extends Controller // Correct the capitalization of you
                 $resource->file_content = $ebookName;
                 $resource->file_cover = $coverPhotoName;
             } else {
-                return redirect('/adminresources')->with('error', 'File upload failed');
+                return redirect($redirectPath)->with('error', 'File upload failed');
             }
         }
     
         // Continue handling other categories (video, etc.)...
     
-        if ($validatedData['category'] === 'video' && $validatedData['youtube_link']) {
-            // Check if it's a valid YouTube URL
-            if (parse_url($validatedData['youtube_link'], PHP_URL_HOST) === 'www.youtube.com') {
-                $resource->youtube_link = $validatedData['youtube_link']; // Store the YouTube link
+        if ($validatedData['category'] === 'video') {
+            if ($request->hasFile('video')) {
+                $video = $request->file('video');
+                
+                $videoName = $video->getClientOriginalName();
+                $video->storeAs('resources', $videoName, 'public');
+                $resource->file_content = $videoName;
             } else {
-                return redirect('/adminresources')->with('error', 'Invalid YouTube link');
+                return redirect($redirectPath)->with('error', 'Invalid YouTube link');
             }
         }
     
         $resource->save();
     
-        return redirect('/adminresources')->with('success', 'Resource uploaded successfully');
+        return redirect($redirectPath)->with('success', 'Resource uploaded successfully');
     }
     
 
@@ -108,5 +120,30 @@ public function getResources(Request $request)
     return response()->json($resources);
 }
 
+public function deleteResource(Resource $resource)
+{
+    // Delete the resource files from public storage
+    if ($resource->category === 'infographic' && $resource->file_content) {
+        Storage::disk('public')->delete('resources/' . $resource->file_content);
+    } elseif (in_array($resource->category, ['pdf', 'ebook']) && $resource->file_cover && $resource->file_content) {
+    Storage::disk('public')->delete('covers/' . $resource->file_cover);
+    Storage::disk('public')->delete('resources/' . $resource->file_content);
+} elseif ($resource->category === 'video' && $resource->file_content) {
+        Storage::disk('public')->delete('resources/' . $resource->file_content);
+    }
+
+    // Delete the resource from the database
+    $resource->delete();
+
+    // Check if the user is an admin (is_admin == 1)
+    if (auth()->user()->is_admin == 1) {
+        $redirectPath = '/adminresources';
+    } elseif (auth()->user()->is_admin == 2) {
+        // Check if the user is a guidance admin (assuming is_admin == 2 for guidance admin)
+        $redirectPath = '/guidanceresources';
+    }
+
+    return redirect($redirectPath)->with('success', 'Resource deleted successfully');
+}
 
 }

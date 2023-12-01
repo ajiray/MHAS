@@ -6,9 +6,11 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Quote;
 use App\Models\Comment;
+use App\Models\Resource;
 use App\Models\Appointment;
 use App\Models\PendingUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\AcceptedAppointment;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,17 +31,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
-    {
-        $quote = $request->session()->get('quote');
-
-        // If not, fetch a new random quote and store it in the session
-        if (!$quote) {
-            $quote = Quote::inRandomOrder()->first();
-            $request->session()->put('quote', $quote);
-        }
-        return view('dashboard', compact('quote'));
-    }    
+    public function index(Request $request) {
+    return view('dashboard');
+}   
 
     public function wall()
     {
@@ -49,7 +43,21 @@ class HomeController extends Controller
         return view('wall', ['posts' => $posts, 'comments' => $comments]);
     }   
     public function videocall() {
-        return view('videocallhomepage');
+
+        // Get all notifications for the user
+    $notifications = auth()->user()->notifications;
+
+    // Get the count of unread notifications
+    $unreadNotificationCount = DB::table('notifications')
+        ->where('notifiable_id', auth()->id())
+        ->where('notifiable_type', get_class(auth()->user()))
+        ->whereNull('read_at')
+        ->count();
+
+    return view('videocallhomepage', [
+        'notifications' => $notifications,
+        'unreadNotificationCount' => $unreadNotificationCount,
+    ]);
     }
     
 
@@ -126,7 +134,8 @@ class HomeController extends Controller
 
     public function adminresources()
     {
-        return view('adminresources');
+        $resources = Resource::all();
+        return view('adminresources', ['resources' => $resources]);
     }
 
     public function registerGuidance(Request $request) {
@@ -174,5 +183,14 @@ class HomeController extends Controller
     {
         $posts = Post::all();
         return view('guidancewall', ['posts' => $posts]);
+    }
+
+    public function guidanceresources() {
+        $resources = Resource::all();
+        return view('guidanceresources', ['resources' => $resources]);
+    }
+
+    public function showCounselingRecordsForm(){
+        return view('counseling-records');
     }
 }

@@ -16,7 +16,6 @@ class Resource extends Model
         'file_cover',
         'download_count',
         'category',
-        'youtube_link',
     ];
 
    

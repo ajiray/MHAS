@@ -21,8 +21,6 @@
                     <div class="flex items-center space-x-2">
 
                         @if ($post->anonymous)
-                            <img src="{{ asset('images/defaultuser.png') }}" width="40" height="40"
-                                alt="author profile" class="rounded-full">
                             <span class="text-lg font-semibold text-gray-700">Anonymous User</span>
                         @elseif ($post->announcement)
                             <span class="text-xl text-gray-700 font-semibold">ANNOUNCEMENT</span>

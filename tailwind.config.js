@@ -43,6 +43,9 @@ export default {
         center:true,
         padding: "1rem",
       },
+      height: {
+        'screen-200vh': '200vh',
+      },
     },
   },
   plugins: [],

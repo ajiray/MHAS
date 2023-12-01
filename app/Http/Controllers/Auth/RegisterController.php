@@ -52,8 +52,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'], 
+            'student_number' => ['required', 'string', 'max:30'], 
+            'course' => ['required', 'string', 'max:255'],
+            'age' => ['required', 'integer', 'min:0'],
+            'birthday' => ['required', 'date'],
         ]);
     }
 
@@ -64,13 +67,16 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-{
-    $user = PendingUser::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password' => Hash::make($data['password']),
-    ]);
+    {
+        $user = PendingUser::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'student_number' => $data['student_number'],
+            'course' => $data['course'],
+            'age' => $data['age'],
+            'birthday' => $data['birthday'],// Make sure this matches the name attribute in the HTML
+        ]);
 
-    return $user;
-}
+        return $user;
+    }
 }

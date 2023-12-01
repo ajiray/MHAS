@@ -16,6 +16,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\resourceController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ForgetPasswordManager;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\CounselingRecordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +35,7 @@ Auth::routes();
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::post('/mark-notifications-as-read', [NotificationController::class, 'markNotificationsAsRead']);
 Route::post('send',[ChatBotController::class,'sendChat']);
 
 //student side
@@ -61,6 +64,7 @@ Route::post('/registerGuidance', [HomeController::class, 'registerGuidance']);
 Route::get('/guidancedashboard', [HomeController::class, 'guidancedashboard'])->name('guidancedashboard');
 Route::get('/guidanceappointment', [HomeController::class, 'guidanceappointment']);
 Route::get('/guidancewall', [HomeController::class, 'guidancewall']);
+Route::get('/guidanceresources', [HomeController::class, 'guidanceresources']);
 
 
 
@@ -94,15 +98,10 @@ Route::patch('/assign-counselor/{appointment}', [AppointmentController::class, '
 Route::delete('/resched/{acceptedAppointment}', [AppointmentController::class, 'resched']);
 
 
-
-
-
-
 //resources
 Route::post('/store-resource', [resourceController::class, 'storeResource'])->name('store-resource');
 Route::get('/getResources', [resourceController::class, 'getResources']);
-
-
+Route::delete('/delete-resource/{resource}',[resourceController::class, 'deleteResource']);
 
 
 // Update Profile
@@ -140,6 +139,16 @@ Route::post('/admin/approve-user/{id}', [AdminController::class, 'approveUsers']
 Route::post('/admin/decline-user/{id}', [AdminController::class, 'declineUser'])->name('admin.decline-user');
 
 
+//First Login 
+Route::get('/password/change', [ChangePasswordController:: class, 'showChangeForm'])->name('password.change');
+Route::post('/password/change', [ChangePasswordController::class,'changePassword']);
 
 
+//Counseling Records
+Route::get('/counselingrecords',[HomeController:: class, 'showCounselingRecordsForm']);
+Route::post('/counseling-records/search', [CounselingRecordController::class, 'search'])->name('counseling-records.search');
+Route::post('/counseling-records.back', [CounselingRecordController::class, 'search'])->name('counseling-records.back');
+Route::get('/counseling-records/create', [CounselingRecordController::class, 'create'])->name('counseling-records.create');
+Route::get('/errorcode',[CounselingRecordController::class,'error'])->name('errorcode');
+Route::get('/main-screen',[CounselingRecordController::class,'mainScreen'])->name('main-screen');
 

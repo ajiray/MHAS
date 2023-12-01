@@ -5,6 +5,9 @@ var csrfToken = document.documentElement.dataset.csrf;
 function confirmDeletePost(postId) {
     if (confirm('Are you sure you want to delete this post?')) {
         document.getElementById('delete-form-' + postId).submit();
+    } else {
+        // Prevent form submission if the user cancels
+        event.preventDefault(); // Add this line to prevent the default form submission
     }
 }
 

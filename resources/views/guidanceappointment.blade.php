@@ -206,12 +206,49 @@
                                         {{ $secondsLeft }} {{ $secondsLabel }}
                                     @endif
                                 </p>
+
+                                @if ($minutesLeft < 10)
+                                    <button
+                                        class="text-amber-600 bg-amber-200 px-4 py-2 rounded-xl hover:bg-amber-300 font-semibold hover:text-white hover:no-underline mt-2 w-full"
+                                        onclick="openCreateMeetingPopup()">
+                                        Contact Student
+                                    </button>
+
+                                    <form id="createMeetingForm" action="{{ route('createMeeting') }}" method="POST"
+                                        style="display: none;">
+                                        <input type="hidden" name="user_id" value="{{ $acceptedAppointment->user_id }}">
+                                        @csrf
+                                    </form>
+
+                                    <script>
+                                        function openCreateMeetingPopup() {
+                                            // Trigger the form submission
+                                            document.getElementById('createMeetingForm').submit();
+                                        }
+                                    </script>
+                                @endif
                             @else
                                 <p class="text-gray-600 font-bold">Meeting should start now</p>
-                                <button
-                                    class="text-amber-600 bg-amber-200 px-4 py-2 rounded-xl hover:bg-amber-300 font-semibold hover:text-white hover:no-underline mt-2 w-full">
-                                    Contact Student
-                                </button>
+                                @if ($minutesLeft < 10)
+                                    <button
+                                        class="text-amber-600 bg-amber-200 px-4 py-2 rounded-xl hover:bg-amber-300 font-semibold hover:text-white hover:no-underline mt-2 w-full"
+                                        onclick="openCreateMeetingPopup()">
+                                        Contact Student
+                                    </button>
+
+                                    <form id="createMeetingForm" action="{{ route('createMeeting') }}" method="POST"
+                                        style="display: none;">
+                                        <input type="hidden" name="user_id" value="{{ $acceptedAppointment->user_id }}">
+                                        @csrf
+                                    </form>
+
+                                    <script>
+                                        function openCreateMeetingPopup() {
+                                            // Trigger the form submission
+                                            document.getElementById('createMeetingForm').submit();
+                                        }
+                                    </script>
+                                @endif
                             @endif
                         @endif
 

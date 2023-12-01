@@ -1,4 +1,4 @@
-@extends('layouts.adminlayout')
+@extends('layouts.guidancelayout')
 
 @section('content')
     <script>
@@ -38,13 +38,12 @@
         @endif
     </div>
 
-    <div
-        class="h-screen-200vh w-full xl:h-full flex justify-start xl:justify-center items-center flex-col space-y-20 xl:space-y-0 xl:flex-row xl:space-x-20 bg-slate-300">
-        <div class="w-[80%] flex flex-col items-center justify-center xl:mt-0 xl:w-[40%] xl:h-[80%]">
-            <h1 class="text-3xl font-semibold mb-4 mt-10 xl:mt-0">UPLOAD RESOURCES HERE</h1>
+    <div class="w-full h-full flex justify-center items-center space-x-20">
+        <div class="flex flex-col items-center h-full justify-center">
+            <h1 class="text-3xl font-semibold mb-4">UPLOAD RESOURCES HERE</h1>
 
             <form action="{{ route('store-resource') }}" method="POST" id="resource-form"
-                class="flex flex-col space-y-4 w-full p-8 bg-gray-100 rounded-md shadow-md" enctype="multipart/form-data">
+                class="flex flex-col space-y-4 w-96 p-8 bg-gray-100 rounded-md shadow-md" enctype="multipart/form-data">
                 @csrf
                 <select name="category" id="category" class="border p-2" onchange="toggleInputs()">
                     <option value="" disabled selected>Select Category</option>
@@ -82,7 +81,7 @@
         </div>
 
         <div
-            class="w-[80%] h-[50%] xl:w-[40%] bg-gradient-to-b from-adminPrimary to-gradientBlue p-6 rounded-md shadow-md overflow-y-auto xl:h-[80%]">
+            class="w-[50%] bg-gradient-to-b from-guidancePrimary to-orange-900 p-6 rounded-md shadow-md overflow-y-auto h-[80%]">
             <h1 class="text-2xl font-semibold text-white mb-4 text-center">Resources</h1>
 
             @foreach ($resources as $resource)
@@ -99,14 +98,12 @@
                             </div>
 
                             <div class="flex items-center justify-between">
-                                <!-- Add a delete button with confirmation dialog -->
-                                <form id="deleteForm{{ $resource->id }}" action="/delete-resource/{{ $resource->id }}"
-                                    method="POST">
+                                <!-- Add a delete button, adjust the route accordingly -->
+                                <form action="/delete-resource/{{ $resource->id }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button"
-                                        class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-700"
-                                        onclick="confirmDelete({{ $resource->id }})">Delete</button>
+                                    <button type="submit"
+                                        class="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-700">Delete</button>
                                 </form>
                             </div>
                         </div>
@@ -131,20 +128,9 @@
                     </div>
                 </div>
             @endforeach
+
+
         </div>
-
-        <script>
-            function confirmDelete(resourceId) {
-                if (confirm('Are you sure you want to delete this resource?')) {
-                    // Proceed with form submission
-                    document.getElementById('deleteForm' + resourceId).submit();
-                } else {
-                    // Prevent form submission if the user cancels
-                    event.preventDefault(); // Add this line to prevent the default form submission
-                }
-            }
-        </script>
-
 
     </div>
 @endsection

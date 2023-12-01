@@ -9,10 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::table('accepted_appointments', function (Blueprint $table) {
-            $table->foreignId('counselor_id')->constrained('users')->onDelete('set null');
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('first_login')->default(true);
         });
     }
 
@@ -21,8 +21,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('accepted_appointments', function (Blueprint $table) {
-            //
-        });
+        //
     }
 };

@@ -1,4 +1,4 @@
-@extends(Auth::user()->is_admin ? 'layouts.adminlayout' : 'layouts.layout')
+@extends(Auth::user()->is_admin == 0 ? 'layouts.layout' : (Auth::user()->is_admin == 1 ? 'layouts.adminlayout' : 'layouts.guidancelayout'))
 @section('content')
     <!DOCTYPE html>
     <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">

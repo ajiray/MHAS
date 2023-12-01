@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Mail\RegistrationStatusMail;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\Request;
 use App\Models\PendingUser;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Mail\GeneratedPasswordEmail;
+use App\Mail\RegistrationStatusMail;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -14,16 +16,23 @@ class AdminController extends Controller
     {
         $pendingUser = PendingUser::find($id);
 
-        // Create user in 'users' table
+        // Generate a random temporary password
+        $temporaryPassword = Str::random(12);
+
+        // Create user in 'users' table with the temporary password
         $user = User::create([
             'name' => $pendingUser->name,
             'email' => $pendingUser->email,
-            'password' => $pendingUser->password,
-            'status' => 'approved',
+            'student_number' =>$pendingUser->student_number,
+            'course' => $pendingUser->course,
+            'age' => $pendingUser->age,
+            'birthday' => $pendingUser->birthday,
+            'password' => bcrypt($temporaryPassword),
         ]);
 
-        // Send confirmation email to the user
-        $this->sendStatusEmail($user, 'approved');
+
+        // Send generated password email to the user
+        Mail::to($user->email)->send(new GeneratedPasswordEmail($user, $temporaryPassword));
 
         // Optionally, you can delete the pending user record
         $pendingUser->delete();
