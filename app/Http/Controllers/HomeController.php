@@ -108,13 +108,14 @@ class HomeController extends Controller
 
     public function adminappointment()
 {
-    // Get all appointments and sort them by 'date' and 'time'
+    $counselor = Auth::user();
     $appointments = Appointment::all()->sortBy(function ($appointment) {
         return $appointment->date . ' ' . $appointment->time;
     });
 
-    // Get all accepted appointments
-    $acceptedAppointments = AcceptedAppointment::all()->sortBy(function ($acceptedAppointment){
+    $acceptedAppointments = AcceptedAppointment::where('counselor_id', $counselor->id)
+    ->get()
+    ->sortBy(function ($acceptedAppointment) {
         return $acceptedAppointment->appointment->date . '' . $acceptedAppointment->appointment->time;
     });
 

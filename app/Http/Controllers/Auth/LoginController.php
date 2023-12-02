@@ -53,6 +53,8 @@ class LoginController extends Controller
 
         if ($user->is_admin == 1) {
             return redirect('admindashboard');
+        } else if ($user->is_admin == 2) {
+            return redirect('guidancedashboard');
         } else {
             // Check if it's the user's first login
             if ($user->first_login) {

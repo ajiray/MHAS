@@ -39,7 +39,7 @@
     </div>
 
     <div
-        class="h-screen-200vh w-full xl:h-full flex justify-start xl:justify-center items-center flex-col space-y-20 xl:space-y-0 xl:flex-row xl:space-x-20 bg-slate-300">
+        class="h-screen-200vh w-full xl:h-full flex justify-start xl:justify-center items-center flex-col space-y-20 xl:space-y-0 xl:flex-row xl:space-x-20">
         <div class="w-[80%] flex flex-col items-center justify-center xl:mt-0 xl:w-[40%] xl:h-[80%]">
             <h1 class="text-3xl font-semibold mb-4 mt-10 xl:mt-0">UPLOAD RESOURCES HERE</h1>
 

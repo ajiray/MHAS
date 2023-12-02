@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     @vite('resources/css/app.css')
     <script src="{{ asset('js/reaction.js') }}" defer></script>
+    <style>
+        .gradient {
+            background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(147, 67, 67, 1) 0%, rgba(111, 27, 27, 1) 90%);
+        }
+    </style>
 </head>
 
 <body>
@@ -15,15 +20,17 @@
         return [$post->announcement, $post->id];
     }) as $post)
         <div class="relative mt-20 xl:ml-10">
-            <div class="w-80 h-72 flex flex-col rounded-lg border-2 border-gray-300 shadow-md">
+            <div
+                class="w-80 h-72 flex flex-col rounded-lg border-2 border-gray-300 shadow-md @if ($post->announcement) gradient @endif">
                 <!-- Author info -->
-                <div class="flex justify-between items-center space-x-2 mt-3 ml-3 mr-3 border-b-2 border-black pb-3">
+                <div
+                    class="flex justify-between items-center space-x-2 mt-3 ml-3 mr-3 border-b-2 border-black pb-3 @if ($post->announcement) border-yellow @endif">
                     <div class="flex items-center space-x-2">
 
                         @if ($post->anonymous)
                             <span class="text-lg font-semibold text-gray-700">Anonymous User</span>
                         @elseif ($post->announcement)
-                            <span class="text-xl text-gray-700 font-semibold">ANNOUNCEMENT</span>
+                            <span class="text-lg text-yellow font-semibold">ANNOUNCEMENT</span>
                         @else
                             <img src="{{ asset('images/' . $post->user->avatar) }}" width="40" height="40"
                                 alt="author profile" class="rounded-full">
@@ -33,7 +40,7 @@
                     <div class="flex items-center space-x-2">
 
                         <button onclick="confirmDeletePost('{{ $post->id }}')"
-                            class="material-symbols-outlined text-red-600">
+                            class="material-symbols-outlined text-red-600 @if ($post->announcement) text-white @endif">
                             Delete
                         </button>
                         <form id="delete-form-{{ $post->id }}" action="/delete-post-admin/{{ $post->id }}"
@@ -46,7 +53,8 @@
                 </div>
                 <!-- Caption -->
                 <div class="h-3/5 flex items-center">
-                    <p class="text-center text-sm break-words w-full p-4 text-gray-700">
+                    <p
+                        class="text-center text-sm break-words w-full p-4 text-gray-700 tracking-widest @if ($post->announcement) text-yellow font-bold @endif">
                         {{ $post->body }}
                     </p>
                 </div>

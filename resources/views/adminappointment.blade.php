@@ -4,7 +4,7 @@
     <script>
         function confirmAcceptAppointment(appointmentId) {
             if (confirm('Are you sure you want to accept this appointment?')) {
-                document.getElementById('assign-form-' + appointmentId).submit();
+                document.getElementById('accept-form-' + appointmentId).submit();
             } else {
                 // Prevent form submission if the user cancels
                 event.preventDefault(); // Add this line to prevent the default form submission
@@ -25,6 +25,14 @@
             modal.classList.toggle("hidden"); // Toggle the 'hidden' class to show/hide the modal
         }
 
+        function confirmResched(appointmentId) {
+            if (confirm('Are you sure you want to Resched this Appointment?')) {
+                document.getElementById('resched-form-' + appointmentId).submit();
+            } else {
+                // Prevent form submission if the user cancels
+                event.preventDefault(); // Add this line to prevent the default form submission
+            }
+        }
 
         function fadeOutAlert(alertId) {
             setTimeout(function() {
@@ -126,7 +134,7 @@
                                     action="/assign-counselor/{{ $appointment->id }}" method="POST">
                                     @csrf
                                     @method('PATCH')
-                                    <div class="space-x-1">
+                                    <div class="space-x-1 flex">
                                         <select id="counselor" name="counselor_id"
                                             class="bg-gray-100 p-2 rounded-md border border-1 border-black" required>
                                             <option disabled selected>Choose counselor</option>
@@ -142,6 +150,19 @@
                                     </div>
 
                                 </form>
+                                <div class="space-y-2">
+                                    <form id="accept-form-{{ $appointment->id }}"
+                                        action="/accept-appointment/{{ $appointment->id }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button onclick="confirmAcceptAppointment('{{ $appointment->id }}')" type="submit"
+                                            class="bg-green-500 text-white px-4 py-2 rounded-full">Accept</button>
+                                    </form>
+
+
+                                    <button onclick="declineAppointment('{{ $appointment->id }}')" type="submit"
+                                        class="bg-red-500 text-white px-4 py-2 rounded-full">Decline</button>
+                                </div>
                             </div>
                         </div>
                     @endif
@@ -172,7 +193,17 @@
 
                     @endphp
                     <div class="mt-5 p-4 bg-white border border-gray-300 rounded shadow-md">
-                        <h3 class="text-lg font-semibold">{{ $acceptedAppointment->appointment->reason }}</h3>
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-semibold">{{ $acceptedAppointment->appointment->reason }}</h3>
+                            <form action="/resched/{{ $acceptedAppointment->appointment->id }}" method="POST"
+                                id="resched-form-{{ $appointment->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="confirmResched({{ $appointment->id }})"><i
+                                        class="fa-regular fa-calendar fa-xl cursor-pointer"></i></button>
+                            </form>
+
+                        </div>
                         <p class="text-gray-600">Student: {{ $acceptedAppointment->appointment->user->name }}</p>
                         <p class="text-gray-600">Date:
                             {{ \Carbon\Carbon::parse($acceptedAppointment->appointment->date)->format('F j, Y') }}</p>

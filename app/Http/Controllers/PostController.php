@@ -45,7 +45,7 @@ public function createPost(Request $request)
         'body' => 'required|max:200'
     ]);
 
-    $profanityWords = ['bobo', 'tanga', 'patay', 'fuck','inutil', 'nigga', 'puta', 'tangina', 'gago','mamatay', 'suicide', 'Putang ina mo', 'Walang hiya', 'Tae', 'Punyeta', 'Pakshet', 'Bwisit', 'Leche', 'Hayop', 'Lintik', 'Tarantado', 'kantot', 'pokpok', 'slut', 'motherfucker', 'vovo', 'wtf', 'panget', 'Hayup'];
+    $profanityWords = ['bobo', 'tanga', 'patay', 'fuck','inutil', 'nigga', 'puta', 'tangina', 'gago','mamatay', 'suicide', 'Putang ina mo', 'Walang hiya', 'Tae', 'Punyeta', 'Pakshet', 'Bwisit', 'Leche', 'Hayop', 'Lintik', 'Tarantado', 'kantot', 'pokpok', 'slut', 'motherfucker', 'vovo', 'wtf', 'panget', 'Hayup', 'bitch'];
 
     foreach ($profanityWords as $word) {
         if (stripos($incomingFields['body'], $word) !== false) {
@@ -80,7 +80,7 @@ public function createPostAdmin(Request $request) {
         'body' => 'required|max:200'
     ]); 
 
-    $profanityWords = ['bobo', 'tanga', 'patay', 'fuck','inutil', 'nigga', 'puta', 'tangina', 'gago','mamatay', 'suicide', 'Putang ina mo', 'Walang hiya', 'Tae', 'Punyeta', 'Pakshet', 'Bwisit', 'Leche', 'Hayop', 'Lintik', 'Tarantado', 'kantot', 'pokpok', 'slut', 'motherfucker', 'vovo', 'wtf', 'panget', 'Hayup'];
+    $profanityWords = ['bobo', 'tanga', 'patay', 'fuck','inutil', 'nigga', 'puta', 'tangina', 'gago','mamatay', 'suicide', 'Putang ina mo', 'Walang hiya', 'Tae', 'Punyeta', 'Pakshet', 'Bwisit', 'Leche', 'Hayop', 'Lintik', 'Tarantado', 'kantot', 'pokpok', 'slut', 'motherfucker', 'vovo', 'wtf', 'panget', 'Hayup', 'bitch'];
 
     foreach ($profanityWords as $word) {
         if (stripos($incomingFields['body'], $word) !== false) {

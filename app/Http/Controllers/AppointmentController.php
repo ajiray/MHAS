@@ -61,22 +61,22 @@ public function understandAppointment(Appointment $appointment) {
 }
 
 public function acceptAppointment(Appointment $appointment) {
-    // Check for time conflicts
-    $existingAppointments = Appointment::where('date', $appointment->date)
+    // Check for time conflicts for the specific counselor on the proposed date
+    $existingAppointments = Appointment::where('counselor_id', auth()->user()->id)
+        ->where('date', $appointment->date)
         ->where('status', 'approved')
         ->get();
 
     $proposedStart = Carbon::parse($appointment->date . ' ' . $appointment->time);
-    $proposedEnd = $proposedStart->copy()->addHour(); // Assuming appointments are 1 hour long
+    $proposedEnd = $proposedStart->copy()->addMinutes(30);
 
     foreach ($existingAppointments as $existing) {
         $existingStart = Carbon::parse($existing->date . ' ' . $existing->time);
-        $existingEnd = $existingStart->copy()->addHour();
+        $existingEnd = $existingStart->copy()->addMinutes(30);
 
         if ($proposedStart < $existingEnd && $proposedEnd > $existingStart) {
             // There's a time conflict
             $appointment->update(['status' => 'declined (Conflict of Schedule)']);
-
             $appointment->save();
 
             return redirect()->back()->with('decline', 'This appointment has been declined due to a time conflict.');
@@ -84,27 +84,41 @@ public function acceptAppointment(Appointment $appointment) {
     }
 
     // If no conflict, mark the appointment as approved
-    $appointment->update(['status' => 'approved']);
+    $appointmentData = ['status' => 'approved'];
+
+    // Set counselor_id to the authenticated user's id
+    $appointmentData['counselor_id'] = auth()->user()->id;
+
+    $appointment->update($appointmentData);
     $appointment->save();
 
     Mail::to($appointment->user->email)->send(new AppointmentAcceptedMail($appointment->user, $appointment));
+
     // Store the accepted appointment in the 'accepted_appointments' table
     $acceptedAppointment = new AcceptedAppointment;
     $acceptedAppointment->user_id = $appointment->user_id;
     $acceptedAppointment->appointment_id = $appointment->id;
-    $acceptedAppointment->counselor_id = auth()->user()->id;
+    $acceptedAppointment->counselor_id = $appointmentData['counselor_id']; // Use the updated counselor_id
     $acceptedAppointment->save();
 
     return redirect()->back()->with('success', 'Appointment has been approved successfully.');
 }
 
 
+
+
 public function declineAppointment(Appointment $appointment) {
     
+    if (auth()->user()->is_admin == 1) {
+        $redirectPath = '/adminappointment';
+    } elseif (auth()->user()->is_admin == 2) {
+        // Check if the user is a guidance admin (assuming is_admin == 2 for guidance admin)
+        $redirectPath = '/guidanceappointment';
+    }
     $reason = request('reason'); // Get the reason from the form
     $appointment->update(['status' => 'declined (' . $reason . ')']);
     
-    return redirect('/guidanceappointment')->with('decline', 'Success! The appointment has been declined with reason: ' . $reason);
+    return redirect($redirectPath)->with('decline', 'Success! The appointment has been declined with reason: ' . $reason);
 }
 
 

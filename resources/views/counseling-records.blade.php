@@ -9,7 +9,6 @@
                 width: 900px;
                 height: 800px;
                 margin: 0 auto;
-                background-color: #153243;
                 border-radius: 8px;
                 z-index: 1;
                 margin-top: 20px;
@@ -51,7 +50,9 @@
     </head>
 
     <body>
-        <div class="card">
+        <div
+            class="card bg-gradient-to-b {{ Auth::user()->is_admin == 1 ? 'from-adminPrimary to-gradientBlue' : (Auth::user()->is_admin == 2 ? 'from-guidancePrimary to-orange-950' : '') }}">
+
             <div class="tools">
                 <div class="circle">
                     <span class="red box"></span>
@@ -64,7 +65,8 @@
                 </div>
             </div>
             <div class="ml-auto mr-auto">
-                <h1 class="font-bold text-white p-4 font-serif text-xl md:text-2xl md:ml-auto md:mr-auto ">Guidance
+                <h1 class="font-bold text-white p-4 font-serif text-xl md:text-2xl md:ml-auto md:mr-auto text-center">
+                    Guidance
                     Counseling Records</h1>
             </div>
             <x-searchforstudents />

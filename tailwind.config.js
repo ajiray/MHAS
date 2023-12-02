@@ -23,7 +23,7 @@ export default {
         guidanceSecondary: '#f7e5d9',
         gradientBlue: '#2b678a',
         announcementPrimary: '#4a171e',
-        announcementSecondary: '#e2b144'
+        announcementSecondary: '#e2b144',
       },
       screens: {
         'mobileS': '320px',
