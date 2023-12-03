@@ -229,7 +229,7 @@
                                 @endif
                             @else
                                 <p class="text-gray-600 font-bold">Meeting should start now</p>
-                                @if ($minutesLeft < 10)
+                                @if ($minutesLeft < 30)
                                     <button
                                         class="text-amber-600 bg-amber-200 px-4 py-2 rounded-xl hover:bg-amber-300 font-semibold hover:text-white hover:no-underline mt-2 w-full"
                                         onclick="openCreateMeetingPopup()">

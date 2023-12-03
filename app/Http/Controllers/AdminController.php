@@ -47,7 +47,8 @@ class AdminController extends Controller
     $pendingUser->delete();
     $pendingUsers = PendingUser::all();
     
-    return redirect('admindashboard', compact('pendingUsers'))->with('success', 'User approved successfully.');
+    return redirect()->route('admindashboard')->with(['pendingUsers' => $pendingUsers, 'success' => 'User approved successfully.']);
+
 }
 
 

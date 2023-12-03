@@ -275,7 +275,7 @@
                         @endif
 
                         @php
-                            $minutesAfterAppointment = $meetingDateTime->addMinutes(0);
+                            $minutesAfterAppointment = $meetingDateTime->addMinutes(30);
                             $isButtonDisabled = $currentDateTime < $minutesAfterAppointment;
                         @endphp
 
