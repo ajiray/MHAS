@@ -88,6 +88,7 @@ Route::delete('/delete-post-profile/{post}', [PostController::class, 'deletePost
 
 
 //appointment
+Route::post('/contactCounselor/{appointment}', [AppointmentController::class, 'contactCounselor']);
 Route::post('/book-appointment', [AppointmentController::class, 'bookAppointment']);
 Route::delete('/cancel-appointment/{appointment}', [AppointmentController::class, 'cancelAppointment']);
 Route::delete('/understand-appointment/{appointment}', [AppointmentController::class, 'understandAppointment']);
@@ -151,4 +152,8 @@ Route::post('/counseling-records.back', [CounselingRecordController::class, 'sea
 Route::get('/counseling-records/create', [CounselingRecordController::class, 'create'])->name('counseling-records.create');
 Route::get('/errorcode',[CounselingRecordController::class,'error'])->name('errorcode');
 Route::get('/main-screen',[CounselingRecordController::class,'mainScreen'])->name('main-screen');
+
+
+//Contact Us
+Route::post('/contactUs', [HomeController::class, 'contactUs']);
 

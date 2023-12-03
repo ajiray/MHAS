@@ -130,12 +130,12 @@ function getComments(postId) {
                 var fullAvatarPath = '/images/' + userAvatar;
             
                 // Apply styles directly within the HTML string
-                var commentHtml = `<div class="comment-container max-w-md mx-auto mb-4 p-4 border rounded bg-gray-100">
+                var commentHtml = `<div class="comment-container max-w-full mx-auto mb-4 p-4 border rounded bg-gray-100">
                                         <div class="flex items-center mb-2">
                                             <img src="${fullAvatarPath}" alt="User Avatar" style="width: 35px; height: 35px; object-fit: cover;" class="rounded-full border border-gray-300 mr-2">
                                             <span class="font-bold text-gray-800">${userName}</span>`;
             
-                if (data.user && comment.user_id === data.user.id) {
+                if (data.user && comment.user_id === data.user.id || data.user.is_admin !== 0) {
                     commentHtml += `<button onclick="confirmDeleteComment(${comment.id}, ${postId})" style="cursor: pointer; margin-left: auto;" class="material-symbols-outlined text-red-600">Delete</button>`;
                 }
             

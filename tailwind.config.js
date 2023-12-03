@@ -24,6 +24,7 @@ export default {
         gradientBlue: '#2b678a',
         announcementPrimary: '#4a171e',
         announcementSecondary: '#e2b144',
+        pink: '#ffd7d7',
       },
       screens: {
         'mobileS': '320px',

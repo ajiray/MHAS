@@ -30,10 +30,14 @@
         .floating-element {
             animation: float 2s ease-in-out infinite;
         }
+
+        .gradient {
+            background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(147, 67, 67, 1) 0%, rgba(111, 27, 27, 1) 90%);
+        }
     </style>
 </head>
 
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden w-full bg-white">
     <!--Header-->
     <header>
         <nav class="container flex items-center py-4 mt-4 sm:mt-12 relative">
@@ -125,7 +129,7 @@
         </div>
         <!--Rounded Rectangle-->
         <div
-            class="hidden md:block overflow:hidden bg-maroon rounded-l-full absolute h-80 w-2/4 top-8 right-0 lg: -bottom-28 lg:-right-36">
+            class="hidden md:block overflow:hidden bg-maroon rounded-l-full absolute h-80 w-[40%] top-8 right-0 lg:-bottom-28 lg:right-0">
         </div>
     </section>
     <!-- Features -->
@@ -158,7 +162,7 @@
             </div>
             <!-- Rounded Rectangle -->
             <div
-                class="hidden lg:block overflow:hidden bg-maroon rounded-r-full absolute h-80 w-2/4  -bottom-24 -left-36">
+                class="hidden lg:block overflow:hidden bg-maroon rounded-r-full absolute h-80 w-[40%] -bottom-24 left-0">
             </div>
         </div>
         <!-- Feature 2 -->
@@ -179,7 +183,7 @@
             </div>
             <!-- Rounded Rectangle -->
             <div
-                class="hidden lg:block overflow:hidden bg-maroon rounded-l-full absolute h-80 w-2/4  -bottom-24 -right-36">
+                class="hidden lg:block overflow:hidden bg-maroon rounded-l-full absolute h-80 w-[40%]  -bottom-24 right-0">
             </div>
         </div>
         <!-- Feature 3 -->
@@ -201,7 +205,7 @@
             </div>
             <!-- Rounded Rectangle -->
             <div
-                class="hidden lg:block overflow:hidden bg-maroon rounded-r-full absolute h-80 w-2/4  -bottom-24 -left-36">
+                class="hidden lg:block overflow:hidden bg-maroon rounded-r-full absolute h-80 w-[40%]  -bottom-24 left-0">
             </div>
         </div>
 
@@ -223,7 +227,7 @@
             </div>
             <!-- Rounded Rectangle -->
             <div
-                class="hidden lg:block overflow:hidden bg-maroon rounded-l-full absolute h-80 w-2/4  -bottom-24 -right-36">
+                class="hidden lg:block overflow:hidden bg-maroon rounded-l-full absolute h-80 w-[40%] -bottom-36 right-0">
             </div>
         </div>
         <!-- Feature 5 -->
@@ -245,7 +249,7 @@
             </div>
             <!-- Rounded Rectangle -->
             <div
-                class="hidden lg:block overflow:hidden bg-maroon rounded-r-full absolute h-80 w-2/4  -bottom-24 -left-36">
+                class="hidden lg:block overflow:hidden bg-maroon rounded-r-full absolute h-80 w-[40%]  -bottom-24 left-0">
             </div>
         </div>
         <!-- Feature 6 -->
@@ -266,39 +270,106 @@
             </div>
             <!-- Rounded Rectangle -->
             <div
-                class="hidden lg:block overflow:hidden bg-maroon rounded-l-full absolute h-80 w-2/4  -bottom-24 -right-36">
+                class="hidden lg:block overflow:hidden bg-maroon rounded-l-full absolute h-80 w-[40%]  -bottom-24 right-0">
             </div>
         </div>
     </section>
     <!-- About -->
-    <section class="py-20 mt-20" id="about">
-        <!-- Heading -->
-        <div class="sm:3/4 lg:w-5/12 mx-auto px-2">
-            <h1 class="text-3xl text-center text-maroon">About MindScape</h1>
-            <p class="text-center text-black mt-4">
-                Mindscape is an online platform for the University of Perpetual Help System Dalta Las Pinas Campus
-                College Students to help them be aware of their
-                mental health.
-        </div>
-    </section>
-    <section class="bg-maroon text-white py-20" id="contact">
-        <div class="container">
-            <div class="sm:w-3/4 lg:w-2/4 mx-auto">
-                <p class="font-semibold  text-center mb-8 text-3xl">Contact Us</p>
-                <p class="font-light text-center  text-1xl">mhas@perpetual.edu.ph</p>
-                <p class="font-light uppercase text-center  text-1xl">09156831148</p>
-                <p class="font-light uppercase text-center  text-1xl">801-04-06</p>
+    <section class="h-[1000px] xl:h-[600px] bg-pink w-full flex justify-center items-center mt-20" id="about">
+
+        <div class="flex-col container mx-auto flex items-center justify-between xl:p-8 xl:flex-row">
+            <!-- About Text -->
+            <div class="w-full xl:w-1/2" data-aos="zoom-out-right">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">About MindScape</h2>
+                <p class="text-gray-800 leading-loose">
+                    Welcome to MindScape, a groundbreaking mental health awareness system designed for the Perpetual
+                    Help System Dalta community. At MindScape, we believe in fostering a supportive environment and
+                    promoting mental well-being among students, faculty, and staff.
+                </p>
+                <p class="text-gray-800 leading-loose">
+                    Our mission is to provide resources, guidance, and a sense of community for individuals navigating
+                    the complexities of mental health. MindScape offers a range of tools and information to help you on
+                    your journey to mental well-being.
+                </p>
+            </div>
+            <!-- About GIF -->
+            <div class="w-full xl:w-1/2">
+                <!-- Placeholder for GIF -->
+                <img src="./images/about.gif" alt="MindScape in action" class="w-full max-w-md max-h-full mx-auto">
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark py-8">
+
+    <section
+        class="py-20 w-full h-[1000px] flex items-center justify-center bg-gradient-to-b from-slate-200 via-slate-100 to-slate-300 relative"
+        id="contact">
+        @if (session()->has('success'))
+            <div class="absolute top-10 left-0 right-0 flex items-center justify-center w-full p-4 md:w-96 md:p-6"
+                id="alert">
+                <div class="bg-green-300 rounded-lg text-green-700 font-semibold shadow-md p-2 md:p-4 md:text-base">
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
+        <div class="gradient xl:w-[60%] xl:h-[60%] rounded-2xl flex items-center shadow-lg flex-col xl:flex-row"
+            data-aos="fade-up">
+            <div class="xl:w-[40%] h-full flex flex-col justify-center items-center">
+
+                <div class="w-full flex flex-col space-y-2 items-center justify-center h-full">
+                    <i class="fas fa-map-marker-alt fa-2x text-yellow"></i>
+                    <h1 class="text-gray-100 text-lg font-semibold">Address</h1>
+                    <p class="text-gray-100">Blk 5 Lot 2 Las Pinas</p>
+                </div>
+                <div class="w-full flex flex-col space-y-2 items-center justify-center h-full">
+                    <i class="fas fa-phone-alt fa-2x text-yellow"></i>
+                    <h1 class="text-gray-100 text-lg font-semibold">Phone</h1>
+                    <p class="text-gray-100">+639190005789</p>
+                </div>
+                <div class="w-full flex flex-col space-y-2 items-center justify-center h-full">
+                    <i class="fas fa-envelope fa-2x text-yellow"></i>
+                    <h1 class="text-gray-100 text-lg font-semibold">Email</h1>
+                    <p class="text-gray-100">mindscapementalhealth331@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="grow w-full h-full p-8 relative overflow-hidden space-y-10">
+                <div class="hidden border-l-2 border-gray-100 h-[70%] absolute left-0 top-20 xl:block"></div>
+                <h1 class="text-yellow text-3xl font-bold mb-4">Send us a message</h1>
+                <form action="/contactUs" method="POST" class="flex flex-col space-y-4">
+                    @csrf
+                    <div class="flex flex-col space-y-2">
+                        <input type="text" id="name" name="name" placeholder="Your Name"
+                            class="border-2 rounded-md px-4 py-2 focus:outline-none focus:border-yellow transition duration-300"
+                            required autocomplete="off">
+                    </div>
+                    <div class="flex flex-col space-y-2">
+
+                        <input type="email" id="email" name="email" placeholder="Your Email"
+                            class="border-2  rounded-md px-4 py-2 focus:outline-none focus:border-yellow transition duration-300"
+                            required autocomplete="off">
+                    </div>
+                    <div class="flex flex-col space-y-2">
+
+                        <textarea id="message" name="message" placeholder="Your Message"
+                            class="border-2  rounded-md px-4 py-2 h-24 focus:outline-none focus:border-yellow transition duration-300" required
+                            autocomplete="off"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="bg-yellow text-black font-semibold py-2 px-4 rounded hover:bg-amber-500 transition duration-300 w-36">Send</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+
+    <footer class="py-8 w-full bg-dark">
         <div class="container flex flex-col md:flex-row items-center">
             <div class="flex flex-1 flex-wrap items-center justify-center md:justify-start gap-12">
-                <img class="w-[90px] h-[70px] " src="./images/logo.png" alt="">
+                <img class="w-[90px] h-[70px]" src="./images/logo.png" alt="MindScape Logo">
                 <div>
-                    <p class="text-customYellow text-2xl ml-[-50px] ">MindScape</p>
+                    <p class="text-yellow text-2xl ml-[-50px] font-bold">MindScape</p>
                 </div>
                 <ul class="flex text-white uppercase gap-12 text-xs">
                     <li class="cursor-pointer"><a href="#features">Features</a></li>
@@ -307,13 +378,16 @@
                 </ul>
             </div>
             <div class="flex gap-10 mt-12 md:mt-0">
-                <a link href="https://www.facebook.com/xdhumol"><i
-                        class="text-2xl text-white fa-brands fa-square-facebook cursor-pointer"></a></i>
-                <a link href="https://twitter.com/Vermaiii"><i
-                        class="text-2xl text-white fa-brands fa-square-twitter cursor-pointer"></a></i>
+                <a href="https://www.facebook.com/xdhumol" target="_blank">
+                    <i class="text-2xl text-white fa-brands fa-facebook-square cursor-pointer"></i>
+                </a>
+                <a href="https://twitter.com/Vermaiii" target="_blank">
+                    <i class="text-2xl text-white fa-brands fa-twitter-square cursor-pointer"></i>
+                </a>
             </div>
         </div>
     </footer>
+
 </body>
 
 <script>
@@ -325,6 +399,22 @@
         animatedClassName: 'animated',
         selector: '*[data-aos]',
     });
+
+    function fadeOutAlert(alertId) {
+        setTimeout(function() {
+            var alert = document.getElementById(alertId);
+            if (alert) {
+                alert.style.transition = "opacity 1s";
+                alert.style.opacity = 0;
+                setTimeout(function() {
+                    alert.style.display = "none";
+                }, 1000);
+            }
+        }, 2500); // 2500 milliseconds (2.5 seconds)
+    }
+
+    // Call the fadeOutAlert function for each alert message
+    fadeOutAlert("alert");
 </script>
 
 </html>

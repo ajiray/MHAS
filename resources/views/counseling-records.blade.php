@@ -69,7 +69,11 @@
                     Guidance
                     Counseling Records</h1>
             </div>
-            <x-searchforstudents />
+            @if (isset($studentNumber))
+                <x-searchforstudents :studentNumber="$studentNumber" />
+            @else
+                <x-searchforstudents />
+            @endif
             @if (session()->has('error'))
                 <div class=" top-0 left-0 mt-4" id="errorAlert">
                     <div class="bg-red-300 p-3 rounded-lg text-white font-semibold shadow-md text-center">

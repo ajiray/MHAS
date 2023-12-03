@@ -228,15 +228,72 @@
                                         {{ $secondsLeft }} {{ $secondsLabel }}
                                     @endif
                                 </p>
+
+                                @if ($minutesLeft < 10)
+                                    <button
+                                        class="text-amber-600 bg-amber-200 px-4 py-2 rounded-xl hover:bg-amber-300 font-semibold hover:text-white hover:no-underline mt-2 w-full"
+                                        onclick="openCreateMeetingPopup()">
+                                        Contact Student
+                                    </button>
+
+                                    <form id="createMeetingForm" action="{{ route('createMeeting') }}" method="POST"
+                                        style="display: none;">
+                                        <input type="hidden" name="user_id" value="{{ $acceptedAppointment->user_id }}">
+                                        @csrf
+                                    </form>
+
+                                    <script>
+                                        function openCreateMeetingPopup() {
+                                            // Trigger the form submission
+                                            document.getElementById('createMeetingForm').submit();
+                                        }
+                                    </script>
+                                @endif
+                            @else
+                                <p class="text-gray-600 font-bold">Meeting should start now</p>
+                                @if ($minutesLeft < 30)
+                                    <button
+                                        class="text-amber-600 bg-amber-200 px-4 py-2 rounded-xl hover:bg-amber-300 font-semibold hover:text-white hover:no-underline mt-2 w-full"
+                                        onclick="openCreateMeetingPopup()">
+                                        Contact Student
+                                    </button>
+
+                                    <form id="createMeetingForm" action="{{ route('createMeeting') }}" method="POST"
+                                        style="display: none;">
+                                        <input type="hidden" name="user_id" value="{{ $acceptedAppointment->user_id }}">
+                                        @csrf
+                                    </form>
+
+                                    <script>
+                                        function openCreateMeetingPopup() {
+                                            // Trigger the form submission
+                                            document.getElementById('createMeetingForm').submit();
+                                        }
+                                    </script>
+                                @endif
                             @endif
                         @endif
 
                         @php
-                            $minutesAfterAppointment = $meetingDateTime->addMinutes(30);
+                            $minutesAfterAppointment = $meetingDateTime->addMinutes(0);
                             $isButtonDisabled = $currentDateTime < $minutesAfterAppointment;
                         @endphp
 
 
+                        <form action="/markAsDone/{{ $acceptedAppointment->appointment_id }}" method="POST"
+                            id="markAsDone-form-{{ $acceptedAppointment->id }}">
+                            @csrf
+                            @method('DELETE')
+                            <button
+                                @if ($isButtonDisabled) disabled
+                            class="text-gray-600 bg-gray-300 px-4 py-2 rounded-xl font-semibold w-full mt-3"
+                                title="Mark as Done button will be available 30 minutes after the appointment time."
+                                @else
+                                class="text-green-600 bg-green-200 px-4 py-2 rounded-xl hover:bg-green-300 font-semibold hover:text-white hover:no-underline w-full mt-3"
+                                 onclick="markAsDone('{{ $acceptedAppointment->appointment_id }}')" @endif>
+                                Mark as Done
+                            </button>
+                        </form>
 
                     </div>
                 @endforeach

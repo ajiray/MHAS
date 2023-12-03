@@ -13,7 +13,7 @@ class MeetingController extends Controller
 
     public function createMeeting(Request $request) {
 
-  
+        
         $METERED_DOMAIN = env('METERED_DOMAIN');
         $METERED_SECRET_KEY = env('METERED_SECRET_KEY');
 

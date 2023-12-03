@@ -17,7 +17,8 @@
             <div class="flex flex-col sm:flex-row sm:space-x-3 md:flex-row md:space-x-3 items-center">
                 <input type="text" name="search" id="search" placeholder="Search for Student Number"
                     autocomplete="off" required
-                    class="py-1 px-2 sm:py-2 sm:px-3 w-64 sm:w-80 md:w-96 lg:w-[700px] rounded-lg font-semibold border-2 border-gray-300">
+                    class="py-1 px-2 sm:py-2 sm:px-3 w-64 sm:w-80 md:w-96 lg:w-[700px] rounded-lg font-semibold border-2 border-gray-300"
+                    value="{{ $studentNumber ?? '' }}">
                 <button type="submit"
                     class="w-[50%] py-2 sm:py-2 sm:w-[30%] md:py-2 md:w-[20%] desktop:py-2 desktop:w-[20%] mt-3 sm:mt-0 md:mt-0 desktop:mt-0 rounded-lg font-semibold {{ Auth::user()->is_admin == 1 ? 'bg-adminPrimary hover:bg-blue-300' : (Auth::user()->is_admin == 2 ? 'bg-guidancePrimary hover:bg-orange-300' : '') }}">
                     <i class="fa-solid fa-magnifying-glass fa-md text-adminSecondary"></i>

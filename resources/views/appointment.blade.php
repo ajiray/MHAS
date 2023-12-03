@@ -121,13 +121,20 @@
                         <label for="appointment_reason" class="block text-gray-600">Reason:</label>
                         <select name="appointment_reason" id="appointment_reason"
                             class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring focus:border-blue-500"
-                            required>
+                            onchange="handleReasonChange()" required>
                             <option value="" disabled selected>Select a reason</option>
                             <option value="Emotional Support">Emotional Support</option>
                             <option value="Academic Advising">Academic Advising</option>
                             <option value="Special Needs and Accommodations">Special Needs and Accommodations</option>
                             <option value="Extracurricular Activities">Extracurricular Activities</option>
+                            <option value="Other">Other</option>
                         </select>
+                    </div>
+
+                    <div id="otherReasonContainer" class="mb-6" style="display: none;">
+                        <label for="other_reason" class="block text-gray-600">Other Reason:</label>
+                        <input type="text" name="other_reason" id="other_reason"
+                            class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring focus:border-blue-500">
                     </div>
 
                     <button type="submit"
@@ -166,10 +173,13 @@
                                     <h3 class="text-lg font-semibold">{{ $appointment->reason }}</h3>
                                     @if ($currentDateTime > $meetingDateTime && $appointment->status === 'approved')
                                         <p class="text-gray-600 font-bold">Meeting should start now</p>
-                                        <button
-                                            class="text-amber-600 bg-amber-200 px-4 py-2 rounded-xl hover:bg-amber-300 font-semibold hover:text-white hover:no-underline mt-2 w-full">
-                                            Contact Counselor
-                                        </button>
+                                        <form action="/contactCounselor/{{ $appointment->id }}" method="POST">
+                                            @csrf
+                                            <button
+                                                class="text-amber-600 bg-amber-200 px-4 py-2 rounded-xl hover:bg-amber-300 font-semibold hover:text-white hover:no-underline mt-2 w-full">
+                                                Contact Counselor
+                                            </button>
+                                        </form>
                                     @else
                                         <p class="text-gray-600">Date:
                                             {{ \Carbon\Carbon::parse($appointment->date)->format('F j, Y') }}</p>
@@ -259,4 +269,20 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function handleReasonChange() {
+            var select = document.getElementById('appointment_reason');
+            var otherReasonContainer = document.getElementById('otherReasonContainer');
+            var otherReasonInput = document.getElementById('other_reason');
+
+            if (select.value === 'Other') {
+                otherReasonContainer.style.display = 'block';
+                otherReasonInput.required = true;
+            } else {
+                otherReasonContainer.style.display = 'none';
+                otherReasonInput.required = false;
+            }
+        }
+    </script>
 @endsection

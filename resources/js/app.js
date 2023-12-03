@@ -352,7 +352,20 @@ jquery("#joinMeetingBtn").on("click", async function () {
     jquery("#meetingView").addClass("hidden");
     jquery("#leaveMeetingView").removeClass("hidden");
 
-    setTimeout(function () {
-      window.location.href = "{{ route('leftmeeting') }}";
-  }, 2000);
-  });
+    // Assuming user is_admin value is available in some variable, e.g., userIsAdmin
+    // Replace userIsAdmin with the actual variable holding the is_admin value
+    if (is_admin === 0) {
+      // Redirect to '/appointment' for non-admin users
+      window.location.href = '/appointment';
+  } else if (is_admin === 1) {
+      // Redirect to '/adminappointment' for admin users
+      window.location.href = '/adminappointment';
+  } else if (is_admin === 2) {
+      // Redirect to '/guidanceappointment' for guidance users
+      window.location.href = '/guidanceappointment';
+  } else {
+      // Handle other cases if needed
+      console.error("Invalid is_admin value");
+  }
+});
+

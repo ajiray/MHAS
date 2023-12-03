@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule):void
 {
     // Run the custom Artisan command every minute
-    $schedule->command('appointments:check')->everySecond();
+    $schedule->command('appointments:check')->everyMinute();
 }
 
     /**

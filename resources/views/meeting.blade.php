@@ -19,6 +19,10 @@
             }
         </style>
 
+        <script>
+            // Pass the is_admin value to app.js
+            var is_admin = {{ Auth::user()->is_admin }};
+        </script>
         <script src="https://cdn.metered.ca/sdk/video/1.4.5/sdk.min.js"></script>
 
         <script>
@@ -100,7 +104,7 @@
             </div>
         </div>
 
-        <div id='meetingView' class="hidden flex w-screen h-screen space-x-4 p-10">
+        <div id='meetingView' class="hidden flex w-full h-full space-x-4 p-10">
 
             <div id="activeSpeakerContainer" class=" bg-gray-900 rounded-3xl flex-1 flex relative">
                 <video id="activeSpeakerVideo" src="" autoplay class=" object-contain w-full rounded-t-3xl"></video>

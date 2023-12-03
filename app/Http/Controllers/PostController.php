@@ -231,9 +231,19 @@ public function submitComment(Request $request, Post $post) {
 
   
     // Validate the request data
-    $request->validate([
+    $incomingFields = $request->validate([
         'content' => 'required|string|max:255', // Adjust the validation rules as needed
     ]);
+
+    $profanityWords = ['bobo', 'tanga', 'patay', 'fuck','inutil', 'nigga', 'puta', 'tangina', 'gago','mamatay', 'suicide', 'Putang ina mo', 'Walang hiya', 'Tae', 'Punyeta', 'Pakshet', 'Bwisit', 'Leche', 'Hayop', 'Lintik', 'Tarantado', 'kantot', 'pokpok', 'slut', 'motherfucker', 'vovo', 'wtf', 'panget', 'Hayup', 'bitch'];
+
+    foreach ($profanityWords as $word) {
+        if (stripos($incomingFields['body'], $word) !== false) {
+            
+            return redirect('/wall')->with('profanity', 'Your comment contains inappropriate content.');
+    
+        }
+    }
 
     // Create a new comment
     $comment = new Comment([

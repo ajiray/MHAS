@@ -29,24 +29,32 @@ class AppointmentController extends Controller
         if ($appointmentDateTime <= $currentDateTime || $currentDateTime->diffInMinutes($appointmentDateTime) < 0) {
             return redirect()->back()->with('error', 'Please select an appointment time that is at least 30 minutes from now.');
         }
-
+    
         $existingAppointment = Appointment::where('user_id', auth()->id())->first();
-
-    if ($existingAppointment) {
-        return redirect()->back()->with('one', 'You can only book one appointment at a time.');
-    }
+    
+        if ($existingAppointment) {
+            return redirect()->back()->with('one', 'You can only book one appointment at a time.');
+        }
+    
+        $reason = $incomingFields['appointment_reason'];
+        
+        if ($reason === 'Other') {
+            // If the selected reason is "Other," use the value from the 'other_reason' field
+            $reason = $request->input('other_reason', '');
+        }
     
         $appointmentData = [
             'date' => strip_tags($incomingFields['appointment_date']),
             'time' => strip_tags($incomingFields['appointment_time']),
             'type' => strip_tags($incomingFields['appointment_type']),
-            'reason' => strip_tags($incomingFields['appointment_reason']),
+            'reason' => strip_tags($reason),
             'user_id' => auth()->id(),
         ];
     
         Appointment::create($appointmentData);
         return redirect('/appointment')->with('success', 'Success! Your appointment has been booked.');
     }
+    
     
 public function cancelAppointment(Appointment $appointment) {
     $appointment->delete();
@@ -124,11 +132,14 @@ public function declineAppointment(Appointment $appointment) {
 
 public function markAsDone($appointment)
 {
+
+   
     $appointment = Appointment::find($appointment);
+    $studentNumber = $appointment->user->student_number;
 
     if ($appointment) {
         $appointment->deleteWithAcceptedAppointments();
-        return redirect('/guidanceappointment')->with('delete', 'Success! The appointment is done');
+        return view('counseling-records', ['studentNumber' => $studentNumber]);
     } else {
         // Handle the case where the appointment doesn't exist
     }
@@ -171,6 +182,17 @@ public function resched(Appointment $acceptedAppointment)
     Mail::to($studentEmail)->send(new RescheduleNotification($acceptedAppointment->user, $acceptedAppointment));
 
     // Redirect or respond as needed
+    return redirect($chatifyUrl);
+}
+
+public function contactCounselor(Appointment $appointment) {
+
+    $appointmentId = $appointment->id;
+    $appointment = Appointment::findOrFail($appointmentId);
+    $counselorId = $appointment->counselor_id;
+    
+    $chatifyUrl = "/chatify/{$counselorId}";
+
     return redirect($chatifyUrl);
 }
 }

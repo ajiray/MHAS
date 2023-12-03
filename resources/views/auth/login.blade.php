@@ -1,37 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.css">
     @vite('resources/css/app.css')
     <div class="container">
         <section class="bg-gray-50 min-h-screen flex items-center justify-center">
             <div class="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl">
-                <div class="sm:w-3/5 px-16">
+                <div class="sm:w-3/5 px-16 relative">
+                    <a href="/"
+                        class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out absolute left-2 top-5">
+                        <i class="fas fa-chevron-left fa-lg mr-1"></i>
+                        <span class="text-sm">Back</span>
+                    </a>
                     <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="w-[150px] h-[130px] mx-auto">
-                    <h1 class="font-bold text-customRed text-center text-xl">MindScape</h1>
+                    <h1 class="font-bold text-maroon text-center text-xl">Login</h1>
                     <br>
-                    <form method="POST" action="{{ route('login') }}" class="mt-4">
-                        @csrf
+                    <div class="absolute bottom-3 right-0 left-0">
                         @if (session('status'))
-                            <div id="errorMessage" class="alert alert-danger text-center">{{ 'Error Login Credentials' }}
+                            <div id="alert" class="alert alert-danger text-center">
+                                {{ 'Error Login Credentials' }}
                             </div>
-                            <script>
-                                setTimeout(function() {
-                                    document.getElementById('errorMessage').style.display = 'none';
-                                }, 5000); // Hide the message after 5 seconds
-                            </script>
+
                             <br>
                         @endif
-
                         @if (session('success'))
-                            <div id="successMessage" class="alert alert-success text-center">
+                            <div id="alert" class="alert alert-success text-center">
                                 {{ session('success') }}
                             </div>
-                            <script>
-                                setTimeout(function() {
-                                    document.getElementById('successMessage').style.display = 'none';
-                                }, 5000); // Hide the message after 5 seconds
-                            </script>
                         @endif
+                    </div>
+                    <form method="POST" action="{{ route('login') }}" class="">
+                        @csrf
+
                         <div class="mb-4">
                             <input id="email" type="email" class="form-control p-2 rounded-xl border w-full"
                                 name="email" value="{{ old('email') }}" required autocomplete="email"
@@ -45,19 +45,21 @@
                                 <img src="{{ asset('/images/show-password.png') }}" alt="Show Password" class="w-6 h-6">
                             </span>
                         </div>
-                        <button class="border bg-customRed rounded-2xl w-full text-customYellow py-2"
+                        <button class="border bg-maroon rounded-2xl w-full text-white py-2"
                             type="submit">{{ __('Login') }}</button>
                         <a href="{{ url('/forget-password') }}"
-                            class="text-[13px] hover:underline text-center mt-2 text-customRed block">Forgot password?</a>
+                            class="text-[13px] hover:underline text-center mt-2 text-maroon block">Forgot password?</a>
                     </form>
                 </div>
                 <div
-                    class="sm:block hidden bg-gradient-to-b from-customRed via-customRed to-customYellow w-[480px] h-[500px] rounded-2xl">
-                    <img src="{{ asset('/images/logo.png') }}" alt="Logo" class="w-[100px] h-[80px] ml-[290px]">
-                    <h1 class="text-customYellow font-bold text-xl text-right -mt-[50px] mr-[90px]">Mindscape</h1>
-                    <h1 class="text-center text-customYellow font-bold text-xl mt-[130px]">University of Perpetual Help
+                    class="sm:block hidden bg-gradient-to-b from-maroon via-maroon to-yellow w-[480px] h-[500px] rounded-2xl">
+                    <div class="mt-10 text-center flex items-center justify-center">
+                        <span class="text-white text-4xl font-bold" style="text-shadow: 0 0 10px #ffffff;">Mind</span>
+                        <span class="text-yellow text-4xl font-bold" style="text-shadow: 0 0 10px #ecb222;">Scape</span>
+                    </div>
+                    <h1 class="text-center text-yellow font-bold text-xl mt-[130px]">University of Perpetual Help
                         System Dalta Las Pinas</h1>
-                    <h1 class="text-center text-customRed font-bold text-xl mt-[130px]">Mental Health Awareness System</h1>
+                    <h1 class="text-center text-maroon font-bold text-xl mt-[130px]">Mental Health Awareness System</h1>
                 </div>
             </div>
         </section>
@@ -76,5 +78,21 @@
                 eyeIcon.src = "{{ asset('/images/show-password.png') }}";
             }
         }
+
+        function fadeOutAlert(alertId) {
+            setTimeout(function() {
+                var alert = document.getElementById(alertId);
+                if (alert) {
+                    alert.style.transition = "opacity 1s";
+                    alert.style.opacity = 0;
+                    setTimeout(function() {
+                        alert.style.display = "none";
+                    }, 1300);
+                }
+            }, 2500); // 2500 milliseconds (2.5 seconds)
+        }
+
+        // Call the fadeOutAlert function for each alert message
+        fadeOutAlert("alert");
     </script>
 @endsection

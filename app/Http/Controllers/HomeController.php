@@ -10,9 +10,12 @@ use App\Models\Resource;
 use App\Models\Appointment;
 use App\Models\PendingUser;
 use Illuminate\Http\Request;
+use App\Mail\ContactFormMail;
 use Illuminate\Support\Facades\DB;
 use App\Models\AcceptedAppointment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -22,9 +25,9 @@ class HomeController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware('auth');
-    }
+{
+    $this->middleware('auth')->except(['contactUs']);
+}
 
     /**
      * Show the application dashboard.
@@ -193,5 +196,15 @@ class HomeController extends Controller
 
     public function showCounselingRecordsForm(){
         return view('counseling-records');
+    }
+
+    public function contactUs(Request $request) {
+        $data = $request->only(['name', 'email', 'message']);
+    
+        // Send email
+        Mail::to('mindscapementalhealth331@gmail.com')->send(new ContactFormMail($data));
+    
+        // Redirect back to the contact section with a success message
+        return Redirect::to('/#contact')->with('success', 'Email sent successfully!');
     }
 }

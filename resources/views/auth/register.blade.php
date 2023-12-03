@@ -15,8 +15,14 @@
 
 
     <div class="flex w-screen h-screen items-center justify-center">
+
         <div class="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl">
-            <div class="sm:w-3/5 px-16">
+            <div class="sm:w-3/5 px-16 relative">
+                <a href="/"
+                    class="flex items-center text-gray-700 hover:text-blue-500 transition duration-300 ease-in-out absolute left-2 top-5">
+                    <i class="fas fa-chevron-left fa-lg mr-1"></i>
+                    <span class="text-sm">Back</span>
+                </a>
                 <h1 class="font-bold text-maroon text-center text-xl mt-3">SIGN UP</h1>
 
                 <form method="POST" action="{{ route('register') }}" class="flex flex-col">

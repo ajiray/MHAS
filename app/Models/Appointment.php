@@ -46,5 +46,6 @@ public function deleteWithAcceptedAppointments()
 {
     return $this->belongsTo(User::class, 'counselor_id');
 }
+    
 }
 

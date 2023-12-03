@@ -2,7 +2,15 @@
 
 @section('content')
     <div
-        class="flex justify-center items-center h-full w-full flex-col space-y-10 pb-10 xl:pb-0 xl:space-y-0 xl:space-x-32 xl:flex-row">
+        class="flex justify-center items-center h-full w-full flex-col space-y-10 pb-10 xl:pb-0 xl:space-y-0 xl:space-x-32 xl:flex-row relative">
+
+        @if (session()->has('success'))
+            <div class="absolute top-5 left-10 flex items-center justify-center w-full p-4 md:w-96 md:p-6">
+                <div class="bg-green-300 rounded-lg text-green-700 font-semibold shadow-md p-2 md:p-4 md:text-base">
+                    {{ session('success') }}
+                </div>
+            </div>
+        @endif
 
 
         <!-- Registration Form -->
@@ -72,4 +80,22 @@
         </div>
 
     </div>
+
+    <script>
+        function fadeOutAlert(alertId) {
+            setTimeout(function() {
+                var alert = document.getElementById(alertId);
+                if (alert) {
+                    alert.style.transition = "opacity 1s";
+                    alert.style.opacity = 0;
+                    setTimeout(function() {
+                        alert.style.display = "none";
+                    }, 1000);
+                }
+            }, 2500); // 2500 milliseconds (2.5 seconds)
+        }
+
+        // Call the fadeOutAlert function for each alert message
+        fadeOutAlert("alert");
+    </script>
 @endsection
